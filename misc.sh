@@ -46,8 +46,3 @@ stty stop undef
 stty start undef
 
 export JAVA_HOME=/usr/lib/jvm/java-7-oracle
-
-# Torch
-export PATH=/home/ginjaninja32/torch/install/bin:$PATH
-export LD_LIBRARY_PATH=/home/ginjaninja32/torch/install/lib:$LD_LIBRARY_PATH
-export DYLD_LIBRARY_PATH=/home/ginjaninja32/torch/install/lib:$DYLD_LIBRARY_PATH
