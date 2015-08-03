@@ -1,3 +1,4 @@
+
 #! /bin/bash
 
 if [ -x /usr/bin/dircolors ]; then
@@ -23,8 +24,8 @@ alias "sr=screen -r"
 alias "sdr=screen -dr"
 alias c=clear
 
-[ -e "~/bin/hub/hub" ] && alias hub="~/bin/hub/hub"
-
 alias nano="nano -xOS"
 
 alias sprunge="curl -F 'sprunge=<-' http://sprunge.us"
+
+alias mosh="mosh --predict=experimental"

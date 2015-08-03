@@ -6,6 +6,8 @@ export GIT_PS1_SHOWUNTRACKEDFILES=yes
 export GIT_PS1_SHOWUPSTREAM="auto verbose name"
 source ~/bin/includes/git-prompt.sh
 
+[ -e "$HOME/bin/hub/hub" ] && export PATH="$HOME/bin/hub:$PATH"
+
 HISTCONTROL=ignoreboth
 shopt -s histappend
 HISTSIZE=1000
