@@ -1,10 +1,16 @@
 #! /bin/bash
 
-export GIT_PS1_SHOWDIRTYSTATE=yes
-export GIT_PS1_SHOWSTASHSTATE=yes
-export GIT_PS1_SHOWUNTRACKEDFILES=yes
-export GIT_PS1_SHOWUPSTREAM="auto verbose name"
-source ~/bin/includes/git-prompt.sh
+if [ -e "$HOME/bin/includes/git-prompt.sh" ]; then
+	export GIT_PS1_SHOWDIRTYSTATE=yes
+	export GIT_PS1_SHOWSTASHSTATE=yes
+	export GIT_PS1_SHOWUNTRACKEDFILES=yes
+	export GIT_PS1_SHOWUPSTREAM="auto verbose name"
+	source "$HOME/bin/includes/git-prompt.sh"
+else
+	__git_ps1() {
+		return
+	}
+fi
 
 [ -e "$HOME/bin/hub/hub" ] && export PATH="$HOME/bin/hub:$PATH"
 

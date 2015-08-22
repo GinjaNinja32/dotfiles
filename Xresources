@@ -1,0 +1,37 @@
+! Xft
+Xft.dpi: 96
+Xft.antialias: true
+Xft.rgba: rgb
+Xft.hinting: true
+Xft.hintstyle: hintslight
+
+! URxvt
+URxvt.background: #000000
+URxvt.foreground: #AAAAAA
+URxvt.scrollBar: false
+URxvt.font: xft:Deja Vu Sans Mono:size=10
+URxvt.letterSpace: -1
+URxvt.perl-ext-common: default,matcher
+URxvt.url-launcher: /usr/bin/chromium
+URxvt.matcher.button: 1
+URxvt.matcher.rend.0: Uline fg8
+
+! Colors
+*color0:  #000000
+*color1:  #aa0000
+*color2:  #00aa00
+*color3:  #aaaa00
+*color4:  #0000aa
+*color5:  #aa00aa
+*color6:  #00aaaa
+*color7:  #aaaaaa
+
+*color8:  #555555
+*color9:  #ff5555
+*color10: #55ff55
+*color11: #ffff55
+*color12: #5555ff
+*color13: #ff55ff
+*color14: #55ffff
+*color15: #ffffff
+

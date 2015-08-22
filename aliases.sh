@@ -9,6 +9,7 @@ if [ -x /usr/bin/dircolors ]; then
         alias egrep='egrep --color=auto'
 fi
 
+alias lh='ls -sh'
 alias ll='ls -alFh'
 alias la='ls -Ah'
 alias l='ls -CFh'
@@ -24,7 +25,7 @@ alias "sr=screen -r"
 alias "sdr=screen -dr"
 alias c=clear
 
-alias nano="nano -xOS"
+alias nano="nano -wxOST 4"
 
 alias sprunge="curl -F 'sprunge=<-' http://sprunge.us"
 
