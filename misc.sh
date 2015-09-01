@@ -41,7 +41,19 @@ pcomm() {
 }
 
 export PROMPT_COMMAND=pcomm
-export PS1="\[$BOLD$LGREEN\]\u@\h \[$LBLUE\]\w \[$LYELLOW\]\$(__git_ps1 '%s') \[$LRED\]\$pcode\[$RESETALL\]\n\[$BOLD\]\$ \[$RESETALL\]"
+
+if [[ "$TERM" =~ 256 ]]; then # if in a 256-color terminal, use bold light X for prompt
+	usercolor=$LGREEN
+	dircolor=$LBLUE
+	gitcolor=$LYELLOW
+	errcolor=$LRED
+else # otherwise use bold X, which is equivalent in a 16-color terminal
+	usercolor=$GREEN
+	dircolor=$BLUE
+	gitcolor=$YELLOW
+	errcolor=$RED
+fi
+export PS1="\[$BOLD$usercolor\]\u@\h \[$dircolor\]\w \[$gitcolor\]\$(__git_ps1 '%s') \[$errcolor\]\$pcode\[$RESETALL\]\n\[$BOLD\]\$ \[$RESETALL\]"
 
 case "$TERM" in
 	xterm*|rxvt*)
