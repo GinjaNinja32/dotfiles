@@ -6,6 +6,7 @@ Xft.hinting: true
 Xft.hintstyle: hintslight
 
 ! URxvt
+URxvt.intensityStyles: false
 URxvt.background: #000000
 URxvt.foreground: #AAAAAA
 URxvt.scrollBar: false

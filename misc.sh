@@ -41,7 +41,7 @@ pcomm() {
 }
 
 export PROMPT_COMMAND=pcomm
-export PS1="\[$BOLD$GREEN\]\u@\h \[$BLUE\]\w \[$YELLOW\]\$(__git_ps1 '%s') \[$RED\]\$pcode\[$RESETALL\]\n\[$BOLD\]\$ \[$RESETALL\]"
+export PS1="\[$BOLD$LGREEN\]\u@\h \[$LBLUE\]\w \[$LYELLOW\]\$(__git_ps1 '%s') \[$LRED\]\$pcode\[$RESETALL\]\n\[$BOLD\]\$ \[$RESETALL\]"
 
 case "$TERM" in
 	xterm*|rxvt*)
