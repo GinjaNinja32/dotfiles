@@ -53,7 +53,7 @@ else # otherwise use bold X, which is equivalent in a 16-color terminal
 	gitcolor=$YELLOW
 	errcolor=$RED
 fi
-export PS1="\[$BOLD$usercolor\]\u@\h \[$dircolor\]\w \[$gitcolor\]\$(__git_ps1 '%s') \[$errcolor\]\$pcode\[$RESETALL\]\n\[$BOLD\]\$ \[$RESETALL\]"
+export PS1="\[$BOLD$usercolor\]\u@\h \[$dircolor\]\w \[$gitcolor\]\$(__git_ps1 '%s ')\[$errcolor\]\$pcode\[$RESETALL\]\n\[$BOLD\]\$ \[$RESETALL\]"
 
 case "$TERM" in
 	xterm*|rxvt*)
