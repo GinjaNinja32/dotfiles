@@ -42,18 +42,15 @@ pcomm() {
 
 export PROMPT_COMMAND=pcomm
 
-if [[ "$TERM" =~ 256 ]]; then # if in a 256-color terminal, use bold light X for prompt
-	usercolor=$LGREEN
-	dircolor=$LBLUE
-	gitcolor=$LYELLOW
-	errcolor=$LRED
-else # otherwise use bold X, which is equivalent in a 16-color terminal
+if [[ "$USER" == "root" ]]; then
+	usercolor=$RED
+else
 	usercolor=$GREEN
-	dircolor=$BLUE
-	gitcolor=$YELLOW
-	errcolor=$RED
 fi
-export PS1="\[$BOLD$usercolor\]\u@\h \[$dircolor\]\w \[$gitcolor\]\$(__git_ps1 '%s ')\[$errcolor\]\$pcode\[$RESETALL\]\n\[$BOLD\]\$ \[$RESETALL\]"
+dircolor=$BLUE
+gitcolor=$YELLOW
+errcolor=$RED
+export PS1="\[$BOLD$usercolor\]\u@\h \[$dircolor\]\w \[$gitcolor\]\$(__git_ps1 '%s ')\[$errcolor\]\$pcode\[$RESETALL\]\n\[$BOLD\]\\$ \[$RESETALL\]"
 
 case "$TERM" in
 	xterm*|rxvt*)
@@ -65,4 +62,11 @@ esac
 stty stop undef
 stty start undef
 
-export JAVA_HOME=/usr/lib/jvm/java-7-oracle
+export JAVA_HOME=/usr/lib/jvm/java-7-jdk
+
+
+lagstat() {
+	expd=$1
+	shift
+	ping $@ | sed -ur 's/.*time=([^.]*)(.*)? ms/\1/' | while read -r i; do if [[ $i > $expd ]]; then echo "$(date +%R) $i"; fi; done | tail --lines=+2
+}

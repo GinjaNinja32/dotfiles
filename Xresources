@@ -1,4 +1,5 @@
 ! Xft
+Xft.autohint: 0
 Xft.dpi: 96
 Xft.antialias: true
 Xft.rgba: rgb
@@ -6,16 +7,23 @@ Xft.hinting: true
 Xft.hintstyle: hintslight
 
 ! URxvt
-URxvt.intensityStyles: false
+
+! Xresources format appears to *parse* comments. I have no idea why this is the case.
+! Breaks so many things that assume true it-apostrophe-s not even worth it
+! URxvt.intensityStyles: false
 URxvt.background: #000000
 URxvt.foreground: #AAAAAA
 URxvt.scrollBar: false
-URxvt.font: xft:Deja Vu Sans Mono:size=10
+URxvt.font: xft:Deja Vu Sans Mono:style=Book:size=10
+URxvt.boldFont: xft:Deja Vu Sans Mono:style=Bold:size=10
+URxvt.italicFont: xft:Deja Vu Sans Mono:style=Oblique:size=10
+URxvt.boldItalicFont: xft:Deja Vu Sans Mono:style=Bold Oblique:size=10
 URxvt.letterSpace: -1
 URxvt.perl-ext-common: default,matcher
 URxvt.url-launcher: /usr/bin/chromium
 URxvt.matcher.button: 1
 URxvt.matcher.rend.0: Uline fg8
+URxvt.searchable-scrollback: CM-s
 
 ! Colors
 *color0:  #000000

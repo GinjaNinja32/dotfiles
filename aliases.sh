@@ -35,3 +35,6 @@ alias nano="nano -wxOST 4"
 alias sprunge="curl -F 'sprunge=<-' http://sprunge.us"
 
 alias mosh="mosh --predict=experimental"
+
+# scp appears to bypass ~/bin/ssh -> ~/bin/ssh-ident, force it not to
+alias scp="scp -S ssh-ident"

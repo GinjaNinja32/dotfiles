@@ -1,10 +1,11 @@
 #! /bin/bash
 
 RESETALL="[0m"
-RESET="[21;22;24;25;27;28m"
+RESET="[21;22;23;24;25;27;28m"
 
 BOLD="[1m"
 DIM="[2m"
+ITALIC="[3m"
 UNDERLINE="[4m"
 BLINK="[5m"
 REVERSE="[7m"
@@ -12,6 +13,7 @@ HIDE="[8m"
 
 UNBOLD="[21m"
 UNDIM="[22m"
+UNITALIC="[23m"
 UNUNDERLINE="[24m"
 UNBLINK="[25m"
 UNREVERSE="[27m"
@@ -38,7 +40,7 @@ WHITE="[97m"
 
 showcols() {
 	for k in BLACK RED GREEN YELLOW BLUE MAGENTA CYAN GREY DGREY LRED LGREEN LYELLOW LBLUE LMAGENTA LCYAN WHITE; do
-		echo "${!k}$k";
+		echo "${!k}$k $BOLD(BOLD)$UNBOLD";
 	done
 }
 
