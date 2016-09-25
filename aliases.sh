@@ -26,8 +26,11 @@ mcd() { mkdir $1; cd $1; }
 smcd() { sudo mkdir $1; cd $1; }
 
 # Short forms of commands
-alias "sr=screen -r"
-alias "sdr=screen -dr"
+alias sr="screen -r"
+alias sdr="screen -dr"
+txr() { fst=${1:-}; shift; tmux a -t "$fst" $@; } # screen -x
+tdr() { fst=${1:-}; shift; tmux a -dt "$fst" $@; } # screen -dr
+alias tn="tmux new -s" # screen -mS
 alias c=clear
 
 alias nano="nano -wxOST 4"
