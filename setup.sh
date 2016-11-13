@@ -42,3 +42,10 @@ linkit ~/.nanorc ~/.nano/syntax/ALL.nanorc
 
 # git stuff end
 cd ..
+
+# vim
+mkdir -p ~/.vim/colors
+git clone https://github.com/VundleVim/Vundle.vim ~/.vim/bundle/Vundle.vim
+linkit ~/.vimrc vimrc
+linkit ~/.vim/colors/mycolors.vim vimcolors.vim
+vim +PluginInstall +qall
