@@ -41,7 +41,7 @@ git clone https://github.com/GinjaNinja32/nanorc
 linkit ~/.nanorc ~/.nano/syntax/ALL.nanorc
 
 # git stuff end
-cd ..
+cd -
 
 # vim
 mkdir -p ~/.vim/colors
