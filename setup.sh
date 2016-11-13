@@ -34,12 +34,6 @@ git clone https://github.com/ccontavalli/ssh-ident
 linkit ~/bin/ssh ~/git/ssh-ident/ssh-ident
 linkit ~/bin/ssh-ident ~/git/ssh-ident/ssh-ident
 
-# nanorc
-git clone https://github.com/GinjaNinja32/nanorc
-(cd nanorc; git remote set-url origin git@github.com:GinjaNinja32/nanorc)
-(cd nanorc; make install)
-linkit ~/.nanorc ~/.nano/syntax/ALL.nanorc
-
 # git stuff end
 cd -
 

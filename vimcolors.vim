@@ -16,7 +16,7 @@ hi Boolean	ctermfg=Cyan
 hi Number	ctermfg=Red		cterm=bold
 hi link Float Number
 hi Identifier	ctermfg=Green
-hi Operator	ctermfg=Cyan
+hi Operator	ctermfg=Green
 hi Keyword	ctermfg=Cyan
 hi Macro	ctermfg=Green
 hi Constant	ctermfg=Green
@@ -24,3 +24,5 @@ hi Tag		ctermfg=LightMagenta	cterm=bold
 hi Conditional	ctermfg=Cyan
 hi Statement	ctermfg=Yellow
 hi Repeat	ctermfg=Cyan
+hi Delimiter	ctermfg=Blue
+hi Special	ctermfg=LightGrey
