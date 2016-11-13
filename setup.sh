@@ -6,7 +6,7 @@ fi
 
 linkit() {
 	[[ -e "$1" ]] && mv "$1" "$1.initial"
-	ln -s "dotfiles/$2" "$1"
+	ln -s "$HOME/dotfiles/$2" "$1"
 }
 
 # Config files
