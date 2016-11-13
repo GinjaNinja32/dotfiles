@@ -58,7 +58,7 @@ case "$TERM" in
 	*) ;;
 esac
 
-# Allow ^S inside screen to not stop output
+# Allow ^S to not stop output
 stty stop undef
 stty start undef
 
