@@ -63,7 +63,7 @@ stty stop undef
 stty start undef
 
 export JAVA_HOME=/usr/lib/jvm/java-7-jdk
-
+export EDITOR=vim
 
 lagstat() {
 	expd=$1
