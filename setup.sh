@@ -11,7 +11,7 @@ linkit() {
 
 # Config files
 linkit ~/.tmux.conf tmux.conf
-linkit ~/.bashrc main.sh
+linkit ~/.bashrc bashrc.sh
 linkit ~/.profile profile
 linkit ~/.Xresources Xresources
 
