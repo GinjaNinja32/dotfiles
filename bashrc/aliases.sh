@@ -37,13 +37,17 @@ alias sprunge='curl -F "sprunge=<-" http://sprunge.us'
 alias mosh='mosh --predict=experimental'
 
 # scp appears to bypass ~/bin/ssh -> ~/bin/ssh-ident, force it not to
-alias scp='scp -S ssh-ident'
+alias scp='scp -S ssh'
 
 # docker
 alias dps='docker ps'
 alias dpsa='docker ps -a'
 alias drm='docker rm -fv $(docker ps -qa)'
 alias dvrm='docker volume rm $(docker volume ls -q)'
+alias dll='docker logs $(docker ps -a | head -2 | tail -1 | awk '\''{print $1}'\'')'
+DLL='docker logs $(docker ps -a | head -2 | tail -1 | awk '\''{print $1}'\'')'
+
+
 
 # git
 alias gc='git commit'
