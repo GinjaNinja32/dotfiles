@@ -1,0 +1,3 @@
+#! /bin/bash
+
+WINEP_RUN_BINARY=winetricks exec winep "$@"

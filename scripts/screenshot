@@ -1,0 +1,18 @@
+#! /bin/bash
+
+if [[ "$1" == "" ]]; then
+	name_format="%Y-%m-%d_%H:%M:%S.png"
+	name="$(date +"$name_format")"
+	if [[ $SCREENSHOT_FULL_SCREEN == 1 ]]; then
+		ARGS="$HOME/Pictures/$name"
+	else
+		ARGS="-s $HOME/Pictures/$name"
+	fi
+	if scrot $ARGS; then # -s "$HOME/Pictures/$name"; then
+		exec termite -e "$0 $name"
+	fi
+else
+	name="$1"
+	scp -S ssh "$HOME/Pictures/$name" "nyx.gn32.uk:www/i/$name"
+	xdg-open "http://nyx.gn32.uk/i/$name" &
+fi

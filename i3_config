@@ -1,23 +1,24 @@
 
 bindsym --release Print exec screenshot
 bindsym --release Shift+Print exec screenshot
+bindsym --release Mod4+Print exec SCREENSHOT_FULL_SCREEN=1 screenshot
 hide_edge_borders both
 new_window pixel 3
 new_float pixel 5
 focus_follows_mouse no
 mouse_warping none
+workspace_layout tabbed
 
 set $mod Mod4
 
-font pango:DejaVu Sans Mono 8
+font pango:DejaVu Sans Mono 7
 
 floating_modifier $mod
 
 bindsym $mod+l exec i3lock -c000000
 bindsym $mod+Return exec termite
 bindsym $mod+Shift+q kill
-bindsym $mod+d exec dmenu_run -b
-
+bindsym $mod+d exec dmenu_run -b -l 15 -p '$' -fn 'Deja Vu Sans Mono'
 
 bindsym $mod+Left focus left
 bindsym $mod+Down focus down
@@ -81,7 +82,23 @@ mode "resize" {
 
 bindsym $mod+r mode "resize"
 
+client.focused          #005577 #005577 #eeeeee #005577 #005577
+client.focused_inactive #444444 #444444 #bbbbbb #444444 #444444
+client.unfocused        #222222 #222222 #bbbbbb #222222 #222222
+client.urgent           #770000 #770000 #eeeeee #770000 #770000
+client.background       #000000
+
 bar {
-	tray_output eDP1
 	status_command i3status
+	colors {
+		background #222222
+		statusline #bbbbbb
+		separator  #555555
+
+		focused_workspace  #005577 #005577 #eeeeee
+		active_workspace   #222222 #222222 #bbbbbb
+		inactive_workspace #222222 #222222 #bbbbbb
+		urgent_workspace   #770000 #770000 #eeeeee
+		binding_mode       #770000 #770000 #eeeeee
+	}
 }

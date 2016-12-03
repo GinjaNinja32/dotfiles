@@ -1,0 +1,4 @@
+#! /bin/bash
+
+# Chromium at least opens this as an empty new window. Not sure about other browsers.
+exec xdg-open "http://"
