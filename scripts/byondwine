@@ -1,3 +1,3 @@
 #! /bin/bash
 
-exec winep byond32 byond.exe
+exec winep byond32 ~/byond/win/use/bin/byond.exe
