@@ -70,3 +70,13 @@ alias tn='tmux new -s' # screen -mS
 alias tls='tmux ls 2>/dev/null || echo "No tmux sessions running"'
 
 setupterm() { infocmp $TERM | ssh $1 tic -; }
+
+
+pkg() {
+	pkg=$1
+	repo=$(pacman -Ss $pkg | grep "/$pkg " | sed 's|/.*||')
+
+	if [[ $pkg != "" && $repo != "" ]]; then
+		chromium "http://archlinux.org/packages/$repo/x86_64/$pkg/"
+	fi
+}
