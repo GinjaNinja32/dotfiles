@@ -1,0 +1,46 @@
+#! /bin/bash
+
+findkey() {
+	cat $1 | awk '{ if(match($0, /^\s+"'"$2"'"\s+"(.*)"$/, arr)) print arr[1] }'
+}
+
+allgames=0
+if [[ $# == 0 ]]; then
+	allgames=1
+fi
+gamebinary=$1
+gamename=$2
+getbinname() {
+	if [[ $allgames != 0 ]]; then
+		echo -n "Binary name for $1: " 1>&2
+		read binary
+		echo $binary
+	elif [[ $gamename == $1 ]]; then
+		echo $gamebinary
+	else
+		echo ""
+	fi
+}
+
+for k in ~/.local/share/Steam/steamapps/appmanifest*.acf; do
+	this_appid=$(findkey $k appid)
+	this_name=$(findkey $k name)
+
+	binary=$(getbinname "$this_name")
+	if [[ $binary == "" ]]; then
+		echo "Skipping $this_name..."
+		continue
+	fi
+	if [[ -e ~/bin/scripts/$binary ]]; then
+		echo ~/bin/scripts/$binary already exists, not overwriting!
+		continue
+	fi
+
+	cat <<EOF > ~/bin/scripts/$binary
+#! /bin/bash
+
+exec steam steam://run/$this_appid
+EOF
+	chmod +x ~/bin/scripts/$binary
+	echo "created $binary -> steam://run/$this_appid"
+done
