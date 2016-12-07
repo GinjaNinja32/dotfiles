@@ -32,6 +32,11 @@ curl -o ~/bin/includes/git-prompt.sh https://raw.githubusercontent.com/git/git/m
 mkdir ~/git
 cd ~/git
 
+# ssh config
+mkdir ~/.ssh
+chmod 700 ~/.ssh
+linkit ~/.ssh/config ssh_config
+
 # ssh-ident
 git clone https://github.com/ccontavalli/ssh-ident
 (cd ssh-ident; git remote set-url origin git@github.com:ccontavalli/ssh-ident)
