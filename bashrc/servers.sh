@@ -8,3 +8,4 @@ setup-server bot32
 setup-server erebus
 setup-server tyche
 setup-server themis
+setup-server thanatos
