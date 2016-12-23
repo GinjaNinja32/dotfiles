@@ -1,0 +1,5 @@
+# -*- coding: utf-8 -*-
+
+include "/home/nyx/git/xcompose/dotXCompose"
+
+<Multi_key> <m> <i> <j> : "『ＭＩＪＨＥＡＤ』"

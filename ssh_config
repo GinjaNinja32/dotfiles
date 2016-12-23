@@ -1,16 +1,16 @@
 
+Host themis
+	Hostname themis.gn32.uk
+
 Host thanatos
 	Hostname thanatos.gn32.uk
-
-Host nyx
-	Hostname nyx.gn32.uk
 
 Host erebus
 	Hostname erebus.gn32.uk
 
 Host bot32
 	User bot32
-	Hostname nyx.gn32.uk
+	Hostname thanatos.gn32.uk
 
 Host *
 	User nyx

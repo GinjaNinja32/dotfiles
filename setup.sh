@@ -64,7 +64,7 @@ github_clone() {
 # xcompose, if we have X installed
 if [[ -e /etc/X11 ]]; then
 	github_clone kragen/xcompose
-	linkit ~/.Xcompose ~/git/xcompose/dotXCompose
+	linkit ~/.XCompose dotXCompose
 fi
 
 # ssh-ident
