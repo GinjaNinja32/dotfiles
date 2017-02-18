@@ -131,3 +131,4 @@ set preserveindent
 set softtabstop=0
 set shiftwidth=4
 set tabstop=4
+let g:python_recommended_style = 0

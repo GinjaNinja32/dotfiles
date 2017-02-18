@@ -1,0 +1,17 @@
+#! /bin/bash
+
+prefix=$1
+shift
+
+if [[ $prefix =~ .*32 ]]; then
+	export WINEARCH=win32
+elif [[ $prefix =~ .*64 ]]; then
+	export WINEARCH=win64
+else
+	echo "winep must be given a prefix in either prefix32 or prefix64 form"
+	exit 1
+fi
+
+export WINEPREFIX=~/wine/$prefix
+
+exec "${WINEP_RUN_BINARY:-winecfg}" "$@"

@@ -3,3 +3,6 @@
 include "/home/nyx/git/xcompose/dotXCompose"
 
 <Multi_key> <m> <i> <j> : "『ＭＩＪＨＥＡＤ』"
+<Multi_key> <p> <a> <n> : "🐼"
+<Multi_key> <g> <a> <p> : "🍏"
+<Multi_key> <r> <a> <p> : "🍎"
