@@ -5,7 +5,7 @@ if version > 580
 		syntax reset
 	endif
 endif
-let g:colors_name="ben"
+let g:colors_name="mycolors"
 
 hi Normal	ctermfg=LightGrey	ctermbg=Black
 hi Function	ctermfg=Yellow
@@ -26,3 +26,7 @@ hi Statement	ctermfg=Yellow
 hi Repeat	ctermfg=Cyan
 hi Delimiter	ctermfg=Blue
 hi Special	ctermfg=LightGrey
+
+hi StatusLine   ctermfg=236
+hi StatusLineNC ctermfg=236
+hi VertSplit    ctermfg=236

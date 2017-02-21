@@ -9,7 +9,11 @@ if [[ "$1" == "" ]]; then
 		ARGS="-s $HOME/Pictures/$name"
 	fi
 	if scrot $ARGS; then # -s "$HOME/Pictures/$name"; then
-		termite -e "$0 $name"
+		if [[ $(hostname) == "bp-arch" ]]; then
+			chromium "$HOME/Pictures/$name"
+		else
+			termite -e "$0 $name"
+		fi
 	fi
 else
 	name="$1"

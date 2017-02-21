@@ -20,12 +20,24 @@ call vundle#begin()
 
 Plugin 'VundleVim/Vundle.vim'
 
+Plugin 'bling/vim-airline'
+Plugin 'edkolev/tmuxline.vim'
+
 Plugin 'fatih/vim-go'
 Plugin 'wlue/vim-dm-syntax'
+Plugin 'scrooloose/nerdtree'
+Plugin 'majutsushi/tagbar'
 
 call vundle#end()
 filetype plugin indent on
 
+map <F2> :NERDTreeToggle<CR>
+map <F3> :TagbarToggle<CR>
+
+let g:airline_theme = "dark"
+let g:airline_powerline_fonts = 1
+
+set fillchars+=vert:\ 
 
 " When started as "evim", evim.vim will already have done these settings.
 if v:progname =~? "evim"
@@ -131,4 +143,15 @@ set preserveindent
 set softtabstop=0
 set shiftwidth=4
 set tabstop=4
+
+" Fenced languages for GHFM, ie ["python"] enables Python highlighting for:
+" ```python
+" def foo():
+"     return 2
+" ```
+let g:markdown_fenced_languages = ["python", "sh", "json", "javascript", "dm"]
 let g:python_recommended_style = 0
+
+" Use regex search by default in / and s/
+nnoremap / /\v
+cnoremap s/ s/\v
