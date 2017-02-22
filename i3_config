@@ -3,8 +3,8 @@ bindsym --release Print exec screenshot
 bindsym --release Shift+Print exec screenshot
 bindsym --release Mod4+Print exec SCREENSHOT_FULL_SCREEN=1 screenshot
 hide_edge_borders both
-new_window pixel 3
-new_float pixel 5
+new_window pixel 1
+new_float pixel 1
 focus_follows_mouse no
 mouse_warping none
 workspace_layout tabbed
@@ -102,3 +102,5 @@ bar {
 		binding_mode       #770000 #770000 #eeeeee
 	}
 }
+
+for_window [title="i3:float"] floating enable
