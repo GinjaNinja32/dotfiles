@@ -15,22 +15,22 @@ font pango:DejaVu Sans Mono 7
 
 floating_modifier $mod
 
-bindsym $mod+l exec i3lock -i ~/dotfiles/bsod_r2d2_4k.png
+bindsym $mod+o exec i3lock -i ~/dotfiles/bsod_r2d2_4k.png
 bindsym $mod+Return exec termite
 bindsym $mod+Shift+q kill
 bindsym $mod+d exec dmenu_run -b -l 15 -p '$' -fn 'Deja Vu Sans Mono'
 
-bindsym $mod+Left focus left
-bindsym $mod+Down focus down
-bindsym $mod+Up focus up
-bindsym $mod+Right focus right
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
 
-bindsym $mod+Shift+Left move left
-bindsym $mod+Shift+Down move down
-bindsym $mod+Shift+Up move up
-bindsym $mod+Shift+Right move right
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
 
-bindsym $mod+h split h
+bindsym $mod+g split h
 bindsym $mod+v split v
 bindsym $mod+f fullscreen toggle
 
@@ -71,10 +71,10 @@ bindsym $mod+Shift+r restart
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
 
 mode "resize" {
-        bindsym Left resize shrink width 10 px or 10 ppt
-        bindsym Down resize grow height 10 px or 10 ppt
-        bindsym Up resize shrink height 10 px or 10 ppt
-        bindsym Right resize grow width 10 px or 10 ppt
+        bindsym h resize shrink width 10 px or 10 ppt
+        bindsym j resize grow height 10 px or 10 ppt
+        bindsym k resize shrink height 10 px or 10 ppt
+        bindsym l resize grow width 10 px or 10 ppt
 
         bindsym Return mode "default"
         bindsym Escape mode "default"

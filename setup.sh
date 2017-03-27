@@ -1,9 +1,11 @@
 
+# if we don't have git, we can't do much
 if ! which git > /dev/null; then
 	echo "install git before running this!"
 	exit 1
 fi
 
+# helper
 linkit() {
 	# Canonicalise both paths
 	link_name=$(readlink -m $1)
@@ -28,16 +30,23 @@ linkit() {
 mkdir -p ~/bin
 linkit ~/bin/scripts scripts
 
-# Config files
+# Shell things
 linkit ~/.tmux.conf tmux.conf
 linkit ~/.bashrc bashrc.sh
 linkit ~/.profile profile
-linkit ~/.Xresources Xresources
 
-if [[ -e ~/.i3 ]]; then
-	linkit ~/.i3/config i3_config
-	linkit ~/.i3status.conf i3status.conf
-fi
+# Termite
+mkdir -p ~/.config/termite
+linkit ~/.config/termite/config termite_config
+
+# i3
+mkdir -p ~/.config/i3
+linkit ~/.config/i3/config i3_config
+linkit ~/.i3status.conf i3status.conf
+
+# X11
+linkit ~/.xinitrc xinitrc
+linkit ~/.Xresources Xresources
 
 # Git prompt
 mkdir -p ~/bin/includes
@@ -61,11 +70,9 @@ github_clone() {
 	(cd ${1#*/}; git remote set-url origin git@github.com:$1)
 }
 
-# xcompose, if we have X installed
-if [[ -e /etc/X11 ]]; then
-	github_clone kragen/xcompose
-	linkit ~/.XCompose dotXCompose
-fi
+# xcompose
+github_clone kragen/xcompose
+linkit ~/.XCompose dotXCompose
 
 # ssh-ident
 github_clone ccontavalli/ssh-ident
