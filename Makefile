@@ -1,19 +1,21 @@
 DOTFILES = $(shell pwd)
 
+# Install $(1) from AUR, using ~/tmp/aur/$(1) as build directory
+AUR_INSTALL = ([[ -e ~/tmp/aur/$(1) ]] && (cd ~/tmp/aur/$(1) && git pull) || git clone https://aur.archlinux/org/$(1) ~/tmp/aur/$(1)) && (cd ~/tmp/aur/$(1) && makepkg -sri)
+
 .PHONY: arch-packages
 arch-packages:
 	# make temp dir for AUR installs
 	mkdir -p ~/tmp/aur
-	cd ~/tmp/aur
 	
 	# change PKGEXT to .pkg.tar, we don't need compression for AUR builds
 	sudo sed -i "s/PKGEXT='.pkg.tar.xz'/PKGEXT='.pkg.tar'/" /etc/makepkg.conf
 	
 	# Install cower and pacaur
-	git clone aur.archlinux.org/cower && cd cower && makepkg -sri
-	git clone aur.archlinux.org/pacaur && cd pacaur && makepkg -sri
+	$(call AUR_INSTALL,cower)
+	$(call AUR_INSTALL,pacaur)
 	
-	pacaur -S tig
+	pacaur -S tig python python2
 
 .PHONY: arch-gui-packages
 arch-gui-packages:
