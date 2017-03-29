@@ -12,6 +12,8 @@ arch-packages:
 	# Install cower and pacaur
 	git clone aur.archlinux.org/cower && cd cower && makepkg -sri
 	git clone aur.archlinux.org/pacaur && cd pacaur && makepkg -sri
+	
+	pacaur -S tig
 
 .PHONY: arch-gui-packages
 arch-gui-packages:
@@ -19,7 +21,8 @@ arch-gui-packages:
 				termite \
 				pulseaudio pavucontrol \
 				noto-fonts noto-fonts-emoji noto-fonts-cjk \
-				ttf-dejavu
+				ttf-dejavu \
+				evince
 
 .PHONY: arch-lib32
 arch-lib32:
@@ -32,41 +35,41 @@ arch-lib32:
 
 .PHONY: shell-config
 shell-configs:
-	ln -s $(DOTFILES)/tmux.conf ~/.tmux.conf
-	ln -s $(DOTFILES)/bashrc.sh ~/.bashrc
-	ln -s $(DOTFILES)/profile ~/.profile
+	./link $(DOTFILES)/tmux.conf ~/.tmux.conf
+	./link $(DOTFILES)/bashrc.sh ~/.bashrc
+	./link $(DOTFILES)/profile ~/.profile
 	mkdir -p ~/bin/includes
-	ln -s $(DOTFILES)/bin/scripts ~/bin/scripts
+	./link $(DOTFILES)/bin/scripts ~/bin/scripts
 	curl -o ~/bin/includes/git-prompt.sh https://raw.githubusercontent.com/git/git/master/contrib/completion/git-prompt.sh
 
 .PHONY: termite-config
 termite-config:
 	mkdir -p ~/.config/termite
-	ln -s $(DOTFILES)/termite_config ~/.config/termite/config
+	./link $(DOTFILES)/termite_config ~/.config/termite/config
 
 .PHONY: i3-config
 i3-config:
 	mkdir -p ~/.config/i3
-	ln -s $(DOTFILES)/i3_config ~/.config/i3/config
+	./link $(DOTFILES)/i3_config ~/.config/i3/config
 
 .PHONY: x-config
 x-config:
-	ln -s $(DOTFILES)/xinitrc ~/.xinitrc
-	ln -s $(DOTFILES)/Xresources ~/.Xresources
-	ln -s $(DOTFILES)/dotXCompose ~/.XCompose
+	./link $(DOTFILES)/xinitrc ~/.xinitrc
+	./link $(DOTFILES)/Xresources ~/.Xresources
+	./link $(DOTFILES)/dotXCompose ~/.XCompose
 
 .PHONY: ssh-config
 ssh-config:
 	mkdir -p ~/.ssh
 	chmod 700 ~/.ssh
-	ln -s $(DOTFILES)/ssh_config ~/.ssh/config
+	./link $(DOTFILES)/ssh_config ~/.ssh/config
 
 .PHONY: vim-config
 vim-config:
 	mkdir -p ~/.vim/colors
 	git clone https://github.com/VundleVim/Vundle.vim ~/.vim/bundle/Vundle.vim
-	ln -s $(DOTFILES)/vimrc ~/.vimrc
-	ln -s $(DOTFILES)/vimcolors.vim ~/.vim/colors/mycolors.vim
+	./link $(DOTFILES)/vimrc ~/.vimrc
+	./link $(DOTFILES)/vimcolors.vim ~/.vim/colors/mycolors.vim
 	vim +PluginInstall +qall
 
 .PHONY: git-repos

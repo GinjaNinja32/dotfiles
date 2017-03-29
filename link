@@ -1,0 +1,10 @@
+#! /bin/bash
+
+target="$(readlink -m "$1")" # Target; generally in ~/dotfiles somewher
+name="$(readlink -m "$2")" # Name of link; can be anywhere
+
+[[ $target == $name ]] && exit
+
+[[ -e $name ]] && mv "$name" "$name.initial"
+
+ln -s "$target" "$name"
