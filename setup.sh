@@ -72,7 +72,7 @@ github_clone() {
 
 # xcompose
 github_clone kragen/xcompose
-linkit ~/.XCompose dotXCompose
+linkit ~/.XCompose ~/dotfiles/dotXCompose
 
 # ssh-ident
 github_clone ccontavalli/ssh-ident

@@ -2,7 +2,7 @@
 
 # Chromium at least opens this as an empty new window. Not sure about other browsers.
 if [[ $# == 0 ]]; then
-	exec xdg-open "http://"
+	exec chromium "http://"
 else
-	exec xdg-open "$@"
+	exec chromium "$@"
 fi
