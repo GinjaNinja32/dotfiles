@@ -1,0 +1,13 @@
+#! /bin/bash
+
+set -e
+
+MAJOR=$1
+MINOR=$2
+VERSION=$MAJOR.$MINOR
+
+curl -O http://www.byond.com/download/build/${MAJOR}/${VERSION}_byond.zip
+unzip ${VERSION}_byond.zip
+mv byond ${VERSION}
+mv ${VERSION}_byond.zip ${VERSION}/
+

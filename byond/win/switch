@@ -1,0 +1,4 @@
+#! /bin/bash
+
+rm use
+ln -s $1 use

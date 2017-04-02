@@ -15,7 +15,7 @@ arch-packages:
 	$(call AUR_INSTALL,cower)
 	$(call AUR_INSTALL,pacaur)
 	
-	pacaur -S tig python python2
+	pacaur -S tig python python2 htop nmap
 
 .PHONY: arch-gui-packages
 arch-gui-packages:
@@ -24,7 +24,8 @@ arch-gui-packages:
 				pulseaudio pavucontrol \
 				noto-fonts noto-fonts-emoji noto-fonts-cjk \
 				ttf-dejavu \
-				evince
+				evince \
+				baudline-bin
 
 .PHONY: arch-lib32
 arch-lib32:
