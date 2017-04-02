@@ -1,3 +1,0 @@
-#! /bin/bash
-
-exec steam steam://run/203770/

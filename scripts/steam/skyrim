@@ -1,0 +1,3 @@
+#! /bin/bash
+
+exec winep steam64 "C:/Program Files (x86)/Steam/Steam.exe" steam://run/72850

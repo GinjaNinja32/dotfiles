@@ -1,46 +1,69 @@
 #! /bin/bash
 
 findkey() {
-	cat $1 | awk '{ if(match($0, /^\s+"'"$2"'"\s+"(.*)"$/, arr)) print arr[1] }'
+	cat "$1" | awk '{ if(match($0, /^\s+"'"$2"'"\s+"(.*)"$/, arr)) print arr[1] }'
 }
 
-allgames=0
-if [[ $# == 0 ]]; then
-	allgames=1
+WINE=false
+if [[ $1 == "wine" ]]; then
+	WINE=true
 fi
-gamebinary=$1
-gamename=$2
-getbinname() {
-	if [[ $allgames != 0 ]]; then
-		echo -n "Binary name for $1: " 1>&2
-		read binary
-		echo $binary
-	elif [[ $gamename == $1 ]]; then
-		echo $gamebinary
+
+getcurrentbinary() {
+	appid=$1
+	
+	cd ~/bin/scripts/steam
+	if $WINE; then
+		grep -lE "^exec winep steam64 \"C:/Program Files \(x86\)/Steam/Steam.exe\" steam://run/$appid$" *
 	else
-		echo ""
+		grep -lE "^exec steam steam://run/$appid$" *
 	fi
 }
 
-for k in ~/.local/share/Steam/steamapps/appmanifest*.acf; do
-	this_appid=$(findkey $k appid)
-	this_name=$(findkey $k name)
+getbinname() {
+	gamename=$1
+	defaultstr=""
+	if [[ "$2" != "" ]]; then
+		defaultstr=" [$2]"
+	fi
+	echo -n "Binary name for $gamename$defaultstr: " 1>&2
+	read binary
+	echo $binary
+}
 
-	binary=$(getbinname "$this_name")
+if $WINE; then
+	manifestspath="$HOME/wine/steam64/drive_c/Program Files (x86)/Steam/steamapps"
+else
+	manifestspath="$HOME/.local/share/Steam/steamapps"
+fi
+
+for k in "$manifestspath"/appmanifest*.acf; do
+	this_appid=$(findkey "$k" appid)
+	this_name=$(findkey "$k" name)
+
+	default=$(getcurrentbinary "$this_appid")
+	binary=$(getbinname "$this_name" "$default")
 	if [[ $binary == "" ]]; then
-		echo "Skipping $this_name..."
 		continue
 	fi
-	if [[ -e ~/bin/scripts/$binary ]]; then
-		echo ~/bin/scripts/$binary already exists, not overwriting!
+	if [[ -e ~/bin/scripts/steam/$binary ]]; then
+		echo ~/bin/scripts/steam/$binary already exists, not overwriting!
 		continue
 	fi
 
-	cat <<EOF > ~/bin/scripts/$binary
+	if $WINE; then
+		cat <<EOF > ~/bin/scripts/steam/$binary
+#! /bin/bash
+
+exec winep steam64 "C:/Program Files (x86)/Steam/Steam.exe" steam://run/$this_appid
+EOF
+	else
+		cat <<EOF > ~/bin/scripts/steam/$binary
 #! /bin/bash
 
 exec steam steam://run/$this_appid
 EOF
-	chmod +x ~/bin/scripts/$binary
+	fi
+	chmod +x ~/bin/scripts/steam/$binary
 	echo "created $binary -> steam://run/$this_appid"
 done
