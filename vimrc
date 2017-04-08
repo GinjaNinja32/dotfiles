@@ -27,6 +27,7 @@ Plugin 'fatih/vim-go'
 Plugin 'wlue/vim-dm-syntax'
 Plugin 'scrooloose/nerdtree'
 Plugin 'majutsushi/tagbar'
+Plugin 'tpope/vim-surround'
 
 call vundle#end()
 filetype plugin indent on
