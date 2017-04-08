@@ -1,21 +1,9 @@
 
-" An example for a vimrc file.
-"
-" Maintainer:	Bram Moolenaar <Bram@vim.org>
-" Last change:	2008 Dec 17
-"
-" To use it, copy it to
-"     for Unix and OS/2:  ~/.vimrc
-"	      for Amiga:  s:.vimrc
-"  for MS-DOS and Win32:  $VIM\_vimrc
-"	    for OpenVMS:  sys$login:.vimrc
 
-" Use Vim settings, rather than Vi settings (much better!).
-" This must be first, because it changes other options as a side effect.
-set nocompatible
+set nocompatible " Vim, not vi
 filetype off
 
-set rtp+=~/.vim/bundle/Vundle.vim
+set rtp+=~/.vim/bundle/Vundle.vim " Start Vundle
 call vundle#begin()
 
 Plugin 'VundleVim/Vundle.vim'
@@ -36,25 +24,27 @@ map <F2> :NERDTreeToggle<CR>
 map <F3> :TagbarToggle<CR>
 
 let g:airline_theme = "dark"
+
+" Disable Airline fonts and set separators to an empty string - this gives a
+" blockier appearance, but doesn't require any fancy fonts
 let g:airline_powerline_fonts = 0
 let g:airline_left_sep = ""
 let g:airline_left_alt_sep = ""
 let g:airline_right_sep = ""
 let g:airline_right_alt_sep = ""
+
+" Disable tmuxline's separators too
 let g:tmuxline_separators = {
 	\ "left": '',
 	\ "right": '',
 	\ "left_alt": '',
 	\ "right_alt": ''}
 
+" Vertical split separator is a space
 set fillchars+=vert:\ 
 
+" map :w!! to write root-only files
 cnoremap w!! w !sudo tee >/dev/null %
-
-" When started as "evim", evim.vim will already have done these settings.
-if v:progname =~? "evim"
-	finish
-endif
 
 " allow backspacing over everything in insert mode
 set backspace=indent,eol,start
@@ -74,16 +64,13 @@ set laststatus=2
 
 set wildignore+=*.pyc,*_build/*,*/coverage/*
 
-set history=50		" keep 50 lines of command line history
-set ruler		" show the cursor position all the time
-set showcmd		" display incomplete commands
-set incsearch		" do incremental searching
-
-set nowrap
+set history=50    " keep 50 lines of command line history
+set ruler         " show the cursor position all the time
+set showcmd       " display incomplete commands
+set incsearch     " do incremental searching
+set number        " show line numbers
+set nowrap        " don't wrap long lines automatically
 set sidescroll=2
-
-" For Win32 GUI: remove 't' flag from 'guioptions': no tearoff menu entries
-" let &guioptions = substitute(&guioptions, "t", "", "g")
 
 " Don't use Ex mode, use Q for formatting
 map Q gq
@@ -135,10 +122,6 @@ if has("autocmd")
 
 	augroup END
 
-else
-
-	set autoindent		" always set autoindenting on
-
 endif " has("autocmd")
 
 " Convenient command to see the difference between the current buffer and the
@@ -149,12 +132,13 @@ if !exists(":DiffOrig")
 		\ | wincmd p | diffthis
 endif
 
-set noexpandtab
-set copyindent
-set preserveindent
-set softtabstop=0
-set shiftwidth=4
-set tabstop=4
+set noautoindent    " Disable auto-indenting
+set noexpandtab     " Don't expand tabs to spaces
+set copyindent      " 
+set preserveindent  " 
+set softtabstop=0   " 
+set shiftwidth=4    " 
+set tabstop=4       " Tabs are 4 spaces wide
 
 " Fenced languages for GHFM, ie ["python"] enables Python highlighting for:
 " ```python
@@ -162,8 +146,5 @@ set tabstop=4
 "     return 2
 " ```
 let g:markdown_fenced_languages = ["python", "sh", "json", "javascript", "dm"]
-let g:python_recommended_style = 0
+let g:python_recommended_style = 0 " Don't try to PEP8 my Python
 
-" Use regex search by default in / and s/
-nnoremap / /\v
-cnoremap s/ s/\v
