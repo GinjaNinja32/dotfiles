@@ -16,3 +16,8 @@ export BYOND_SYSTEM=$HOME/byond/lin/use
 export PATH="$PATH:$HOME/byond/lin/use/bin"
 export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:$HOME/byond/lin/use/bin"
 export MANPATH="$MANPATH:$HOME/byond/lin/use/man"
+
+# Pacapt (if needed)
+if ! which pacman >/dev/null; then
+	export PATH="$PATH:$HOME/git/pacapt"
+fi

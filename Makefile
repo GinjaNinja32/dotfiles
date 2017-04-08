@@ -75,20 +75,30 @@ vim-config:
 	./link $(DOTFILES)/vimcolors.vim ~/.vim/colors/mycolors.vim
 	vim +PluginInstall +qall
 
+define github_clone
+	mkdir -p ~/git
+	[ -e ~/git/$(2) ] || git clone https://github.com/$(1) ~/git/$(2)
+	(cd ~/git/$(2) && git remote set-url origin git@github.com:$(1))
+endef
+
 .PHONY: git-repos
 git-repos:
-	mkdir ~/git
-	cd ~/git
-	git clone https://github.com/kragen/xcompose
-	(cd xcompose && git remote set-url origin git@github.com:kragen/xcompose)
-	git clone https://github.com/ccontavalli/ssh-ident
-	(cd xcompose && git remote set-url origin git@github.com:ccontavalli/ssh-ident)
+	mkdir -p ~/git
+	$(call github_clone,kragen/xcompose,xcompose)
+	$(call github_clone,ccontavalli/ssh-ident,ssh-ident)
+
+.PHONY: non-arch-git-repos
+non-arch-git-repos:
+	$(call github_clone,icy/pacapt,pacapt)
+
+.PHONY: generic
+generic: shell-config termite-config i3-config x-config ssh-config vim-config git-repos
 
 .PHONY: non-arch
-non-arch: shell-config termite-config i3-config x-config ssh-config vim-config git-repos
+non-arch: generic non-arch-git-repos
 
 .PHONY: arch
-arch: non-arch arch-packages
+arch: generic arch-packages
 
 .PHONY: arch-gui
 arch-gui: arch arch-gui-packages
