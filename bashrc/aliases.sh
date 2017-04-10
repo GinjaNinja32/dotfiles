@@ -40,7 +40,13 @@ alias mosh='mosh --predict=experimental'
 alias scp='scp -S ssh'
 
 # docker
-alias dps='docker ps'
+dps() {
+	docker "$@" ps --format \
+		'table {{.ID}}\t{{.Image}}\t{{.Command}}\t{{.RunningFor}}\t{{.Status}}\t{{.Names}}' \
+		| sed -re 's|([0-9a-f]+\s+)containers.bespin.nboss.ntt.net:9500/|\1|' \
+		       -e 's|  +|\t|g' \
+		| column -ts "	"
+}
 alias dpsa='docker ps -a'
 alias drm='docker rm -fv $(docker ps -qa)'
 alias dvrm='docker volume rm $(docker volume ls -q)'
@@ -52,6 +58,7 @@ DLL='docker logs $(docker ps -a | head -2 | tail -1 | awk '\''{print $1}'\'')'
 # git
 alias gc='git commit'
 alias gca='git commit --amend'
+alias gcra='git commit --amend --reset-author'
 alias gd='git diff'
 alias gdc='git diff --cached'
 alias gf='git fetch --all'

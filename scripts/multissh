@@ -1,0 +1,17 @@
+#! /bin/bash
+
+id=$(cat /dev/urandom | head -c4 | xxd -g4 | cut -d' ' -f2)
+
+create="tmux new-session -n main -ds"
+
+for server in "$@"; do
+	$create $id
+	tmux send-keys "ssh $server" C-m
+	tmux join-pane -s temp -t main 2>/dev/null
+	tmux select-layout even-horizontal
+
+	create="tmux new-window -n temp -t"
+done
+
+tmux setw synchronize-panes on
+tmux a -t $id

@@ -11,6 +11,7 @@ Plugin 'VundleVim/Vundle.vim'
 Plugin 'bling/vim-airline'
 Plugin 'edkolev/tmuxline.vim'
 
+Plugin 'pearofducks/ansible-vim'
 Plugin 'fatih/vim-go'
 Plugin 'wlue/vim-dm-syntax'
 Plugin 'scrooloose/nerdtree'
@@ -46,8 +47,26 @@ set fillchars+=vert:\
 " map :w!! to write root-only files
 cnoremap w!! w !sudo tee >/dev/null %
 
+" add ansible yaml syntax for jinja2 yaml templates
+let g:ansible_extra_syntaxes = "yaml.vim"
+
+" format JSON with tabs
+com! FormatJSON %!jq --tab --sort-keys .
+if has("autocmd")
+	"	autocmd BufWritePre *.json :%!jq --tab --sort-keys . || echo
+
+	" Ali: to indent json files on save
+	autocmd FileType json autocmd BufWritePre *.json %!d=$(cat); echo "$d" | jq --tab --sort-keys . 2>/dev/null || echo "$d"
+endif
+
 " allow backspacing over everything in insert mode
 set backspace=indent,eol,start
+
+for prefix in ['i', 'n', 'v']
+  for key in ['<Up>', '<Down>', '<Left>', '<Right>']
+    exe prefix . "noremap " . key . " <Nop>"
+  endfor
+endfor
 
 set lazyredraw
 set ttyfast
