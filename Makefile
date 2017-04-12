@@ -21,7 +21,7 @@ arch-packages:
 arch-gui-packages:
 	pacaur -S xorg-xinit i3 dmenu \
 				termite \
-				pulseaudio pavucontrol \
+				pulseaudio pavucontrol pulseaudio-alsa \
 				noto-fonts noto-fonts-emoji noto-fonts-cjk \
 				ttf-dejavu \
 				evince \
