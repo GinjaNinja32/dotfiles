@@ -1,5 +1,6 @@
 #! /usr/bin/env bash
 
+# if git prompt is installed, use it
 if [ -e "$HOME/bin/includes/git-prompt.sh" ]; then
 	export GIT_PS1_SHOWDIRTYSTATE=yes
 	export GIT_PS1_SHOWSTASHSTATE=yes
@@ -7,35 +8,48 @@ if [ -e "$HOME/bin/includes/git-prompt.sh" ]; then
 	export GIT_PS1_SHOWUPSTREAM="auto verbose name"
 	source "$HOME/bin/includes/git-prompt.sh"
 else
+	# otherwise define a dummy function so bash doesn't complain
 	__git_ps1() {
 		return
 	}
 fi
 
-pcomm() {
-	code=$?
-	print=""
-	if [ "$code" -ne "0" ]; then
-		print="[$code] "
+__code_ps1() {
+	c=$?
+	if [ $c -ne 0 ]; then
+		if [[ 128 < $c ]] && [[ $c < 192 ]]; then
+			echo "[$c SIG$(kill -l $((c - 128)))] "
+		else
+			echo "[$c] "
+		fi
 	fi
-
-	export pcode=$print
 }
 
-export PROMPT_COMMAND=pcomm
+# Primary prompt color, based on user/host
+case "$USER@$(hostname)" in
+	root@*)
+		__pri=9 # Red prompt for root
+		;;
+	*)
+		__pri=10 # Green prompt for normal
+		;;
+esac
 
-if [[ "$USER" == "root" ]]; then
-	usercolor=$RED
-else
-	usercolor=$GREEN
-fi
-dircolor=$BLUE
-gitcolor=$YELLOW
-errcolor=$RED
-export PS1="\[$BOLD$usercolor\]\u@\h \[$dircolor\]\w \[$gitcolor\]\$(__git_ps1 '%s ')\[$errcolor\]\$pcode\[$RESETALL\]\n\[$BOLD\]\\$ \[$RESETALL\]"
+__tput() {
+	echo -n \\[$(/usr/bin/tput "$@")\\]
+}
+
+PS1="\
+$(__tput bold)\
+$(__tput setaf $__pri)\\u@\\h \
+$(__tput setaf 4)\\w \
+$(__tput setaf 11)\$(__git_ps1 '%s ')\
+$(__tput setaf 9)\$(__code_ps1)\
+\n\
+$(__tput setaf 15)\$$(__tput sgr0) "
 
 case "$TERM" in
 	xterm*|rxvt*)
-		export PS1="\[\e]0;\u@\h:\w\a\]$PS1" ;;
+		PS1="\[\e]0;\u@\h:\w\a\]$PS1" ;;
 	*) ;;
 esac

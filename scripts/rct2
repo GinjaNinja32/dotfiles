@@ -1,0 +1,3 @@
+#! /bin/bash
+
+exec winep rct32 "C:/GOG Games/RollerCoaster Tycoon 2 Triple Thrill Pack/RCT2.EXE"

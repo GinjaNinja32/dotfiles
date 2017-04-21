@@ -17,14 +17,17 @@ Plugin 'wlue/vim-dm-syntax'
 Plugin 'scrooloose/nerdtree'
 Plugin 'majutsushi/tagbar'
 Plugin 'tpope/vim-surround'
+Plugin 'ctrlpvim/ctrlp.vim'
 
 call vundle#end()
 filetype plugin indent on
 
+set rtp+=~/dotfiles/vim " Include custom non-plugin Vim things
+
 map <F2> :NERDTreeToggle<CR>
 map <F3> :TagbarToggle<CR>
 
-let g:airline_theme = "dark"
+let g:airline_theme = "theme"
 
 " Disable Airline fonts and set separators to an empty string - this gives a
 " blockier appearance, but doesn't require any fancy fonts
