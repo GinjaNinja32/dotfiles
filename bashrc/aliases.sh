@@ -77,7 +77,7 @@ alias tn='tmux new -s' # screen -mS
 alias tls='tmux ls 2>/dev/null || echo "No tmux sessions running"'
 
 setupterm() { infocmp $TERM | ssh $1 tic -; }
-
+setupubuntubashrc() { ssh $1 sed -i '"s/xterm-color/xterm-termite|xterm-color/g"' .bashrc; }
 
 pkg() {
 	pkg=$1
