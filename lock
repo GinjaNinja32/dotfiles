@@ -1,0 +1,12 @@
+#! /bin/bash
+
+case $(xrandr -q | grep -Eo 'current [[:digit:]]+ x [[:digit:]]+' | sed 's/current //; s/ //g') in
+	3840x2160)
+		image="-i $HOME/dotfiles/bsod_r2d2_4k.png" ;;
+	7680x2160)
+		image="-i $HOME/dotfiles/bsod_r2d2_2x4k.png" ;;
+	*)
+		image="-c #000000" ;;
+esac
+
+exec i3lock $image
