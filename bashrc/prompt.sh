@@ -17,7 +17,7 @@ fi
 __code_ps1() {
 	c=$?
 	if [ $c -ne 0 ]; then
-		if [[ 128 < $c ]] && [[ $c < 192 ]]; then
+		if [[ 128 -lt $c ]] && [[ $c -le 192 ]]; then
 			echo "[$c SIG$(kill -l $((c - 128)))] "
 		else
 			echo "[$c] "

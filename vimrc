@@ -8,16 +8,25 @@ call vundle#begin()
 
 Plugin 'VundleVim/Vundle.vim'
 
+" Visual:
 Plugin 'bling/vim-airline'
 Plugin 'edkolev/tmuxline.vim'
 
+" Utils:
+Plugin 'scrooloose/nerdtree'
+Plugin 'tpope/vim-surround'
+Plugin 'majutsushi/tagbar'
+Plugin 'ctrlpvim/ctrlp.vim'
+
+" Languages:
 Plugin 'pearofducks/ansible-vim'
 Plugin 'fatih/vim-go'
 Plugin 'wlue/vim-dm-syntax'
-Plugin 'scrooloose/nerdtree'
-Plugin 'majutsushi/tagbar'
-Plugin 'tpope/vim-surround'
-Plugin 'ctrlpvim/ctrlp.vim'
+
+" Testing:
+Plugin 'vim-scripts/indentpython.vim'
+Plugin 'nvie/vim-flake8'
+" Plugin 'scrooloose/syntastic'
 
 call vundle#end()
 filetype plugin indent on
@@ -54,12 +63,14 @@ cnoremap w!! w !sudo tee >/dev/null %
 let g:ansible_extra_syntaxes = "yaml.vim"
 
 " format JSON with tabs
-com! FormatJSON %!jq --tab --sort-keys .
 if has("autocmd")
-	"	autocmd BufWritePre *.json :%!jq --tab --sort-keys . || echo
+	autocmd FileType json autocmd BufWritePost *.json :silent !which jq >/dev/null && (TMP=$(mktemp /tmp/jqXXXXXXXX); cat % | jq --tab --sort-keys . 2>/dev/null > $TMP && mv $TMP % || rm $TMP)
+endif
 
-	" Ali: to indent json files on save
-	autocmd FileType json autocmd BufWritePre *.json %!d=$(cat); echo "$d" | jq --tab --sort-keys . 2>/dev/null || echo "$d"
+" format Python according to PEP8
+if has("autocmd")
+	autocmd BufWritePost *.py call Flake8()
+	autocmd FileType python autocmd BufEnter :setlocal ts=4 et
 endif
 
 " allow backspacing over everything in insert mode
@@ -162,5 +173,3 @@ set tabstop=4       " Tabs are 4 spaces wide
 "     return 2
 " ```
 let g:markdown_fenced_languages = ["python", "sh", "json", "javascript", "dm"]
-let g:python_recommended_style = 0 " Don't try to PEP8 my Python
-

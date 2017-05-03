@@ -41,7 +41,7 @@ alias scp='scp -S ssh'
 
 # docker
 dps() {
-	docker "$@" ps --format \
+	docker ps "$@" --format \
 		'table {{.ID}}\t{{.Image}}\t{{.Command}}\t{{.RunningFor}}\t{{.Status}}\t{{.Names}}' \
 		| sed -re 's|([0-9a-f]+\s+)containers.bespin.nboss.ntt.net:9500/|\1|' \
 		       -e 's|  +|\t|g' \
