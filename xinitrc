@@ -34,4 +34,9 @@ fi
 
 setxkbmap gb
 
+layoutfile="~/dotfiles/layouts/$(hostname).sh"
+if [[ -e "$layoutfile" ]]; then
+	sh "$layoutfile"
+fi
+
 exec i3
