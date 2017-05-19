@@ -53,6 +53,16 @@ alias dvrm='docker volume rm $(docker volume ls -q)'
 alias dll='docker logs $(docker ps -a | head -2 | tail -1 | awk '\''{print $1}'\'')'
 DLL='docker logs $(docker ps -a | head -2 | tail -1 | awk '\''{print $1}'\'')'
 
+if [[ "$TERM" == "xterm-termite" ]]; then
+	alias docker="TERM=xterm-256color docker"
+	dbash() {
+		docker exec -it $1 bash -c "TERM=xterm-256color exec bash"
+	}
+else
+	dbash() {
+		docker exec -it $1 bash
+	}
+fi
 
 
 # git

@@ -8,11 +8,20 @@ export PATH="$HOME/bin:$HOME/bin/scripts:$HOME/bin/scripts/steam:$PATH"
 [ -e "$HOME/bin/hub/hub" ] && export PATH="$HOME/bin/hub:$PATH"
 
 # Go
-export GOPATH="$HOME/go"
+
+case "$(hostname)" in
+	bp-arch)
+		export GOPATH="/repos/go"
+		;;
+	*)
+		export GOPATH="$HOME/go"
+		;;
+esac
+
 export PATH="$PATH:$GOPATH/bin"
 
 # BYOND
-export BYOND_SYSTEM=$HOME/byond/lin/use
+export BYOND_SYSTEM="$HOME/byond/lin/use"
 export PATH="$PATH:$HOME/byond/lin/use/bin"
 export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:$HOME/byond/lin/use/bin"
 export MANPATH="$MANPATH:$HOME/byond/lin/use/man"
