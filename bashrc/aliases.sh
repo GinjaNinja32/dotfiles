@@ -22,8 +22,8 @@ alias l='ls -CFh'
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 
 # One command for creating and changing directories
-mcd() { mkdir $1; cd $1; }
-smcd() { sudo mkdir $1; cd $1; }
+mcd() { mkdir -p $1; cd $1; }
+smcd() { sudo mkdir -p $1; cd $1; }
 
 # Short forms of commands
 alias sr='screen -r'
