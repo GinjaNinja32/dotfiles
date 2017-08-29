@@ -1,7 +1,7 @@
 #! /bin/bash
 
 if [[ "$1" == "" ]]; then
-	name_format="%Y-%m-%d_%H:%M:%S.png"
+	name_format="%Y-%m-%d_%H-%M-%S.png"
 	name="$(date +"$name_format")"
 	if [[ $SCREENSHOT_FULL_SCREEN == 1 ]]; then
 		ARGS="$HOME/Pictures/$name"

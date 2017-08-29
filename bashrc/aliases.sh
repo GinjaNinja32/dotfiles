@@ -43,7 +43,7 @@ alias scp='scp -S ssh'
 dps() {
 	docker ps "$@" --format \
 		'table {{.ID}}\t{{.Image}}\t{{.Command}}\t{{.RunningFor}}\t{{.Status}}\t{{.Names}}' \
-		| sed -re 's|([0-9a-f]+\s+)containers.bespin.nboss.ntt.net:9500/|\1|' \
+		| sed -re 's|([0-9a-f]+\s+)containers.bespin.nboss.ntt.net:9500/|\1cbnnn/|' \
 		       -e 's|  +|\t|g' \
 		| column -ts "	"
 }
@@ -51,7 +51,6 @@ alias dpsa='docker ps -a'
 alias drm='docker rm -fv $(docker ps -qa)'
 alias dvrm='docker volume rm $(docker volume ls -q)'
 alias dll='docker logs $(docker ps -a | head -2 | tail -1 | awk '\''{print $1}'\'')'
-DLL='docker logs $(docker ps -a | head -2 | tail -1 | awk '\''{print $1}'\'')'
 
 if [[ "$TERM" == "xterm-termite" ]]; then
 	alias docker="TERM=xterm-256color docker"
@@ -86,8 +85,14 @@ tdr() { fst=${1:-}; shift; tmux a -dt "$fst" "$@"; } # screen -dr
 alias tn='tmux new -s' # screen -mS
 alias tls='tmux ls 2>/dev/null || echo "No tmux sessions running"'
 
-setupterm() { infocmp $TERM | ssh $1 tic -; }
-setupubuntubashrc() { ssh $1 sed -i '"s/xterm-color/xterm-termite|xterm-color/g"' .bashrc; }
+setupterm() {
+	infocmp $TERM | ssh $1 tic -
+}
+
+setupubuntubashrc() {
+	ssh $1 sed -i '"s/xterm-color/xterm-termite|xterm-color/g"' .bashrc
+	echo -e "\ncd ~jenkins/shared/deploy || cd ~jenkins/shared/env/deploy || cd ~cmp/shared/deploy" | ssh $1 tee -a .bashrc > /dev/null
+}
 
 pkg() {
 	pkg=$1
@@ -96,4 +101,25 @@ pkg() {
 	if [[ $pkg != "" && $repo != "" ]]; then
 		chromium "http://archlinux.org/packages/$repo/x86_64/$pkg/"
 	fi
+}
+
+bwatch() {
+	while true; do
+		eval output="\$($*)"
+		clear
+		echo "$output"
+		sleep 1
+	done
+}
+
+rand() {
+	cat /dev/urandom | head -c $1
+}
+
+hex() {
+	xxd -ps -c 100000000000
+}
+
+unhex() {
+	xxd -ps -r
 }

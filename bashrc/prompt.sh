@@ -28,10 +28,10 @@ __code_ps1() {
 # Primary prompt color, based on user/host
 case "$USER@$(hostname)" in
 	root@*)
-		__pri=9 # Red prompt for root
+		__pri=1 # Red prompt for root
 		;;
 	*)
-		__pri=10 # Green prompt for normal
+		__pri=2 # Green prompt for normal
 		;;
 esac
 
@@ -43,10 +43,10 @@ PS1="\
 $(__tput bold)\
 $(__tput setaf $__pri)\\u@\\h \
 $(__tput setaf 4)\\w \
-$(__tput setaf 11)\$(__git_ps1 '%s ')\
-$(__tput setaf 9)\$(__code_ps1)\
+$(__tput setaf 3)\$(__git_ps1 '%s ')\
+$(__tput setaf 1)\$(__code_ps1)\
 \n\
-$(__tput setaf 15)\$$(__tput sgr0) "
+$(__tput setaf 7)\$$(__tput sgr0) "
 
 case "$TERM" in
 	xterm*|rxvt*)

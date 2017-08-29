@@ -26,6 +26,8 @@ Plugin 'wlue/vim-dm-syntax'
 " Testing:
 Plugin 'vim-scripts/indentpython.vim'
 Plugin 'nvie/vim-flake8'
+
+Plugin 'romainl/vim-qf'
 " Plugin 'scrooloose/syntastic'
 
 call vundle#end()
@@ -35,6 +37,8 @@ set rtp+=~/dotfiles/vim " Include custom non-plugin Vim things
 
 map <F2> :NERDTreeToggle<CR>
 map <F3> :TagbarToggle<CR>
+
+let g:flake8_cmd = "flake8-python2"
 
 let g:airline_theme = "theme"
 
@@ -62,15 +66,16 @@ cnoremap w!! w !sudo tee >/dev/null %
 " add ansible yaml syntax for jinja2 yaml templates
 let g:ansible_extra_syntaxes = "yaml.vim"
 
-" format JSON with tabs
 if has("autocmd")
+	" format JSON with tabs
 	autocmd FileType json autocmd BufWritePost *.json :silent !which jq >/dev/null && (TMP=$(mktemp /tmp/jqXXXXXXXX); cat % | jq --tab --sort-keys . 2>/dev/null > $TMP && mv $TMP % || rm $TMP)
-endif
 
-" format Python according to PEP8
-if has("autocmd")
+	" format Python according to PEP8
 	autocmd BufWritePost *.py call Flake8()
 	autocmd FileType python autocmd BufEnter :setlocal ts=4 et
+
+	" lint Go code
+	autocmd BufWritePost *.go :GoLint
 endif
 
 " allow backspacing over everything in insert mode
