@@ -1,0 +1,75 @@
+#! /bin/bash
+
+vertical=false
+type=bg
+useBold=false
+
+OPTIND=1
+while getopts "vfbt" opt; do
+	case "$opt" in
+		v)
+			vertical=true
+			;;
+		f)
+			type=fg
+			;;
+		b)
+			type=fg
+			useBold=true
+			;;
+	esac
+done
+
+sgr0="$(tput sgr0)"
+
+showcolor() {
+	cap=""
+	case "$type" in
+		fg)
+			cap="setaf $1"
+			;;
+		bg)
+			cap="setaf 243\nsetab $1"
+			;;
+	esac
+	if $useBold; then
+		cap="$cap\nbold"
+	fi
+	printf "%s%4s%s" "$(echo -e "$cap" | tput -S)" "$1" "$sgr0"
+}
+
+printf "\n"
+for i in {0..15}; do
+	showcolor $i
+	if [[ $((i % 8)) == 7 ]]; then echo; fi
+done
+printf "\n"
+
+for a in {0..5}; do
+	for b in {0..5}; do
+		for c in {0..5}; do
+			if $vertical; then
+				showcolor $(( 16 + a*36 + b*6 + c ))
+			else
+				showcolor $(( 16 + b*36 + a*6 + c ))
+			fi
+		done
+		if $vertical; then
+			echo
+		else
+			printf "  "
+		fi
+	done
+	echo
+done
+
+if ! $vertical; then
+	printf "\n"
+fi
+
+for i in {232..255}; do
+	showcolor $i
+	if $vertical && [[ $((i % 8)) == 7 ]]; then echo; fi
+done
+printf "\n\n"
+
