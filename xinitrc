@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 userresources=$HOME/.Xresources
 usermodmap=$HOME/.Xmodmap
@@ -34,9 +34,7 @@ fi
 
 setxkbmap gb
 
-layoutfile="~/dotfiles/layouts/$(hostname).sh"
-if [[ -e "$layoutfile" ]]; then
-	sh "$layoutfile"
-fi
-
+. ~/dotfiles/bashrc/env.sh
+export GTK_IM_MODULE=xim
+export QT_IM_MODULE=xim
 exec i3

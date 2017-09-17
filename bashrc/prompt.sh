@@ -18,9 +18,9 @@ __code_ps1() {
 	c=$?
 	if [ $c -ne 0 ]; then
 		if [[ 128 -lt $c ]] && [[ $c -le 192 ]]; then
-			echo "[$c SIG$(kill -l $((c - 128)))] "
+			echo " [$c SIG$(kill -l $((c - 128)))]"
 		else
-			echo "[$c] "
+			echo " [$c]"
 		fi
 	fi
 }
@@ -41,9 +41,9 @@ __tput() {
 
 PS1="\
 $(__tput bold)\
-$(__tput setaf $__pri)\\u@\\h \
-$(__tput setaf 4)\\w \
-$(__tput setaf 3)\$(__git_ps1 '%s ')\
+$(__tput setaf $__pri)\\u@\\h\
+$(__tput setaf 4) \\w\
+$(__tput setaf 3)\$(__git_ps1 ' %s')\
 $(__tput setaf 1)\$(__code_ps1)\
 \n\
 $(__tput setaf 7)\$$(__tput sgr0) "

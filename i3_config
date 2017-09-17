@@ -11,7 +11,7 @@ workspace_layout tabbed
 
 set $mod Mod4
 
-font pango:DejaVu Sans Mono 7
+font pango:DejaVu Sans Mono 12
 
 floating_modifier $mod
 
@@ -34,6 +34,7 @@ bindsym $mod+Shift+l move right
 bindsym $mod+g split h
 bindsym $mod+v split v
 bindsym $mod+f fullscreen toggle
+bindsym $mod+Shift+f fullscreen toggle global
 
 bindsym $mod+s layout stacking
 bindsym $mod+w layout tabbed
@@ -105,3 +106,5 @@ bar {
 }
 
 for_window [title="i3:float"] floating enable
+
+exec ~/dotfiles/layouts/main.sh

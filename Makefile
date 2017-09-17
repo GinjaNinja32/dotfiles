@@ -57,6 +57,7 @@ x-config:
 	./link $(DOTFILES)/xinitrc ~/.xinitrc
 	./link $(DOTFILES)/Xresources ~/.Xresources
 	./link $(DOTFILES)/dotXCompose ~/.XCompose
+	./link $(DOTFILES)/Xmodmap ~/.Xmodmap
 
 .PHONY: ssh-config
 ssh-config:

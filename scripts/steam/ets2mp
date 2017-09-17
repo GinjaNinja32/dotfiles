@@ -1,0 +1,5 @@
+#! /bin/bash
+
+export WINEPREFIX=~/wine/steam64
+cd ~/git/truckersmp-cli
+exec ./truckersmp-cli "$HOME/wine/steam64/drive_c/Program Files (x86)/Steam/steamapps/common/Euro Truck Simulator 2"

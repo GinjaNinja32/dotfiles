@@ -1,0 +1,3 @@
+#! /bin/bash
+
+exec java -jar ~/bin/etc/atlauncher/ATLauncher.jar
