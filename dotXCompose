@@ -1,6 +1,9 @@
 # -*- coding: utf-8 -*-
 
 include "/home/nyx/git/xcompose/dotXCompose"
+include "/home/nyx/git/xcompose/frakturcompose"
+include "/home/benpaxton/git/xcompose/dotXCompose"
+include "/home/benpaxton/git/xcompose/frakturcompose"
 
 <Multi_key> <m> <i> <j> : "『ＭＩＪＨＥＡＤ』"
 <Multi_key> <p> <a> <n> : "🐼"
