@@ -4,12 +4,13 @@ id=$(cat /dev/urandom | head -c4 | xxd -g4 | cut -d' ' -f2)
 
 create="tmux new-session -n main -ds"
 
-for cmd in $(seq 1 $1); do
-    $create $id
-    tmux join-pane -s temp -t main 2>/dev/null
-    tmux select-layout even-horizontal
+for cmd in "$@"; do
+	$create $id
+	tmux send-keys "$cmd" C-m
+	tmux join-pane -s temp -t main 2>/dev/null
+	tmux select-layout even-horizontal
 
-    create="tmux new-window -n temp -t"
+	create="tmux new-window -n temp -t"
 done
 
 tmux setw synchronize-panes on
