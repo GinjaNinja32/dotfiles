@@ -2,15 +2,20 @@ scriptencoding utf-8
 
 let g:airline#themes#theme#palette = {}
 
+autocmd VimLeave * silent !echo -ne "\033]112\x07"
+silent !echo -ne "\033]12;\#00d7ff\x07"
+
 let s:C = 45
 let s:H = '#00d7ff'
 let g:airline#themes#theme#palette.normal = airline#themes#generate_color_map(['#000000', s:H, 16, s:C], ['#ffffff', '#444444', 255, 238], [s:H, '#1c1c1c', s:C, 234])
 let g:airline#themes#theme#palette.normal_modified = {'airline_c': ['#ffffff', '#5f005f', 255, 53, '']}
+let &t_EI = "\033]12;" . s:H . "\x07"
 
 let s:C = 226
 let s:H = '#ffff00'
 let g:airline#themes#theme#palette.insert = airline#themes#generate_color_map(['#000000', s:H, 16, s:C], ['#ffffff', '#444444', 255, 238], [s:H, '#1c1c1c', s:C, 234])
 let g:airline#themes#theme#palette.insert_modified = {'airline_c': ['#ffffff', '#5f005f', 255, 53, '']}
+let &t_SI = "\033]12;" . s:H . "\x07"
 
 let s:C = 208
 let s:H = '#ff8700'

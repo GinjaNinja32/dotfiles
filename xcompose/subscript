@@ -1,0 +1,46 @@
+# vim: ft=conf
+
+<Multi_key> <underscore> <0>           : "₀"
+<Multi_key> <underscore> <1>           : "₁"
+<Multi_key> <underscore> <2>           : "₂"
+<Multi_key> <underscore> <3>           : "₃"
+<Multi_key> <underscore> <4>           : "₄"
+<Multi_key> <underscore> <5>           : "₅"
+<Multi_key> <underscore> <6>           : "₆"
+<Multi_key> <underscore> <7>           : "₇"
+<Multi_key> <underscore> <8>           : "₈"
+<Multi_key> <underscore> <9>           : "₉"
+<Multi_key> <underscore> <plus>        : "₊"
+<Multi_key> <underscore> <minus>       : "₋"
+<Multi_key> <underscore> <equal>       : "₌"
+<Multi_key> <underscore> <parenleft>   : "₍"
+<Multi_key> <underscore> <parenright>  : "₎"
+
+<Multi_key> <underscore> <a>           : "ₐ"
+# b c d
+<Multi_key> <underscore> <e>           : "ₑ"
+# f g
+<Multi_key> <underscore> <h>           : "ₕ"
+<Multi_key> <underscore> <i>           : "ᵢ"
+<Multi_key> <underscore> <j>           : "ⱼ"
+<Multi_key> <underscore> <k>           : "ₖ"
+<Multi_key> <underscore> <l>           : "ₗ"
+<Multi_key> <underscore> <m>           : "ₘ"
+<Multi_key> <underscore> <n>           : "ₙ"
+<Multi_key> <underscore> <o>           : "ₒ"
+<Multi_key> <underscore> <p>           : "ₚ"
+# q
+<Multi_key> <underscore> <r>           : "ᵣ"
+<Multi_key> <underscore> <s>           : "ₛ"
+<Multi_key> <underscore> <t>           : "ₜ"
+<Multi_key> <underscore> <u>           : "ᵤ"
+<Multi_key> <underscore> <v>           : "ᵥ"
+# w
+<Multi_key> <underscore> <x>           : "ₓ"
+# y z
+
+<Multi_key> <underscore> <asterisk> <b> : "ᵦ"
+<Multi_key> <underscore> <asterisk> <g> : "ᵧ"
+<Multi_key> <underscore> <asterisk> <r> : "ᵨ"
+<Multi_key> <underscore> <asterisk> <f> : "ᵩ"
+<Multi_key> <underscore> <asterisk> <x> : "ᵪ"

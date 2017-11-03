@@ -1,0 +1,43 @@
+# vim: ft=conf
+
+<Multi_key> <i> <d> <j> : "dʒ"
+<Multi_key> <i> <t> <h> : "ð"
+<Multi_key> <i> <n> <g> : "ŋ"
+<Multi_key> <i> <s> <h> : "ʃ"
+<Multi_key> <i> <T> <H> : "θ"
+<Multi_key> <i> <z> <h> : "ʒ"
+
+<Multi_key> <i> <a> <a> : "ɑː"
+<Multi_key> <i> <a> <h> : "æ"
+<Multi_key> <i> <a> <i> : "aɪ"
+<Multi_key> <i> <a> <u> : "aʊ"
+
+<Multi_key> <i> <e> <e> : "iː"
+<Multi_key> <i> <e> <h> : "ɛ"
+<Multi_key> <i> <e> <i> : "eɪ"
+
+<Multi_key> <i> <i> <h> : "ɪ"
+
+<Multi_key> <i> <o> <a> : "oʊ"
+<Multi_key> <i> <o> <h> : "ɒ"
+<Multi_key> <i> <o> <i> : "ɔɪ"
+<Multi_key> <i> <o> <o> : "uː"
+<Multi_key> <i> <o> <u> : "ɔː"
+
+<Multi_key> <i> <u> <u> : "ʌ"
+<Multi_key> <i> <u> <h> : "ə"
+<Multi_key> <i> <u> <r> : "ɜː"
+
+<Multi_key> <i> <x> <u> <u> : "ʊ"
+
+# Uncommon but present in English in places
+<Multi_key> <i> <g> <s> : "ʔ"
+<Multi_key> <i> <o> <n> : "ɒ̃"
+<Multi_key> <i> <a> <n> : "æ̃"
+
+# Stress
+<Multi_key> <i> <apostrophe> : "ˈ"
+<Multi_key> <i> <comma>      : "ˌ"
+
+# Vowel modifier
+<Multi_key> <i> <colon> : "ː"
