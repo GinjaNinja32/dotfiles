@@ -75,6 +75,7 @@ if has("autocmd")
 	autocmd FileType python autocmd BufEnter :setlocal ts=4 et
 
 	" lint Go code
+	autocmd BufWritePost *.go :ccl
 	autocmd BufWritePost *.go :GoLint
 endif
 

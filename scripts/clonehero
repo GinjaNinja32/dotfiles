@@ -1,0 +1,3 @@
+#! /bin/bash
+
+exec ~/bin/etc/clonehero/Clone\ Hero.x86_64

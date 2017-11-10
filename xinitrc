@@ -34,6 +34,7 @@ fi
 
 setxkbmap gb
 
+. ~/dotfiles/bashrc/0_path_utils.sh
 . ~/dotfiles/bashrc/env.sh
 export GTK_IM_MODULE=xim
 export QT_IM_MODULE=xim
