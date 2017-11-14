@@ -73,6 +73,10 @@ vim-config:
 	./link $(DOTFILES)/vimcolors.vim ~/.vim/colors/mycolors.vim
 	vim +PluginInstall +qall
 
+.PHONY: dunst-config
+dunst-config:
+	./link $(DOTFILES)/dunstrc ~/.config/dunst/dunstrc
+
 define github_clone
 	mkdir -p ~/git
 	[ -e $(2) ] || git clone https://github.com/$(1) $(2)
