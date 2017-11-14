@@ -38,8 +38,8 @@ configs:
 	./joinTheDots
 	chmod 700 ~/.ssh
 
-.PHONY: shell-config
-shell-configs:
+.PHONY: git-prompt
+git-prompt:
 	mkdir -p ~/bin/includes
 	curl -o ~/bin/includes/git-prompt.sh https://raw.githubusercontent.com/git/git/master/contrib/completion/git-prompt.sh
 
@@ -74,7 +74,7 @@ dunst:
 		makepkg -efsri
 
 .PHONY: generic
-generic: shell-config termite-config i3-config x-config ssh-config vim-config git-repos
+generic: configs git-prompt vim-plugins git-repos
 
 .PHONY: non-arch
 non-arch: generic non-arch-git-repos
