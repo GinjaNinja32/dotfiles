@@ -75,6 +75,7 @@ vim-config:
 
 .PHONY: dunst-config
 dunst-config:
+	mkdir -p ~/.config/dunst
 	./link $(DOTFILES)/dunstrc ~/.config/dunst/dunstrc
 
 define github_clone
