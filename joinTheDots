@@ -1,0 +1,21 @@
+#! /bin/bash
+
+cd "$(readlink -f .)"
+
+for f in $(find dot -type f); do
+	target="$(readlink -f $f)"
+	location="$HOME/.${f#dot/}"
+	location_dir="$(dirname $location)"
+
+	if [[ -h "$location" ]]; then
+		rm "$location"
+	elif [[ -e "$location" ]]; then
+		echo "$location exists and is not a symlink, aborting!"
+		exit 1
+	fi
+
+	mkdir -p "$location_dir"
+
+	echo "$location => $f"
+	ln -s "$target" "$location"
+done

@@ -2,5 +2,5 @@
 
 export EDITOR=vim
 
-_pathprepend $HOME/bin $HOME/bin/scripts $HOME/bin/scripts/steam
+_pathprepend $HOME/bin $HOME/dotfiles/scripts $HOME/dotfiles/scripts/steam
 

@@ -33,50 +33,20 @@ arch-lib32:
 	# install packages
 	pacaur -S lib32-libpulse steam
 
+.PHONY: configs
+configs:
+	./joinTheDots
+	chmod 700 ~/.ssh
+
 .PHONY: shell-config
 shell-configs:
-	./link $(DOTFILES)/tmux.conf ~/.tmux.conf
-	./link $(DOTFILES)/bashrc.sh ~/.bashrc
-	./link $(DOTFILES)/profile ~/.profile
 	mkdir -p ~/bin/includes
-	./link $(DOTFILES)/bin/scripts ~/bin/scripts
 	curl -o ~/bin/includes/git-prompt.sh https://raw.githubusercontent.com/git/git/master/contrib/completion/git-prompt.sh
 
-.PHONY: termite-config
-termite-config:
-	mkdir -p ~/.config/termite
-	./link $(DOTFILES)/termite_config ~/.config/termite/config
-
-.PHONY: i3-config
-i3-config:
-	mkdir -p ~/.config/i3
-	./link $(DOTFILES)/i3_config ~/.config/i3/config
-
-.PHONY: x-config
-x-config:
-	./link $(DOTFILES)/xinitrc ~/.xinitrc
-	./link $(DOTFILES)/Xresources ~/.Xresources
-	./link $(DOTFILES)/dotXCompose ~/.XCompose
-	./link $(DOTFILES)/Xmodmap ~/.Xmodmap
-
-.PHONY: ssh-config
-ssh-config:
-	mkdir -p ~/.ssh
-	chmod 700 ~/.ssh
-	./link $(DOTFILES)/ssh_config ~/.ssh/config
-
-.PHONY: vim-config
-vim-config:
-	mkdir -p ~/.vim/colors
+.PHONY: vim-plugins
+vim-plugins:
 	git clone https://github.com/VundleVim/Vundle.vim ~/.vim/bundle/Vundle.vim
-	./link $(DOTFILES)/vimrc ~/.vimrc
-	./link $(DOTFILES)/vimcolors.vim ~/.vim/colors/mycolors.vim
 	vim +PluginInstall +qall
-
-.PHONY: dunst-config
-dunst-config:
-	mkdir -p ~/.config/dunst
-	./link $(DOTFILES)/dunstrc ~/.config/dunst/dunstrc
 
 define github_clone
 	mkdir -p ~/git
