@@ -31,3 +31,7 @@ hi StatusLine   ctermfg=236
 hi StatusLineNC ctermfg=236
 hi VertSplit    ctermfg=236
 hi LineNr       ctermfg=242
+
+hi diffAdded    ctermfg=Green cterm=bold
+hi diffChanged  ctermfg=Blue  cterm=bold
+hi diffRemoved  ctermfg=Red   cterm=bold
