@@ -1,0 +1,25 @@
+pkgname=custom-dunst
+pkgver=1.0.0
+pkgrel=1
+
+pkgdesc="Customizable and lightweight notification-daemon"
+url="https://dunst-project.org/"
+arch=('x86_64')
+license=('BSD')
+
+depends=('libxinerama' 'libxss' 'pango' 'libnotify' 'gtk2' 'libxdg-basedir')
+provides=('notification-daemon' 'dunst')
+conflicts=('dunst')
+
+source=()
+md5sums=()
+
+build() {
+	make -C "$srcdir/dunst" X11INC=/usr/include/X11 X11LIB=/usr/lib/X11
+}
+
+package() {
+	make -C "dunst" DESTDIR="${pkgdir}" PREFIX=/usr install
+	install -Dm644 "${srcdir}/dunst/LICENSE" "${pkgdir}/usr/share/licenses/dunst/LICENSE"
+}
+

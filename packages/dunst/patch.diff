@@ -1,0 +1,45 @@
+diff --git a/src/notification.c b/src/notification.c
+index 68c025d..0f149ef 100644
+--- a/src/notification.c
++++ b/src/notification.c
+@@ -424,6 +424,9 @@ void notification_init(notification *n)
+         if (strlen(n->msg) > DUNST_NOTIF_MAX_CHARS) {
+                 char *buffer = g_malloc(DUNST_NOTIF_MAX_CHARS);
+                 strncpy(buffer, n->msg, DUNST_NOTIF_MAX_CHARS);
++                buffer[DUNST_NOTIF_MAX_CHARS-4] = '.';
++                buffer[DUNST_NOTIF_MAX_CHARS-3] = '.';
++                buffer[DUNST_NOTIF_MAX_CHARS-2] = '.';
+                 buffer[DUNST_NOTIF_MAX_CHARS-1] = '\0';
+ 
+                 g_free(n->msg);
+@@ -520,14 +523,14 @@ void notification_update_text_to_render(notification *n)
+                 char *new_buf;
+                 if (hours > 0) {
+                         new_buf =
+-                            g_strdup_printf("%s (%ldh %ldm %lds old)", buf, hours,
++                            g_strdup_printf("%s\n%ldh %02ldm %02lds", buf, hours,
+                                             minutes, seconds);
+                 } else if (minutes > 0) {
+                         new_buf =
+-                            g_strdup_printf("%s (%ldm %lds old)", buf, minutes,
++                            g_strdup_printf("%s\n%ldm %02lds", buf, minutes,
+                                             seconds);
+                 } else {
+-                        new_buf = g_strdup_printf("%s (%lds old)", buf, seconds);
++                        new_buf = g_strdup_printf("%s\n%lds", buf, seconds);
+                 }
+ 
+                 g_free(buf);
+diff --git a/src/notification.h b/src/notification.h
+index d5b0ae9..83692c7 100644
+--- a/src/notification.h
++++ b/src/notification.h
+@@ -11,7 +11,7 @@
+ #define NORM 1
+ #define CRIT 2
+ 
+-#define DUNST_NOTIF_MAX_CHARS 5000
++#define DUNST_NOTIF_MAX_CHARS 250
+ 
+ typedef struct _raw_image {
+         int width;

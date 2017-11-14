@@ -75,19 +75,28 @@ vim-config:
 
 define github_clone
 	mkdir -p ~/git
-	[ -e ~/git/$(2) ] || git clone https://github.com/$(1) ~/git/$(2)
-	(cd ~/git/$(2) && git remote set-url origin git@github.com:$(1))
+	[ -e $(2) ] || git clone https://github.com/$(1) $(2)
+	(cd $(2) && git remote set-url origin git@github.com:$(1))
 endef
 
 .PHONY: git-repos
 git-repos:
 	mkdir -p ~/git
-	$(call github_clone,kragen/xcompose,xcompose)
-	$(call github_clone,ccontavalli/ssh-ident,ssh-ident)
+	$(call github_clone,kragen/xcompose,~/git/xcompose)
+	$(call github_clone,ccontavalli/ssh-ident,~/git/ssh-ident)
 
 .PHONY: non-arch-git-repos
 non-arch-git-repos:
-	$(call github_clone,icy/pacapt,pacapt)
+	$(call github_clone,icy/pacapt,~/git/pacapt)
+
+.PHONY: dunst
+dunst:
+	$(call github_clone,dunst-project/dunst,$(DOTFILES)/packages/dunst/src/dunst)
+	cd $(DOTFILES)/packages/dunst/src/dunst && \
+		git checkout -- . && \
+		git apply $(DOTFILES)/packages/dunst/patch.diff
+	cd $(DOTFILES)/packages/dunst && \
+		makepkg -efsri
 
 .PHONY: generic
 generic: shell-config termite-config i3-config x-config ssh-config vim-config git-repos
