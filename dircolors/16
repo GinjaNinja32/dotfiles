@@ -72,7 +72,7 @@ TERM xterm-termite
 RESET 0 # reset to "normal" color
 DIR 01;34
 LINK 01;36
-MULTIHARDLINK 00 multihard01;36
+MULTIHARDLINK 00
 FIFO 40;33
 SOCK 01;35
 DOOR 01;35

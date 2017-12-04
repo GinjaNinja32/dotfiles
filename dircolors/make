@@ -1,4 +1,0 @@
-#! /bin/bash
-
-cat main | sed -f theme-16.sed > 16
-cat main | sed -f theme-256.sed > 256
