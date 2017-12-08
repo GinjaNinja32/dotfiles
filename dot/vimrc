@@ -42,6 +42,14 @@ let g:flake8_cmd = "flake8-python2"
 
 let g:airline_theme = "theme"
 
+" Allow tabs followed by spaces, but not the other way around
+" This allows tabs for indentation, spaces for alignment, e.g.
+" --->--->some_function(foo,
+" --->--->              bar,
+" --->--->              baz)
+" (---> represents a tab, spaces represent themselves)
+let g:airline#extensions#whitespace#mixed_indent_algo = 2
+
 " Disable Airline fonts and set separators to an empty string - this gives a
 " blockier appearance, but doesn't require any fancy fonts
 let g:airline_powerline_fonts = 0
@@ -58,7 +66,7 @@ let g:tmuxline_separators = {
 	\ "right_alt": ''}
 
 " Vertical split separator is a space
-set fillchars+=vert:\ 
+set fillchars+=vert:\  " comment to stop airline yelling about trailing spaces
 
 " map :w!! to write root-only files
 cnoremap w!! w !sudo tee >/dev/null %
@@ -76,7 +84,7 @@ if has("autocmd")
 
 	" lint Go code
 	autocmd BufWritePost *.go :ccl
-	autocmd BufWritePost *.go :GoLint
+	autocmd BufWritePost *.go :GoMetaLinter
 endif
 
 " allow backspacing over everything in insert mode
@@ -167,10 +175,10 @@ endif
 
 set noautoindent    " Disable auto-indenting
 set noexpandtab     " Don't expand tabs to spaces
-set copyindent      " 
-set preserveindent  " 
-set softtabstop=0   " 
-set shiftwidth=4    " 
+set copyindent
+set preserveindent
+set softtabstop=0
+set shiftwidth=4
 set tabstop=4       " Tabs are 4 spaces wide
 
 " Fenced languages for GHFM, ie ["python"] enables Python highlighting for:

@@ -24,11 +24,11 @@
 <Multi_key> <i> <o> <o> : "uː"
 <Multi_key> <i> <o> <u> : "ɔː"
 
-<Multi_key> <i> <u> <u> : "ʌ"
+<Multi_key> <i> <u> <u> : "ʊ"
 <Multi_key> <i> <u> <h> : "ə"
 <Multi_key> <i> <u> <r> : "ɜː"
 
-<Multi_key> <i> <x> <u> <u> : "ʊ"
+<Multi_key> <i> <x> <u> <u> : "ʌ"
 
 # Uncommon but present in English in places
 <Multi_key> <i> <g> <s> : "ʔ"
