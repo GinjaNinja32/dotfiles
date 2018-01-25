@@ -25,7 +25,7 @@ setupterm() {
 
 setupubuntubashrc() {
 	ssh $1 sed -i '"s/xterm-color/xterm-termite|xterm-color/g"' .bashrc
-	echo -e "\ncd ~jenkins/shared/deploy || cd ~jenkins/shared/env/deploy || cd ~cmp/shared/deploy" | ssh $1 tee -a .bashrc > /dev/null
+	echo -e "\nsource <(kubectl completion bash)\ncd ~jenkins/shared/deploy || cd ~jenkins/shared/env/deploy || cd ~cmp/shared/deploy" | ssh $1 tee -a .bashrc > /dev/null
 }
 
 pkg() {
@@ -61,5 +61,5 @@ unhex() {
 lagstat() {
 	expd=$1
 	shift
-	ping $@ | sed -ur 's/.*time=([^.]*)(.*)? ms/\1/' | while read -r i; do if [[ $i > $expd ]]; then echo "$(date +%R) $i"; fi; done | tail --lines=+2
+	ping $@ | tail -n +2 |  sed -ur 's/.*time=([^.]*)(.*)? ms/\1/' | while read -r i; do if [[ "$i" -gt "$expd" ]]; then echo "$(date +%R) $i"; fi; done | tail --lines=+2
 }

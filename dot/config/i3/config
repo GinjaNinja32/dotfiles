@@ -106,6 +106,7 @@ bar {
 }
 
 for_window [title="i3:float"] floating enable
+for_window [title="i3:fullscreen"] fullscreen enable
 for_window [title="PyLNP"] floating enable
 
 exec ~/dotfiles/layouts/main.sh

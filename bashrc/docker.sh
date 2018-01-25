@@ -3,9 +3,11 @@
 dps() {
 	docker ps "$@" --format \
 		'table {{.ID}}\t{{.Image}}\t{{.Command}}\t{{.RunningFor}}\t{{.Status}}\t{{.Names}}' \
-		| sed -re 's|([0-9a-f]+\s+)containers.bespin.nboss.ntt.net:9500/|\1cbnnn/|' \
+		| sed -re 's|^([0-9a-f]+\s+)containers.*:9500/|\1cbnnn/|' \
+		       -e 's|^([0-9a-f]+\s+)gcr.io/google_containers/|\1gcr/|' \
+		       -e 's|^([0-9a-f]+\s+)gcr.io/google-containers/|\1gcr/|' \
 		       -e 's|  +|\t|g' \
-		| column -ts "	"
+		| column -ts $'\t'
 }
 alias dpsa='docker ps -a'
 alias drm='docker rm -fv $(docker ps -qa)'

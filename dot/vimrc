@@ -22,6 +22,7 @@ Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'pearofducks/ansible-vim'
 Plugin 'fatih/vim-go'
 Plugin 'wlue/vim-dm-syntax'
+Plugin 'cespare/vim-toml'
 
 " Testing:
 Plugin 'vim-scripts/indentpython.vim'
@@ -84,7 +85,7 @@ if has("autocmd")
 
 	" lint Go code
 	autocmd BufWritePost *.go :ccl
-	autocmd BufWritePost *.go :GoMetaLinter
+	autocmd BufWritePost *.go :silent GoMetaLinter
 endif
 
 " allow backspacing over everything in insert mode

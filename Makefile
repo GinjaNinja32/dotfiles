@@ -19,7 +19,7 @@ arch-packages:
 
 .PHONY: arch-gui-packages
 arch-gui-packages:
-	pacaur -S xorg-xinit i3 dmenu termite \
+	pacaur -S xorg-xinit i3 dmenu termite feh \
 				pulseaudio pavucontrol pulseaudio-alsa \
 				noto-fonts noto-fonts-emoji noto-fonts-cjk \
 				ttf-dejavu evince baudline-bin thunderbird
@@ -37,6 +37,10 @@ arch-lib32:
 configs:
 	./joinTheDots
 	chmod 700 ~/.ssh
+
+	mkdir -p ~/.local/man/man6/
+	ln -s ~/byond/use/man/man6/DreamMaker.6 ~/.local/man/man6/
+	ln -s ~/byond/use/man/man6/DreamDaemon.6 ~/.local/man/man6/
 
 .PHONY: git-prompt
 git-prompt:
