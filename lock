@@ -1,12 +1,27 @@
 #! /bin/bash
 
-case $(xrandr -q | grep -Eo 'current [[:digit:]]+ x [[:digit:]]+' | sed 's/current //; s/ //g') in
-	3840x2160)
-		image="-i $HOME/dotfiles/bsod_r2d2_4k.png" ;;
-	7680x2160)
-		image="-i $HOME/dotfiles/bsod_r2d2_2x4k.png" ;;
-	*)
-		image="-c #000000" ;;
-esac
+RES="$(xrandr -q | grep -Eo 'current [[:digit:]]+ x [[:digit:]]+' | sed 's/current //; s/ //g')"
+XRES="${RES%x*}"
+YRES="${RES#*x}"
 
-exec i3lock $image
+COUNT=5
+scrot /tmp/screen.png
+for i in $(seq 1 $COUNT); do
+	convert /tmp/screen.png -filter point -resize $(( $XRES / (2*i) ))x -resize ${XRES}x /tmp/screen-obf$i.png &
+done
+wait
+
+xdotool mousemove $((XRES - 400)) $YRES
+feh -F --cycle-once $(seq -f/tmp/screen-obf%.0f.png 1 $((COUNT-1)) ) &
+xdotool click --delay 100 --repeat $(( COUNT - 2 )) 1
+sleep 0.2
+(
+	sleep 0.5
+	pkill feh
+	feh -F --cycle-once $(seq -f/tmp/screen-obf%.0f.png $COUNT -1 1)
+) &
+
+i3lock -n -i /tmp/screen-obf$COUNT.png
+xdotool mousemove $((XRES - 400)) $YRES
+sleep 0.1
+xdotool click --delay 100 --repeat $COUNT 1
