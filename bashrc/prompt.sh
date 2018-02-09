@@ -25,9 +25,9 @@ __code_ps1() {
 	fi
 }
 
-# Primary prompt color, based on user/host
-case "$USER@$(hostname)" in
-	root@*)
+# Primary prompt color, based on user
+case "$USER" in
+	root)
 		__pri=1 # Red prompt for root
 		;;
 	*)
@@ -36,17 +36,17 @@ case "$USER@$(hostname)" in
 esac
 
 __tput() {
-	echo -n \\[$(/usr/bin/tput "$@")\\]
+	echo -n "\\[$(/usr/bin/tput "$@")\\]"
 }
 
 PS1="\
 $(__tput bold)\
-$(__tput setaf $__pri)\\u@\\h\
-$(__tput setaf 4) \\w\
+$(__tput setaf $__pri)\u@\h\
+$(__tput setaf 4) \w\
 $(__tput setaf 3)\$(__git_ps1 ' %s')\
 $(__tput setaf 1)\$(__code_ps1)\
 \n\
-$(__tput setaf 7)\$$(__tput sgr0) "
+$(__tput setaf 7)\\\$$(__tput sgr0) "
 
 case "$TERM" in
 	xterm*|rxvt*)
