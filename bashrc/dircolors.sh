@@ -6,7 +6,11 @@ if [ -x /usr/bin/dircolors ]; then
 	else
 		dircolfile=$HOME/dotfiles/dircolors/16
 	fi
-	test -r $dircolfile && eval "$(dircolors -b $dircolfile)" || eval "$(dircolors -b)"
+	if [ -r "$dircolfile" ]; then
+		eval "$(dircolors -b "$dircolfile")"
+	else
+		eval "$(dircolors -b)"
+	fi
 	alias ls='ls --color=auto'
 	alias grep='grep --color=auto'
 	alias fgrep='fgrep --color=auto'

@@ -41,15 +41,15 @@ __tput() {
 
 PS1="\
 $(__tput bold)\
-$(__tput setaf $__pri)\u@\h\
-$(__tput setaf 4) \w\
+$(__tput setaf $__pri)\\u@\\h\
+$(__tput setaf 4) \\w\
 $(__tput setaf 3)\$(__git_ps1 ' %s')\
 $(__tput setaf 1)\$(__code_ps1)\
-\n\
+\\n\
 $(__tput setaf 7)\\\$$(__tput sgr0) "
 
 case "$TERM" in
 	xterm*|rxvt*)
-		PS1="\[\e]0;\u@\h:\w\a\]$PS1" ;;
+		PS1="\\[\\e]0;\\u@\\h:\\w\\a\\]$PS1" ;;
 	*) ;;
 esac

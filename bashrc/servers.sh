@@ -1,6 +1,8 @@
+#! /bin/bash
 
 setup-server() {
-	alias $1="mosh $1"
+	# shellcheck disable=SC2139
+	alias "$1=mosh $1"
 }
 
 setup-server bot32

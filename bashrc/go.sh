@@ -9,5 +9,5 @@ case "$(hostname)" in
 		;;
 esac
 
-_pathappend $GOPATH/bin
+_pathappend "$GOPATH/bin"
 

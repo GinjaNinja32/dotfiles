@@ -27,9 +27,7 @@ _pathmerge() {
 	'
 }
 
-_pathprepend() { export PATH="$(_pathmerge "$@" "$PATH")" ; }
-_pathappend() {  export PATH="$(_pathmerge "$PATH" "$@")" ; }
+_pathprepend() { PATH="$(_pathmerge "$@" "$PATH")"; export PATH; }
+_pathappend() {  PATH="$(_pathmerge "$PATH" "$@")"; export PATH; }
 
-_manappend() { export MANPATH="$(_pathmerge "$MANPATH" "$@")" ; }
-
-_ldappend() { export LD_LIBRARY_PATH="$(_pathmerge "$LD_LIBRARY_PATH" "$@")" ; }
+_ldappend() { LD_LIBRARY_PATH="$(_pathmerge "$LD_LIBRARY_PATH" "$@")"; export LD_LIBRARY_PATH; }

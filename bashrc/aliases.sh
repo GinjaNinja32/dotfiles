@@ -16,21 +16,21 @@ tdr() { fst=${1:-}; shift; tmux a -dt "$fst" "$@"; } # screen -dr
 alias tn='tmux new -s' # screen -mS
 alias tls='tmux ls 2>/dev/null || echo "No tmux sessions running"'
 
-mcd() { mkdir -p $1; cd $1; }
-smcd() { sudo mkdir -p $1; cd $1; }
+mcd() { mkdir -p "$1" && cd "$1" || return; }
+smcd() { sudo mkdir -p "$1" && cd "$1" || return; }
 
 setupterm() {
-	infocmp $TERM | ssh $1 tic -
+	infocmp "$TERM" | ssh "$1" tic -
 }
 
 setupubuntubashrc() {
-	ssh $1 sed -i '"s/xterm-color/xterm-termite|xterm-color/g"' .bashrc
-	echo -e "\nsource <(kubectl completion bash)\ncd ~jenkins/shared/deploy || cd ~jenkins/shared/env/deploy || cd ~cmp/shared/deploy" | ssh $1 tee -a .bashrc > /dev/null
+	ssh "$1" sed -i '"s/xterm-color/xterm-termite|xterm-color/g"' .bashrc
+	echo -e "\\nsource <(kubectl completion bash)\\ncd ~jenkins/shared/deploy || cd ~jenkins/shared/env/deploy || cd ~cmp/shared/deploy" | ssh "$1" tee -a .bashrc > /dev/null
 }
 
 pkg() {
 	pkg=$1
-	repo=$(pacman -Ss $pkg | grep "/$pkg " | sed 's|/.*||')
+	repo=$(pacman -Ss "$pkg" | grep "/$pkg " | sed 's|/.*||')
 
 	if [[ $pkg != "" && $repo != "" ]]; then
 		chromium "http://archlinux.org/packages/$repo/x86_64/$pkg/"
@@ -41,13 +41,14 @@ bwatch() {
 	while true; do
 		eval output="\$($*)"
 		clear
+		# shellcheck disable=SC2154
 		echo "$output"
 		sleep 0.5
 	done
 }
 
 rand() {
-	cat /dev/urandom | head -c $1
+	head -c "$1" /dev/urandom
 }
 
 hex() {
@@ -61,5 +62,5 @@ unhex() {
 lagstat() {
 	expd=$1
 	shift
-	ping $@ | tail -n +2 |  sed -ur 's/.*time=([^.]*)(.*)? ms/\1/' | while read -r i; do if [[ "$i" -gt "$expd" ]]; then echo "$(date +%R) $i"; fi; done | tail --lines=+2
+	ping "$@" | tail -n +2 |  sed -ur 's/.*time=([^.]*)(.*)? ms/\1/' | while read -r i; do if [[ "$i" -gt "$expd" ]]; then echo "$(date +%R) $i"; fi; done | tail --lines=+2
 }
