@@ -12,8 +12,9 @@ dps() {
 alias dpsa='docker ps -a'
 alias drm='docker rm -fv $(docker ps -qa)'
 alias dvrm='docker volume rm $(docker volume ls -q)'
-# shellcheck disable=SC2142
-alias dll='docker logs "$(docker ps -a | head -2 | tail -1 | awk '\''{print $1}'\'')"'
+dll() {
+	docker logs "$(docker ps -a | head -2 | tail -1 | awk '{print $1}')"
+}
 
 export COMP_WORDBREAKS="${COMP_WORDBREAKS//:/}"
 docker2tar() {
