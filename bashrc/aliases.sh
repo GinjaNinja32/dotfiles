@@ -59,6 +59,14 @@ unhex() {
 	xxd -ps -r
 }
 
+b64uuid() {
+	base64 -d | xxd -ps | sed -r 's/^(.{8})(.{4})(.{4})(.{4})(.{12})$/\1-\2-\3-\4-\5/'
+}
+
+uuidb64() {
+	tr -d '-' | xxd -ps -r | base64
+}
+
 lagstat() {
 	expd=$1
 	shift

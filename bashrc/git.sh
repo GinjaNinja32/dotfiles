@@ -14,6 +14,10 @@ alias ggrepi='git grep -i -B0 -A0'
 alias gu='git stash && git pull && git stash pop'
 
 gws() {
+	wgs git "$@"
+}
+
+wgs() {
 	stashargs=()
 	while [[ $1 =~ ^- ]]; do
 		if [[ $1 == "--" ]]; then
@@ -26,7 +30,7 @@ gws() {
 
 	out="$(git stash "${stashargs[@]}")"
 	echo "$out"
-	git "$@"
+	"$@"
 	if [[ "$out" =~ 'Saved working directory' ]]; then
 		git stash pop
 	fi

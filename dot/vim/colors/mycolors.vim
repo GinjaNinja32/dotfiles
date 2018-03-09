@@ -30,6 +30,7 @@ hi Special      ctermfg=LightGrey
 hi StatusLine   ctermfg=236
 hi StatusLineNC ctermfg=236
 hi VertSplit    ctermfg=236
+hi SignColumn   ctermbg=234
 hi LineNr       ctermfg=242
 
 hi diffAdded    ctermfg=Green cterm=bold

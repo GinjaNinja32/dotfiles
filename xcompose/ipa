@@ -7,6 +7,9 @@
 <Multi_key> <i> <T> <H> : "θ"
 <Multi_key> <i> <z> <h> : "ʒ"
 
+<Multi_key> <i> <r> <r> : "ɹ"
+<Multi_key> <i> <t> <r> : "ɾ"
+
 <Multi_key> <i> <a> <a> : "ɑː"
 <Multi_key> <i> <a> <h> : "æ"
 <Multi_key> <i> <a> <i> : "aɪ"

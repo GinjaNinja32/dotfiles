@@ -1,1 +1,11 @@
+! Menu button => Compose
 keysym Menu = Multi_key
+
+! Caps Lock => Hyper
+keysym Caps_Lock = Hyper_L
+
+! Caps Lock/Hyper is Mod3
+remove Mod4 = Hyper_L
+remove Lock = Caps_Lock
+clear Mod3
+add Mod3 = Hyper_L

@@ -29,6 +29,8 @@ Plugin 'vim-scripts/indentpython.vim'
 Plugin 'nvie/vim-flake8'
 
 Plugin 'romainl/vim-qf'
+
+Plugin 'w0rp/ale'
 " Plugin 'scrooloose/syntastic'
 
 call vundle#end()
@@ -66,6 +68,25 @@ let g:tmuxline_separators = {
 	\ "left_alt": '',
 	\ "right_alt": ''}
 
+let g:go_metalinter_autosave = 0
+let g:go_fmt_autosave = 0
+
+let g:ale_sign_column_always = 1
+let g:ale_linters = {
+	\ 'go': ['go build', 'gofmt', 'golint', 'gometalinter', 'gosimple', 'go vet', 'staticcheck'],
+	\ 'json': 'all',
+	\}
+
+let g:ale_python_flake8_executable = 'python3'
+let g:ale_python_flake8_options = '-m flake8'
+
+let g:ale_go_gometalinter_options = "--disable gocyclo --concurrency 2"
+let g:ale_fixers = {
+	\ 'json': 'fixjson',
+	\ 'go': 'gofmt',
+	\}
+let g:ale_fix_on_save = 1
+
 " Vertical split separator is a space
 set fillchars+=vert:\  " comment to stop airline yelling about trailing spaces
 
@@ -76,17 +97,11 @@ cnoremap w!! w !sudo tee >/dev/null %
 let g:ansible_extra_syntaxes = "yaml.vim"
 
 if has("autocmd")
-	" format JSON with tabs
-	autocmd FileType json autocmd BufWritePost *.json :silent !which jq >/dev/null && (TMP=$(mktemp /tmp/jqXXXXXXXX); cat % | jq --tab --sort-keys . 2>/dev/null > $TMP && mv $TMP % || rm $TMP)
-
-	" format Python according to PEP8
-	autocmd BufWritePost *.py call Flake8()
-	autocmd FileType python autocmd BufEnter :setlocal ts=4 et
-
-	" lint Go code
-	autocmd BufWritePost *.go :ccl
-	autocmd BufWritePost *.go :silent GoMetaLinter
+	autocmd BufRead PKGBUILD :set ft=PKGBUILD
 endif
+
+nmap <silent> <C-k> <Plug>(ale_previous_wrap)
+nmap <silent> <C-j> <Plug>(ale_next_wrap)
 
 " allow backspacing over everything in insert mode
 set backspace=indent,eol,start
