@@ -3,47 +3,104 @@
 set nocompatible " Vim, not vi
 filetype off
 
-set rtp+=~/.vim/bundle/Vundle.vim " Start Vundle
-call vundle#begin()
+if empty(glob("~/.vim/autoload/plug.vim"))
+    execute '!curl --create-dirs -fLo ~/.vim/autoload/plug.vim https://raw.github.com/junegunn/vim-plug/master/plug.vim'
+endif
 
-Plugin 'VundleVim/Vundle.vim'
+call plug#begin() " start plug
 
 " Visual:
-Plugin 'bling/vim-airline'
-Plugin 'edkolev/tmuxline.vim'
+" Plug 'bling/vim-airline'
+" Plug 'edkolev/tmuxline.vim'
 
 " Utils:
-Plugin 'scrooloose/nerdtree'
-Plugin 'tpope/vim-surround'
-Plugin 'majutsushi/tagbar'
-Plugin 'ctrlpvim/ctrlp.vim'
+Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
+Plug 'tpope/vim-surround'
+Plug 'majutsushi/tagbar', { 'on': 'TagbarToggle' }
+Plug 'ctrlpvim/ctrlp.vim', { 'on': 'CtrlP' }
+Plug 'w0rp/ale'
+
+" Fugitive:
+" Needed for lazy loading :(
+Plug 'tpope/vim-fugitive', { 'on': [] }
+
+command! Gstatus call LazyLoadFugitive('Gstatus')
+command! Gdiff call LazyLoadFugitive('Gdiff')
+command! Glog call LazyLoadFugitive('Glog')
+command! Gblame call LazyLoadFugitive('Gblame')
+
+function! LazyLoadFugitive(cmd)
+  call plug#load('vim-fugitive')
+  call fugitive#detect(expand('%:p'))
+  exe a:cmd
+endfunction
 
 " Languages:
-Plugin 'pearofducks/ansible-vim'
-Plugin 'fatih/vim-go'
-Plugin 'wlue/vim-dm-syntax'
-Plugin 'cespare/vim-toml'
+Plug 'pearofducks/ansible-vim'
+Plug 'fatih/vim-go', { 'for': 'go', 'do': ':GoInstallBinaries' }
+Plug 'wlue/vim-dm-syntax', { 'for': 'dm' }
+Plug 'cespare/vim-toml', { 'for': 'toml' }
+Plug 'vim-scripts/indentpython.vim', { 'for': 'python' }
 
 " Testing:
-Plugin 'vim-scripts/indentpython.vim'
-Plugin 'nvie/vim-flake8'
+Plug 'romainl/vim-qf'
+Plug 'itchyny/lightline.vim'
 
-Plugin 'romainl/vim-qf'
-
-Plugin 'w0rp/ale'
-" Plugin 'scrooloose/syntastic'
-
-call vundle#end()
+call plug#end()
 filetype plugin indent on
+
+let g:loaded_getscriptPlugin   = 1
+let g:loaded_gzip              = 1
+let g:loaded_logiPat           = 1
+let g:loaded_rrhelper          = 1
+let g:loaded_tarPlugin         = 1
+let g:loaded_vimballPlugin     = 1
+let g:loaded_zipPlugin         = 1
 
 set rtp+=~/dotfiles/vim " Include custom non-plugin Vim things
 
 map <F2> :NERDTreeToggle<CR>
 map <F3> :TagbarToggle<CR>
 
-let g:flake8_cmd = "flake8-python2"
-
 let g:airline_theme = "theme"
+let g:lightline = {
+	\ 'colorscheme': 'theme',
+	\ 'separator': { 'left': '', 'right': '' },
+	\ 'subseparator': { 'left': '', 'right': '' },
+	\ 'active': {
+	\	'left': [
+	\		[ 'mode', 'paste' ],
+	\		[ 'fileinfo' ],
+	\		[ 'tag' ],
+	\	],
+	\	'right': [
+	\		[ 'aleE', 'aleW', 'lineinfo' ],
+	\		[ 'percent' ],
+	\		[ 'fileformat', 'fileencoding', 'filetype' ],
+	\	],
+	\ },
+	\ 'inactive': {
+	\	'left': [
+	\		[ 'mode', 'paste' ],
+	\		[ 'fileinfo' ],
+	\	],
+	\	'right': [
+	\		[ 'lineinfo' ],
+	\	],
+	\ },
+	\ 'component_function': {
+	\	'fileinfo': 'status#fileinfo',
+	\ },
+	\ 'component_expand': {
+	\	'aleE': 'status#aleE',
+	\	'aleW': 'status#aleW',
+	\ },
+	\ 'component_type': {
+	\ 	'aleE': 'error',
+	\ 	'aleW': 'warning',
+	\ }
+	\ }
+autocmd User ALELint call lightline#update() " Update status bar on lint.
 
 " Allow tabs followed by spaces, but not the other way around
 " This allows tabs for indentation, spaces for alignment, e.g.
@@ -73,14 +130,26 @@ let g:go_fmt_autosave = 0
 
 let g:ale_sign_column_always = 1
 let g:ale_linters = {
-	\ 'go': ['go build', 'gofmt', 'golint', 'gometalinter', 'gosimple', 'go vet', 'staticcheck'],
+	\ 'go': 'all',
 	\ 'json': 'all',
 	\}
+" ['go build', 'gofmt', 'golint', 'gometalinter', 'gosimple', 'go vet', 'staticcheck'],
 
-let g:ale_python_flake8_executable = 'python3'
+
+" Lint Python 2 scripts with 'python2 -m flake8' instead of 'python3 -m flake8'
+autocmd FileType python
+			\ if getline(1) =~ '^#!.*\<python3\>' |
+			\     let b:ale_python_flake8_executable = 'python3' |
+			\ endif
+
+let g:ale_python_flake8_executable = 'python2'
 let g:ale_python_flake8_options = '-m flake8'
 
-let g:ale_go_gometalinter_options = "--disable gocyclo --concurrency 2"
+let g:ale_go_gotype_lint_package = 1
+let g:ale_go_gosimple_lint_package = 1
+let g:ale_go_staticcheck_lint_package = 1
+let g:ale_go_gometalinter_lint_package = 1
+let g:ale_go_gometalinter_options = "--disable gocyclo --concurrency 1"
 let g:ale_fixers = {
 	\ 'json': 'fixjson',
 	\ 'go': 'gofmt',
@@ -114,6 +183,7 @@ set autoread
 set nobackup
 set noswapfile
 set nowritebackup
+set noshowmode
 
 set nojoinspaces
 

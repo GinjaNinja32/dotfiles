@@ -1,18 +1,35 @@
 #! /bin/bash
 
-id=$(cat /dev/urandom | head -c4 | xxd -g4 | cut -d' ' -f2)
+name=""
+layout=even-horizontal
+
+while [[ "$1" =~ ^-.* ]]; do
+	case "$1" in
+		--) shift; break;;
+		-n) name="$2"; shift 2;;
+		-v) layout=even-vertical; shift;;
+		*)
+			echo "unrecognised argument $1"
+			exit 1
+			;;
+	esac
+done
+
+if [[ "$name" == "" ]]; then
+	name=$(head -c4 /dev/urandom | xxd -g4 | cut -d' ' -f2)
+fi
 
 create="tmux new-session -n main -ds"
 
 for cmd in "$@"; do
-	$create $id
+	$create "$name"
 	tmux send-keys "$cmd" C-m
 	tmux join-pane -s temp -t main 2>/dev/null
-	tmux select-layout even-horizontal
+	tmux select-layout "$layout"
 
 	create="tmux new-window -n temp -t"
 done
 
 tmux setw synchronize-panes on
-tmux a -t $id
+tmux a -t "$name"
 

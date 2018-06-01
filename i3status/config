@@ -8,24 +8,28 @@ general {
 	interval = 1
 }
 
+order += "memstats"
 order += "disk /"
-order += "ethernet enp3s0"
-order += "ethernet usb0"
+order += "wireless wlp3s0"
+order += "ethernet enp4s0f0"
+order += "ethernet tun0"
 order += "volume master"
 order += "load"
 order += "tztime local"
 
-ethernet enp3s0 {
-	format_up = "E: %ip (%speed)"
-	format_down = ""
-}
-ethernet usb0 {
-	format_up = "USB: %ip"
-	format_down = ""
+wireless wlp3s0 {
+        format_up = "W: %ip (%quality - %essid)"
+        format_down = ""
 }
 
-battery 0 {
-	format = "%status %percentage %remaining"
+ethernet enp4s0f0 {
+        format_up = "E: %ip (%speed)"
+        format_down = ""
+}
+
+ethernet tun0 {
+        format_up = "VPN: %ip (%speed)"
+        format_down = ""
 }
 
 tztime local {
@@ -41,8 +45,8 @@ disk "/" {
 }
 
 volume master {
-	format = "V: %volume"
-	format_muted = "V: %volume (MUTE)"
+	format = "%volume"
+	format_muted = "%volume (MUTE)"
 	device = "default"
 	mixer = "Master"
 	mixer_idx = 0

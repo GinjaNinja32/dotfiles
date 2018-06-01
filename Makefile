@@ -20,9 +20,10 @@ arch-packages:
 .PHONY: arch-gui-packages
 arch-gui-packages:
 	pacaur -S xorg-xinit i3 dmenu termite feh \
-				pulseaudio pavucontrol pulseaudio-alsa \
-				noto-fonts noto-fonts-emoji noto-fonts-cjk \
-				ttf-dejavu evince baudline-bin thunderbird
+	          pulseaudio pavucontrol pulseaudio-alsa \
+	          noto-fonts noto-fonts-emoji noto-fonts-cjk \
+	          ttf-dejavu evince baudline-bin thunderbird \
+	          py3status-git
 
 .PHONY: arch-lib32
 arch-lib32:

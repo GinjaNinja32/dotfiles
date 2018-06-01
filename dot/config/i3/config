@@ -1,7 +1,6 @@
 
-bindsym --release Print exec screenshot
-bindsym --release Shift+Print exec screenshot
-bindsym --release Mod4+Print exec SCREENSHOT_FULL_SCREEN=1 screenshot
+# vim: ft=conf
+
 hide_edge_borders both
 new_window pixel 1
 new_float pixel 1
@@ -20,6 +19,11 @@ bindsym $mod+Return exec termite
 bindsym $mod+Shift+Return exec termite -t 'i3:float'
 bindsym $mod+Shift+q kill
 bindsym $mod+d exec dmenu_run -b -l 15 -p '$' -fn 'Deja Vu Sans Mono'
+
+bindsym --release $mod+m exec pactl set-sink-mute 0 toggle
+bindsym --release Print exec screenshot
+bindsym --release Shift+Print exec screenshot
+bindsym --release $mod+Print exec SCREENSHOT_FULL_SCREEN=1 screenshot
 
 bindsym $mod+h focus left
 bindsym $mod+j focus down
@@ -91,7 +95,7 @@ client.urgent           #770000 #770000 #eeeeee #770000 #770000
 client.background       #000000
 
 bar {
-	status_command i3status
+	status_command py3status -c ~/dotfiles/i3status/config -i ~/dotfiles/i3status
 	colors {
 		background #222222
 		statusline #bbbbbb

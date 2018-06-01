@@ -1,22 +1,25 @@
 #! /bin/bash
 
-vertical=false
-type=bg
-useBold=false
+vertical="false"
+type="bg"
+useBold="false"
 
 OPTIND=1
 while getopts "vfbt" opt; do
 	case "$opt" in
 		v)
-			vertical=true
+			vertical="true"
 			;;
 		f)
-			type=fg
+			type="fg"
 			;;
 		b)
-			type=fg
-			useBold=true
+			type="fg"
+			useBold="true"
 			;;
+		*)
+			echo "unknown option $opt"
+			exit 1
 	esac
 done
 
@@ -29,21 +32,21 @@ showcolor() {
 			cap="setaf $1"
 			;;
 		bg)
-			cap="setaf 243\nsetab $1"
+			cap="setaf 243\\nsetab $1"
 			;;
 	esac
-	if $useBold; then
-		cap="$cap\nbold"
+	if [[ "$useBold" == "true" ]]; then
+		cap="$cap\\nbold"
 	fi
 	printf "%s%4s%s" "$(echo -e "$cap" | tput -S)" "$1" "$sgr0"
 }
 
-printf "\n"
+printf '\n'
 for i in {0..15}; do
-	showcolor $i
+	showcolor "$i"
 	if [[ $((i % 8)) == 7 ]]; then echo; fi
 done
-printf "\n"
+printf '\n'
 
 for a in {0..5}; do
 	for b in {0..5}; do
@@ -54,7 +57,7 @@ for a in {0..5}; do
 				showcolor $(( 16 + b*36 + a*6 + c ))
 			fi
 		done
-		if $vertical; then
+		if [[ "$vertical" == "true" ]]; then
 			echo
 		else
 			printf "  "
@@ -63,13 +66,13 @@ for a in {0..5}; do
 	echo
 done
 
-if ! $vertical; then
-	printf "\n"
+if [[ "$vertical" != "true" ]]; then
+	printf '\n'
 fi
 
 for i in {232..255}; do
-	showcolor $i
-	if $vertical && [[ $((i % 8)) == 7 ]]; then echo; fi
+	showcolor "$i"
+	if [[ "$vertical" == "true" ]] && [[ $((i % 8)) == 7 ]]; then echo; fi
 done
-printf "\n\n"
+printf '\n\n'
 

@@ -72,3 +72,9 @@ lagstat() {
 	shift
 	ping "$@" | tail -n +2 |  sed -ur 's/.*time=([^.]*)(.*)? ms/\1/' | while read -r i; do if [[ "$i" -gt "$expd" ]]; then echo "$(date +%R) $i"; fi; done | tail --lines=+2
 }
+
+splitgrep() {
+	pattern="${1//\//\\\/}"
+
+	awk '/'"$pattern"'/ { print $0; next } { print $0 > "/dev/stderr" }'
+}
