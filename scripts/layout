@@ -1,0 +1,23 @@
+#! /bin/bash
+
+set -euo pipefail
+
+host="$(hostname)"
+opt="$1"
+
+cd ~/dotfiles/layouts
+
+if [[ ! -e "$host-$opt.sh" ]]; then
+	echo "Layout $host-$opt does not exist!"
+	exit 1
+fi
+
+if [[ -h "$host.sh" ]]; then
+	rm "$host.sh"
+elif [[ -e "$host.sh" ]]; then
+	echo "$host.sh exists and is not a symlink!"
+	exit 1
+fi
+
+ln -s "$host-$opt.sh" "$host.sh"
+"./$host.sh"

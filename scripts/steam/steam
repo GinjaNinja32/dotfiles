@@ -1,0 +1,4 @@
+#! /bin/bash
+
+export GDK_SCALE=1
+exec /usr/bin/steam "$@"

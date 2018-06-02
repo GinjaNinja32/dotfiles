@@ -5,9 +5,15 @@ findkey() {
 }
 
 WINE=false
-if [[ $1 == "wine" ]]; then
-	WINE=true
-fi
+NEW=false
+while [[ $# > 0 ]]; do
+	if [[ $1 == "wine" ]]; then
+		WINE=true
+	elif [[ $1 == "new" ]]; then
+		NEW=true
+	fi
+	shift
+done
 
 getcurrentbinary() {
 	appid=$1
@@ -42,6 +48,9 @@ for k in "$manifestspath"/appmanifest*.acf; do
 	this_name=$(findkey "$k" name)
 
 	default=$(getcurrentbinary "$this_appid")
+	if $NEW && [[ $default != "" ]]; then
+		continue
+	fi
 	binary=$(getbinname "$this_name" "$default")
 	if [[ $binary == "" ]]; then
 		continue
