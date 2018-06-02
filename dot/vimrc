@@ -10,8 +10,7 @@ endif
 call plug#begin() " start plug
 
 " Visual:
-" Plug 'bling/vim-airline'
-" Plug 'edkolev/tmuxline.vim'
+Plug 'itchyny/lightline.vim'
 
 " Utils:
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
@@ -44,7 +43,6 @@ Plug 'vim-scripts/indentpython.vim', { 'for': 'python' }
 
 " Testing:
 Plug 'romainl/vim-qf'
-Plug 'itchyny/lightline.vim'
 
 call plug#end()
 filetype plugin indent on
