@@ -37,7 +37,8 @@ class Py3status:
                 swpT = int(arr[1])
                 swpU = int(arr[2])
 
-        bad["swap"] = max(0, 10 * swpU / swpT)
+        if swpT > 0:
+            bad["swap"] = max(0, 10 * swpU / swpT)
         bad["mem"] = max(0, (0.5 * memT / memA) - 1)
 
         mem = {}
