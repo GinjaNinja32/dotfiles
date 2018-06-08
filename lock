@@ -7,11 +7,11 @@ YRES="${RES#*x}"
 COUNT=5
 scrot /tmp/screen.png
 for i in $(seq 1 $COUNT); do
-	convert /tmp/screen.png -filter point -resize $(( $XRES / (2*i) ))x -resize ${XRES}x /tmp/screen-obf$i.png &
+	gm convert /tmp/screen.png -filter point -resize $(( XRES / (2*i) ))x -resize "${XRES}x" "/tmp/screen-obf$i.png" &
 done
 wait
 
-xdotool mousemove $((XRES - 400)) $YRES
+xdotool mousemove $((XRES - 400)) "$YRES"
 feh -F --cycle-once $(seq -f/tmp/screen-obf%.0f.png 1 $((COUNT-1)) ) &
 xdotool click --delay 100 --repeat $(( COUNT - 2 )) 1
 sleep 0.2
@@ -22,6 +22,6 @@ sleep 0.2
 ) &
 
 i3lock -n -i /tmp/screen-obf$COUNT.png
-xdotool mousemove $((XRES - 400)) $YRES
+xdotool mousemove $((XRES - 400)) "$YRES"
 sleep 0.1
 xdotool click --delay 100 --repeat $COUNT 1

@@ -23,7 +23,7 @@ arch-gui-packages:
 	          pulseaudio pavucontrol pulseaudio-alsa \
 	          noto-fonts noto-fonts-emoji noto-fonts-cjk \
 	          ttf-dejavu evince baudline-bin thunderbird \
-	          py3status-git scrot
+	          py3status-git scrot graphicsmagick
 
 .PHONY: arch-lib32
 arch-lib32:
