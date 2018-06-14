@@ -13,6 +13,7 @@ def fmtM(val):
 
 
 class Py3status:
+    compact = False
     cache_timeout = 1
 
     def _cmd(self, cmd):
@@ -70,14 +71,17 @@ class Py3status:
                                          fmtM(memT),
                                          fmtM(memF),
                                          fmtM(memA))]
-        for v, k in reversed(sorted([(mem[a], a) for a in mem])[-3:]):
-            memitems.append("%s=%s" % (k, fmtM(v / 1000)))
+        if not self.compact:
+            for v, k in reversed(sorted([(mem[a], a) for a in mem])[-3:]):
+                memitems.append("%s=%s" % (k, fmtM(v / 1000)))
 
         items.append(" ".join(memitems))
 
         cpuitems = ["%.1f%%" % cpuTotal]
-        for v, k in reversed(sorted([(cpu[a], a) for a in cpu])[-3:]):
-            cpuitems.append("%s=%.1f" % (k, v))
+
+        if not self.compact:
+            for v, k in reversed(sorted([(cpu[a], a) for a in cpu])[-3:]):
+                cpuitems.append("%s=%.1f" % (k, v))
         items.append(" ".join(cpuitems))
 
         bad["cpu"] = max(0, cpuTotal / 100 - 1)
