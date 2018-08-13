@@ -13,4 +13,5 @@ include "/home/benpaxton/dotfiles/xcompose/ipa"
 <Multi_key> <g> <a> <p> : "🍏"
 <Multi_key> <r> <a> <p> : "🍎"
 <Multi_key> <p> <s> <i> : "ΨΩΔ"
-<Multi_key> <Multi_key> <minus>: U0336
+<Multi_key> <Multi_key> <Multi_key> <minus>: U0336
+<Multi_key> <Multi_key> <minus>: U0335

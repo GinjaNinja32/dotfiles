@@ -1,0 +1,4 @@
+#! /bin/bash
+
+cd "$(readlink -f .)"
+exec "$GOPATH/bin/dep" "$@"

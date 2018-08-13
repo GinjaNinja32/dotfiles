@@ -15,7 +15,7 @@ arch-packages:
 	$(call AUR_INSTALL,cower)
 	$(call AUR_INSTALL,pacaur)
 	
-	pacaur -S tig python python2 htop nmap
+	pacaur -S tig python python2 htop nmap fzf
 
 .PHONY: arch-gui-packages
 arch-gui-packages:

@@ -2,8 +2,13 @@
 
 HISTCONTROL=ignoreboth
 shopt -s histappend
-HISTSIZE=1000
-HISTFILESIZE=2000
+export HISTSIZE=
+export HISTFILESIZE=
+if ! [[ "$PROMPT_COMMAND" =~ history\ -a ]]; then
+	PROMPT_COMMAND=${PROMPT_COMMAND:+$PROMPT_COMMAND; }'history -a'
+	export PROMPT_COMMAND
+fi
+export HISTFILE=~/.bash_eternal_history
 shopt -s checkwinsize
 shopt -s globstar
 

@@ -1,6 +1,8 @@
+#! /usr/bin/env python3
 
 import subprocess
 import math
+import json
 
 
 def fmtM(val):
@@ -14,15 +16,20 @@ def fmtM(val):
 
 class Py3status:
     compact = False
-    cache_timeout = 1
+    cache_timeout = 0
 
     def _cmd(self, cmd):
         cmd = subprocess.Popen(cmd, stdout=subprocess.PIPE)
         return cmd.stdout.readlines()
 
-    def memstats(self):
-        bad = {}
+    def _color(self, bf):
+        if bf > 1:
+            return "#ff0000"
+        red = int(255 * math.sqrt(bf))
+        green = int(255 * math.sqrt(1-bf))
+        return "#%0.2x%0.2x00" % (red, green)
 
+    def memstats(self):
         memT, memU, memF, memA = 0, 0, 0, 0
         swpT, swpU = 0, 0
 
@@ -37,10 +44,6 @@ class Py3status:
             elif arr[0] == b"Swap:":
                 swpT = int(arr[1])
                 swpU = int(arr[2])
-
-        if swpT > 0:
-            bad["swap"] = max(0, 10 * swpU / swpT)
-        bad["mem"] = max(0, (0.5 * memT / memA) - 1)
 
         mem = {}
         cpu = {}
@@ -65,7 +68,12 @@ class Py3status:
 
         items = []
         if swpU > 0:
-            items.append("SWP: %s/%s" % (fmtM(swpU), fmtM(swpT)))
+            items.append({
+                "full_text": "SWP: %s/%s" % (fmtM(swpU), fmtM(swpT)),
+                "color": "#00ff00",  # self._color(max(0, 10 * swpU / swpT)),
+                "separator": True,
+                "a": 1,
+            })
 
         memitems = ["%s/%s F=%s A=%s" % (fmtM(memU),
                                          fmtM(memT),
@@ -75,33 +83,39 @@ class Py3status:
             for v, k in reversed(sorted([(mem[a], a) for a in mem])[-3:]):
                 memitems.append("%s=%s" % (k, fmtM(v / 1000)))
 
-        items.append(" ".join(memitems))
+        items.append({
+            "full_text": " ".join(memitems),
+            "color": self._color(max(0, (0.5 * memT / memA) - 1)),
+            "separator": True,
+            "a": 2,
+        })
 
         cpuitems = ["%.1f%%" % cpuTotal]
-
         if not self.compact:
             for v, k in reversed(sorted([(cpu[a], a) for a in cpu])[-3:]):
                 cpuitems.append("%s=%.1f" % (k, v))
-        items.append(" ".join(cpuitems))
 
-        bad["cpu"] = max(0, cpuTotal / 100 - 1)
+        items.append({
+            "full_text": " ".join(cpuitems),
+            "color": self._color(max(0, cpuTotal / 100 - 1)),
+            "separator": True,
+            "a": 3,
+        })
 
         with open("/proc/loadavg", "r") as f:
             la = [float(n) for n in f.read().split(" ")[:3]]
 
-        bad["swp0"] = max(0, (la[0]-4) / 4)
-        bad["swp1"] = max(0, (la[1]-4) / 6)
-        bad["swp2"] = max(0, (la[2]-4) / 8)
-        items.append("%.2f %.2f %.2f" % (la[0], la[1], la[2]))
+        for i in [0, 1, 2]:
+            items.append({
+                "full_text": "%.2f" % la[i],
+                "color": self._color(max(0, (la[i]-4) / 4)),
+                "separator": i == 2,
+                "a": 4+i,
+            })
 
-        total = 0
-        for cat in bad:
-            total += bad[cat]
+        return {"composite": items}
 
-        items.append("%.2f" % total)
-        bf = min(6, total) / 6
-        red = int(255 * math.sqrt(bf))
-        green = int(255 * math.sqrt(1-bf))
-        color = "#%0.2x%0.2x00" % (red, green)
 
-        return {"full_text": " | ".join(items), "color": color}
+if __name__ == "__main__":
+    s = Py3status()
+    print(json.dumps(s.memstats(), indent=4))

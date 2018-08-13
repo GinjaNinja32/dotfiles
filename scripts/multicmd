@@ -3,7 +3,7 @@
 name=""
 layout=even-horizontal
 
-while [[ "$1" =~ ^-.* ]]; do
+while [[ "$1" =~ ^- ]]; do
 	case "$1" in
 		--) shift; break;;
 		-n) name="$2"; shift 2;;

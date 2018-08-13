@@ -14,7 +14,6 @@ order += "wireless wlp3s0"
 order += "ethernet enp4s0f0"
 order += "ethernet tun0"
 order += "volume master"
-order += "load"
 order += "tztime local"
 
 wireless wlp3s0 {
@@ -34,10 +33,6 @@ ethernet tun0 {
 
 tztime local {
 	format = "%a %Y-%m-%d %H:%M:%S"
-}
-
-load {
-	format = "%1min %5min %15min"
 }
 
 disk "/" {

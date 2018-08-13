@@ -1,0 +1,9 @@
+#! /bin/bash
+
+setxkbmap "$@"
+
+read -rp "Press enter to reset: "
+
+setxkbmap gb "" pc105
+xmodmap ~/.Xmodmap
+

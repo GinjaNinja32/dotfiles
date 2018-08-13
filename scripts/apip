@@ -1,0 +1,47 @@
+#! /bin/bash
+
+set -euo pipefail
+
+APIP_DIR="$HOME/.cache/apip"
+
+python=python2
+p2a_args=()
+while getopts "p:" OPT; do
+	case "$OPT" in
+		p)
+			python="$OPTARG"
+			;;
+		*)
+			echo "unknown option '$OPT'"
+			exit 1
+			;;
+	esac
+done
+shift $((OPTIND-1))
+
+p2a_args=("${p2a_args[@]}" "--python" "$python")
+
+install_package() {
+	pkgname="$python-$1"
+
+	if [[ ! -e "$APIP_DIR/$pkgname" ]]; then
+		mkdir -p "$APIP_DIR/$pkgname"
+	fi
+	cd "$APIP_DIR/$pkgname"
+
+	pip2arch.py "${p2a_args[@]}" --output-package-name "$pkgname" "$1"
+	makepkg -sri
+}
+
+op="$1"
+shift
+case "$op" in
+	install)
+		for pkg in "$@"; do
+			install_package "$pkg"
+		done;;
+	*)
+		echo "unknown operation '$op'" >&2
+		exit 1
+		;;
+esac
