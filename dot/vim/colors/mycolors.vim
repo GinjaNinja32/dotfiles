@@ -7,6 +7,8 @@ if version > 580
 endif
 let g:colors_name="mycolors"
 
+hi erlangAtom	ctermfg=Red  cterm=bold
+
 hi Normal       ctermfg=LightGrey  ctermbg=Black
 hi Function     ctermfg=Yellow
 hi String       ctermfg=Red

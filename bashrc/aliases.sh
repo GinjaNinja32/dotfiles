@@ -84,3 +84,7 @@ splitgrep() {
 htc() {
 	tee >(head -n"${1:-10}" >&2; cat >/dev/null) >(tail -n"${2:-${1:-10}}" >&2) | wc -l
 }
+
+detachedmosh() {
+	who | grep -v 'via mosh' | grep -oP '(?<=mosh \[)(\d+)(?=\])'
+}
