@@ -25,7 +25,9 @@ setupterm() {
 
 setupubuntubashrc() {
 	ssh "$1" sed -i '"s/xterm-color/xterm-termite|xterm-color/g"' .bashrc
-	echo -e "\\nsource <(kubectl completion bash)\\ncd ~jenkins/shared/deploy || cd ~jenkins/shared/env/deploy || cd ~cmp/shared/deploy" | ssh "$1" tee -a .bashrc > /dev/null
+	ssh "$1" tee -a .bashrc > /dev/null <<<'
+cd ~jenkins/shared/deploy || cd ~jenkins/shared/env/deploy || cd ~cmp/shared/deploy
+export EDITOR=vim'
 }
 
 pkg() {
@@ -77,4 +79,8 @@ splitgrep() {
 	pattern="${1//\//\\\/}"
 
 	awk '/'"$pattern"'/ { print $0; next } { print $0 > "/dev/stderr" }'
+}
+
+htc() {
+	tee >(head -n"${1:-10}" >&2; cat >/dev/null) >(tail -n"${2:-${1:-10}}" >&2) | wc -l
 }

@@ -1,0 +1,28 @@
+#! /bin/bash
+
+_remove=()
+while [[ "$1" =~ = ]]; do
+	_var="${1%%=*}"
+	_pattern="${1#*=}"
+	_tmp="$(mktemp -p /tmp -- "$_pattern")"
+	eval "export $_var='$_tmp'"
+	_remove=("${_remove[@]}" "$_tmp")
+	shift
+done
+if [[ "$1" == "-d" ]]; then
+	shift
+	while [[ "$1" =~ = ]]; do
+		_var="${1%%=*}"
+		_pattern="${1#*=}"
+		_tmp="$(mktemp -p /tmp -d -- "$_pattern")"
+		eval "export $_var='$_tmp'"
+		_remove=("${_remove[@]}" "$_tmp")
+		shift
+	done
+fi
+
+"$@"
+
+for f in "${_remove[@]}"; do
+	rm -r "$f"
+done

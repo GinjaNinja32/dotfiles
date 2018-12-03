@@ -14,13 +14,14 @@ else
 	}
 fi
 
+# shellcheck disable=SC2059
 __code_ps1() {
 	c=$?
 	if [ $c -ne 0 ]; then
 		if [[ 128 -lt $c ]] && [[ $c -le 192 ]]; then
-			echo " [$c SIG$(kill -l $((c - 128)))]"
+			printf "$1" "[$c SIG$(kill -l $((c - 128)))]"
 		else
-			echo " [$c]"
+			printf "$1" "[$c]"
 		fi
 	fi
 }
@@ -44,7 +45,7 @@ $(__tput bold)\
 $(__tput setaf $__pri)\\u@\\h\
 $(__tput setaf 4) \\w\
 $(__tput setaf 3)\$(__git_ps1 ' %s')\
-$(__tput setaf 1)\$(__code_ps1)\
+$(__tput setaf 1)\$(__code_ps1 ' %s')\
 \\n\
 $(__tput bold; __tput setaf 7)\\\$ $(__tput sgr0)"
 

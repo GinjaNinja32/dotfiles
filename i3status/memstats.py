@@ -3,6 +3,7 @@
 import subprocess
 import math
 import json
+import os.path
 
 
 def fmtM(val):
@@ -16,7 +17,7 @@ def fmtM(val):
 
 class Py3status:
     compact = False
-    cache_timeout = 0
+    cache_timeout = 5
 
     def _cmd(self, cmd):
         cmd = subprocess.Popen(cmd, stdout=subprocess.PIPE)
@@ -45,9 +46,16 @@ class Py3status:
                 swpT = int(arr[1])
                 swpU = int(arr[2])
 
-        mem = {}
         cpu = {}
         cpuTotal = 0
+
+        processStates = {
+            "S": 0,
+            "I": 0,
+            "Z": 0,
+            "R": 0,
+            "D": 0,
+        }
 
         for l in self._cmd(["ps", "aux"]):
             arr = l.split()
@@ -57,16 +65,45 @@ class Py3status:
 
             arr[10] = arr[10].decode("utf-8").split("/")[-1]
 
-            if arr[10] not in mem:
-                mem[arr[10]] = 0
+            #if arr[10] not in mem:
+            #    mem[arr[10]] = 0
             if arr[10] not in cpu:
                 cpu[arr[10]] = 0
 
             cpu[arr[10]] += float(arr[2])
             cpuTotal += float(arr[2])
-            mem[arr[10]] += int(arr[5])
+            #mem[arr[10]] += int(arr[5])
+
+            state = arr[7][:1].decode("utf-8")
+
+            if state not in processStates:
+                processStates[state] = 0
+
+            processStates[state] += 1
 
         items = []
+        statesList = sorted(processStates.keys())
+        for k in statesList:
+            v = processStates[k]
+            color = "#00ff00"
+            if k not in ["S", "I"]:
+                color = self._color(v/5)
+            items.append({
+                "full_text": "%s=%d" % (k, v),
+                "separator": k == statesList[-1],
+                "color": color,
+                "k": k,
+            })
+
+        mem = {}
+        for l in self._cmd(["bash", "-c", "cd %s && ./memstats2" % os.path.dirname(os.path.realpath(__file__))]):
+            arr = l.decode("utf-8").strip().split(" ", 1)
+
+            if arr[1] not in mem:
+                mem[arr[1]] = 0
+
+            mem[arr[1]] += int(arr[0])
+
         if swpU > 0:
             items.append({
                 "full_text": "SWP: %s/%s" % (fmtM(swpU), fmtM(swpT)),

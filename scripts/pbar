@@ -1,0 +1,28 @@
+#! /bin/bash
+
+pos="$1"
+max="${2:-100}"
+is_range="${2+true}"
+width=$(($(tput cols)-2-7))
+if [[ "$is_range" == "true" ]]; then
+	width=$((width - 2 - 2*${#max}))
+fi
+
+pct="$(awk "BEGIN{print 100 * $pos / $max}")"
+chars="$((width * pos / max))"
+
+printf '\r['
+if [[ "$chars" -gt 0 ]]; then
+	printf '%.0s=' $(seq 1 "$chars")
+fi
+if [[ "$chars" -lt "$width" ]]; then
+	printf '>'
+fi
+if [[ "$chars" -lt "$((width-1))" ]]; then
+	printf '%.0s_' $(seq "$chars" "$((width-2))")
+fi
+if [[ "$is_range" == "true" ]]; then
+	printf "] %${#max}s/%${#max}s %5.1f%%" "$pos" "$max" "$pct"
+else
+	printf '] %5.1f%%' "$pct"
+fi

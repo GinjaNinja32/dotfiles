@@ -5,7 +5,7 @@ type="bg"
 useBold="false"
 
 OPTIND=1
-while getopts "vfbt" opt; do
+while getopts "vfbBt" opt; do
 	case "$opt" in
 		v)
 			vertical="true"
@@ -16,6 +16,10 @@ while getopts "vfbt" opt; do
 		b)
 			type="fg"
 			useBold="true"
+			;;
+		B)
+			type="fg"
+			useBold="both"
 			;;
 		*)
 			echo "unknown option $opt"
@@ -35,10 +39,12 @@ showcolor() {
 			cap="setaf 243\\nsetab $1"
 			;;
 	esac
-	if [[ "$useBold" == "true" ]]; then
-		cap="$cap\\nbold"
+	if [[ "$useBold" != "true" ]]; then
+		printf "%s%4s%s" "$(echo -e "$cap" | tput -S)" "$1" "$sgr0"
 	fi
-	printf "%s%4s%s" "$(echo -e "$cap" | tput -S)" "$1" "$sgr0"
+	if [[ "$useBold" != "false" ]]; then
+		printf "%s%4sB%s" "$(echo -e "$cap\\nbold" | tput -S)" "$1" "$sgr0"
+	fi
 }
 
 printf '\n'

@@ -1,0 +1,20 @@
+#! /bin/bash
+
+value="$1"
+scale="${2:-1}"
+
+rscaled="$(<<<"8*$value/$scale" bc)"
+scaled="${rscaled%.*}"
+#for _ in $(seq 1 $((scaled/8))); do printf '█'; done
+printf "%.0s█" $(seq 1 $((scaled/8)))
+
+case $((scaled%8)) in
+	*1) printf '▏';;
+	*2) printf '▎';;
+	*3) printf '▍';;
+	*4) printf '▌';;
+	*5) printf '▋';;
+	*6) printf '▊';;
+	*7) printf '▉';;
+esac
+

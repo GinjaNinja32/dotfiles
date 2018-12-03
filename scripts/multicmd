@@ -8,6 +8,7 @@ while [[ "$1" =~ ^- ]]; do
 		--) shift; break;;
 		-n) name="$2"; shift 2;;
 		-v) layout=even-vertical; shift;;
+		-t) layout=tiled; shift;;
 		*)
 			echo "unrecognised argument $1"
 			exit 1
@@ -16,20 +17,28 @@ while [[ "$1" =~ ^- ]]; do
 done
 
 if [[ "$name" == "" ]]; then
-	name=$(head -c4 /dev/urandom | xxd -g4 | cut -d' ' -f2)
+	name=$(head -c4 /dev/urandom | xxd -ps)
 fi
 
-create="tmux new-session -n main -ds"
+tmux new-session -n main -ds "$name"
+tmux send-keys "$1" C-m
+tmux select-layout "$layout"
+shift 1
 
-for cmd in "$@"; do
-	$create "$name"
-	tmux send-keys "$cmd" C-m
-	tmux join-pane -s temp -t main 2>/dev/null
+setup-rest() {
+	sleep 0.1
+	for cmd in "$@"; do
+		tmux new-window -n temp -t "$name"
+		tmux send-keys "$cmd" C-m
+		tmux join-pane -s temp -t main 2>/dev/null
+		tmux select-layout "$layout"
+	done
+
 	tmux select-layout "$layout"
+	tmux setw synchronize-panes on
+}
 
-	create="tmux new-window -n temp -t"
-done
+setup-rest "$@" &
 
-tmux setw synchronize-panes on
 tmux a -t "$name"
 

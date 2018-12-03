@@ -44,6 +44,8 @@ Plug 'vim-scripts/indentpython.vim', { 'for': 'python' }
 " Testing:
 Plug 'romainl/vim-qf'
 
+Plug 'christoomey/vim-tmux-navigator'
+
 call plug#end()
 filetype plugin indent on
 
@@ -167,8 +169,8 @@ if has("autocmd")
 	autocmd BufRead PKGBUILD :set ft=PKGBUILD
 endif
 
-nmap <silent> <C-k> <Plug>(ale_previous_wrap)
-nmap <silent> <C-j> <Plug>(ale_next_wrap)
+nmap <silent> <F6> <Plug>(ale_previous_wrap)
+nmap <silent> <F5> <Plug>(ale_next_wrap)
 
 " allow backspacing over everything in insert mode
 set backspace=indent,eol,start

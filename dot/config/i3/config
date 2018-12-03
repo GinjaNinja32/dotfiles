@@ -16,7 +16,7 @@ floating_modifier $mod
 
 bindsym $mod+o exec ~/dotfiles/lock
 bindsym $mod+Return exec termite
-bindsym $mod+Shift+Return exec termite -t 'i3:float'
+bindsym $mod+Shift+Return exec termite --class 'i3:float'
 bindsym $mod+Shift+q kill
 bindsym $mod+d exec dmenu_run -b -l 15 -p '$' -fn 'Deja Vu Sans Mono'
 
@@ -109,8 +109,8 @@ bar {
 	}
 }
 
-for_window [title="i3:float"] floating enable
-for_window [title="i3:fullscreen"] fullscreen enable
+for_window [class="i3:float"] floating enable
+for_window [class="i3:fullscreen"] fullscreen enable
 for_window [title="PyLNP"] floating enable
 
 exec ~/dotfiles/layouts/main.sh

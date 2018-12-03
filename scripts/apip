@@ -6,7 +6,7 @@ APIP_DIR="$HOME/.cache/apip"
 
 python=python2
 p2a_args=()
-while getopts "p:" OPT; do
+while getopts "p:v:" OPT; do
 	case "$OPT" in
 		p)
 			python="$OPTARG"
@@ -22,14 +22,25 @@ shift $((OPTIND-1))
 p2a_args=("${p2a_args[@]}" "--python" "$python")
 
 install_package() {
-	pkgname="$python-$1"
+	case "$1" in
+		*@*)
+			pkg="${1%@*}"
+			args=("${p2a_args[@]}" "--version" "${1##*@}")
+			;;
+		*)
+			pkg="$1"
+			args=("${p2a_args[@]}")
+			;;
+	esac
+
+	pkgname="$python-$pkg"
 
 	if [[ ! -e "$APIP_DIR/$pkgname" ]]; then
 		mkdir -p "$APIP_DIR/$pkgname"
 	fi
 	cd "$APIP_DIR/$pkgname"
 
-	pip2arch.py "${p2a_args[@]}" --output-package-name "$pkgname" "$1"
+	pip2arch.py "${args[@]}" --output-package-name "$pkgname" "$pkg"
 	makepkg -sri
 }
 
