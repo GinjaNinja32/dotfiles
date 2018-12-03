@@ -10,7 +10,9 @@ for f in ck2_map_*.bmp; do
 	ts="$(stat "$f" --format %Y)"
 	dst="map-$(date --date="@$ts" +"$timestamp_format").png"
 
-	convert "$f" "$dst"
-	scp -S ssh "$dst" "thanatos.gn32.uk:www/i/$dst"
-	xdg-open "https://thanatos.gn32.uk/i/$dst" &
+	if ! [[ -e "$dst" ]]; then
+		convert "$f" "$dst"
+		scp -S ssh "$dst" "thanatos.gn32.uk:www/i/$dst"
+		xdg-open "https://thanatos.gn32.uk/i/$dst" &
+	fi
 done

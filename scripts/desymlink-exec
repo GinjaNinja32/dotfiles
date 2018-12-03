@@ -1,0 +1,7 @@
+#! /bin/bash
+set -euo pipefail
+cd "$(readlink -f .)"
+
+PATH_without_self="$(<<<"$PATH" tr : '\n' | sed "/$(dirname "$0" | sed 's/\//\\\//g')/d" | tr '\n' :)"
+main_executable="$(PATH="$PATH_without_self" which "$(basename "$0")")"
+exec "$main_executable" "$@"

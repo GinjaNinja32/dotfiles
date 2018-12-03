@@ -8,6 +8,9 @@ Host thanatos
 Host erebus
 	Hostname erebus.gn32.uk
 
+Host zephyrus
+	Hostname zephyrus.gn32.uk
+
 Host bot32
 	User bot32
 	Hostname thanatos.gn32.uk
