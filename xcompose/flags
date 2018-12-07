@@ -1,0 +1,28 @@
+# vim: ft=conf
+
+<Multi_key> <f> <a> : U1F1E6
+<Multi_key> <f> <b> : U1F1E7
+<Multi_key> <f> <c> : U1F1E8
+<Multi_key> <f> <d> : U1F1E9
+<Multi_key> <f> <e> : U1F1EA
+<Multi_key> <f> <f> : U1F1EB
+<Multi_key> <f> <g> : U1F1EC
+<Multi_key> <f> <h> : U1F1ED
+<Multi_key> <f> <i> : U1F1EE
+<Multi_key> <f> <j> : U1F1EF
+<Multi_key> <f> <k> : U1F1F0
+<Multi_key> <f> <l> : U1F1F1
+<Multi_key> <f> <m> : U1F1F2
+<Multi_key> <f> <n> : U1F1F3
+<Multi_key> <f> <o> : U1F1F4
+<Multi_key> <f> <p> : U1F1F5
+<Multi_key> <f> <q> : U1F1F6
+<Multi_key> <f> <r> : U1F1F7
+<Multi_key> <f> <s> : U1F1F8
+<Multi_key> <f> <t> : U1F1F9
+<Multi_key> <f> <u> : U1F1FA
+<Multi_key> <f> <v> : U1F1FB
+<Multi_key> <f> <w> : U1F1FC
+<Multi_key> <f> <x> : U1F1FD
+<Multi_key> <f> <y> : U1F1FE
+<Multi_key> <f> <z> : U1F1FF
