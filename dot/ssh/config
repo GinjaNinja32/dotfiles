@@ -10,6 +10,7 @@ Host erebus
 
 Host zephyrus
 	Hostname zephyrus.gn32.uk
+	Port 3222
 
 Host bot32
 	User bot32
