@@ -7,7 +7,7 @@ if version > 580
 endif
 let g:colors_name="mycolors"
 
-hi erlangAtom	ctermfg=Red  cterm=bold
+hi erlangAtom   ctermfg=Red  cterm=bold
 
 hi Normal       ctermfg=LightGrey  ctermbg=Black
 hi Function     ctermfg=Yellow
@@ -34,6 +34,9 @@ hi StatusLineNC ctermfg=236
 hi VertSplit    ctermfg=236
 hi SignColumn   ctermbg=234
 hi LineNr       ctermfg=242
+
+hi NonText      ctermfg=65
+hi SpecialKey   ctermfg=65
 
 hi diffAdded    ctermfg=Green cterm=bold
 hi diffChanged  ctermfg=Blue  cterm=bold

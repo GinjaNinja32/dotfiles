@@ -2,8 +2,10 @@
 
 pos="$1"
 max="${2:-100}"
+desc="$3"
 is_range="${2+true}"
-width=$(($(tput cols)-2-7))
+cols="$(tput cols)"
+width=$((cols-2-7))
 if [[ "$is_range" == "true" ]]; then
 	width=$((width - 2 - 2*${#max}))
 fi
@@ -11,7 +13,11 @@ fi
 pct="$(awk "BEGIN{print 100 * $pos / $max}")"
 chars="$((width * pos / max))"
 
-printf '\r['
+printf '\r'
+if [[ "$desc" != "" ]]; then
+	printf "\\033[F%s%.${cols}s\\n" "$(tput el)" "$desc"
+fi
+printf '['
 if [[ "$chars" -gt 0 ]]; then
 	printf '%.0s=' $(seq 1 "$chars")
 fi

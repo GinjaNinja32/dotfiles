@@ -199,6 +199,8 @@ set number        " show line numbers
 set nowrap        " don't wrap long lines automatically
 set sidescroll=2
 
+set listchars=tab:>\ ,space:.
+
 " Don't use Ex mode, use Q for formatting
 map Q gq
 
