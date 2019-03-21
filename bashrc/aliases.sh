@@ -19,15 +19,9 @@ alias tls='tmux ls 2>/dev/null || echo "No tmux sessions running"'
 mcd() { mkdir -p "$1" && cd "$1" || return; }
 smcd() { sudo mkdir -p "$1" && cd "$1" || return; }
 
-setupterm() {
+setup() {
 	infocmp "$TERM" | ssh "$1" tic -
-}
-
-setupubuntubashrc() {
-	ssh "$1" sed -i '"s/xterm-color/xterm-termite|xterm-color/g"' .bashrc
-	ssh "$1" tee -a .bashrc > /dev/null <<<'
-cd ~jenkins/shared/deploy || cd ~jenkins/shared/env/deploy || cd ~cmp/shared/deploy
-export EDITOR=vim'
+	scp ~/.remotebashrc "$1":.bashrc
 }
 
 pkg() {
@@ -87,4 +81,12 @@ htc() {
 
 detachedmosh() {
 	who | grep -v 'via mosh' | grep -oP '(?<=mosh \[)(\d+)(?=\])'
+}
+
+diff() {
+	command diff \
+		--old-line-format="$(tput setaf 1)-%l$(tput sgr0)"$'\n' \
+		--new-line-format="$(tput setaf 2)+%l$(tput sgr0)"$'\n' \
+		--unchanged-line-format=" %L" \
+		"$@"
 }

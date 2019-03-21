@@ -149,7 +149,10 @@ let g:ale_go_gotype_lint_package = 1
 let g:ale_go_gosimple_lint_package = 1
 let g:ale_go_staticcheck_lint_package = 1
 let g:ale_go_gometalinter_lint_package = 1
-let g:ale_go_gometalinter_options = "--disable gocyclo --concurrency 1"
+let g:ale_go_gometalinter_options = "--disable gocyclo --enable gosimple --enable staticcheck --concurrency 2"
+
+let g:ale_rust_cargo_use_clippy = 1
+
 let g:ale_fixers = {
 	\ 'json': 'fixjson',
 	\ 'go': 'gofmt',

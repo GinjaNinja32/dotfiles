@@ -1,12 +1,14 @@
 #! /bin/bash
 
 name=""
+prefix=""
 layout=even-horizontal
 
 while [[ "$1" =~ ^- ]]; do
 	case "$1" in
 		--) shift; break;;
 		-n) name="$2"; shift 2;;
+		-p) prefix="$2"; shift 2;;
 		-v) layout=even-vertical; shift;;
 		-t) layout=tiled; shift;;
 		*)
@@ -17,25 +19,26 @@ while [[ "$1" =~ ^- ]]; do
 done
 
 if [[ "$name" == "" ]]; then
-	name=$(head -c4 /dev/urandom | xxd -ps)
+	name="$prefix$(head -c4 /dev/urandom | xxd -ps)"
 fi
 
-tmux new-session -n main -ds "$name"
-tmux send-keys "$1" C-m
-tmux select-layout "$layout"
+tmux new-session -n "$name" -ds "$name"
+tmux send-keys -t "$name" "$1" C-m
+tmux select-layout -t "$name" "$layout"
 shift 1
 
 setup-rest() {
 	sleep 0.1
 	for cmd in "$@"; do
-		tmux new-window -n temp -t "$name"
-		tmux send-keys "$cmd" C-m
-		tmux join-pane -s temp -t main 2>/dev/null
-		tmux select-layout "$layout"
+		tmux select-window -t "$name" \; \
+			new-window \; \
+			send-keys "$cmd" C-m \; \
+			join-pane -t "$name" \; \
+			select-layout "$layout"
 	done
 
-	tmux select-layout "$layout"
-	tmux setw synchronize-panes on
+	tmux select-layout -t "$name" "$layout"
+	tmux setw -t "$name" synchronize-panes on
 }
 
 setup-rest "$@" &

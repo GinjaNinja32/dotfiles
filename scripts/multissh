@@ -1,16 +1,29 @@
 #! /bin/bash
 
-args=()
-while [[ "$1" =~ ^- ]]; do
-	if [[ "$1" == "--" ]]; then
-		shift
+i=1
+d=false
+while (( i < $# )) && [[ "${!i}" =~ ^- ]]; do
+	n=0
+	case "${!i}" in
+		--) d=true;;
+		-n) n=2;;
+		-p) n=2;;
+		-v) n=1;;
+		-t) n=1;;
+		*)
+			echo "unrecognised argument ${!i}"
+			exit 1
+			;;
+	esac
+	(( i = i + n ))
+	if [[ "$d" == "true" ]]; then
 		break
 	fi
-	args=( "${args[@]}" "$1" )
-	shift
 done
+argsi="$i"
+[[ "$d" == "true" ]] && (( argsi++ ))
 cmds=()
-for server in "$@"; do
+for server in "${@:$argsi}"; do
 	cmds=( "${cmds[@]}" "ssh $server" )
 done
-multicmd "${args[@]}" -- "${cmds[@]}"
+multicmd "${@:1:$((i-1))}" -- "${cmds[@]}"

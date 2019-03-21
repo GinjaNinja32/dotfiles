@@ -1,6 +1,6 @@
 [global]
 	monitor = 0
-	geometry = "300x10+5+5"
+	geometry = "300x10+1770+5"
 
 	indicate_hidden = yes
 	shrink = no
