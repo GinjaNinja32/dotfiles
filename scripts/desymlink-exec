@@ -2,6 +2,14 @@
 set -euo pipefail
 cd "$(readlink -f .)"
 
-PATH_without_self="$(<<<"$PATH" tr : '\n' | sed "/$(dirname "$0" | sed 's/\//\\\//g')/d" | tr '\n' :)"
-main_executable="$(PATH="$PATH_without_self" which "$(basename "$0")")"
+remove_from_path() {
+	<<<"$1" tr : '\n' | sed "/$(dirname "$2" | sed 's/\//\\\//g')/d" | tr '\n' : | sed -E 's/:+$//g'
+}
+
+main_executable="$0"
+PATH_mod="$PATH"
+while [[ "$(readlink -f "$main_executable")" == "$(readlink -f "$0")" ]]; do
+	PATH_mod="$(remove_from_path "$PATH_mod" "$main_executable")"
+	main_executable="$(PATH="$PATH_mod" which "$(basename "$0")")"
+done
 exec "$main_executable" "$@"
