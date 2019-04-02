@@ -35,11 +35,13 @@ bindsym $mod+Shift+j move down
 bindsym $mod+Shift+k move up
 bindsym $mod+Shift+l move right
 
-bindsym $mod+g split h
-bindsym $mod+v split v
+bindsym $mod+Shift+g split h
+bindsym $mod+Shift+v split v
 bindsym $mod+f fullscreen toggle
 bindsym $mod+Shift+f fullscreen toggle global
 
+bindsym $mod+g layout splith
+bindsym $mod+v layout splitv
 bindsym $mod+s layout stacking
 bindsym $mod+w layout tabbed
 bindsym $mod+e layout toggle split
@@ -96,6 +98,24 @@ client.background       #000000
 
 bar {
 	status_command py3status -c ~/dotfiles/i3status/config -i ~/dotfiles/i3status
+	colors {
+		background #222222
+		statusline #bbbbbb
+		separator  #555555
+
+		focused_workspace  #005577 #005577 #eeeeee
+		active_workspace   #222222 #222222 #bbbbbb
+		inactive_workspace #222222 #222222 #bbbbbb
+		urgent_workspace   #770000 #770000 #eeeeee
+		binding_mode       #770000 #770000 #eeeeee
+	}
+}
+bar {
+	status_command py3status -c ~/dotfiles/i3status/config2 -i ~/dotfiles/i3status
+	tray_output none
+	workspace_buttons no
+	binding_mode_indicator no
+	position top
 	colors {
 		background #222222
 		statusline #bbbbbb

@@ -96,7 +96,7 @@ class Py3status:
             })
 
         mem = {}
-        for l in self._cmd(["bash", "-c", "cd %s && ./memstats2" % os.path.dirname(os.path.realpath(__file__))]):
+        for l in self._cmd(["bash", "-c", "cd %s && ./memstats" % os.path.dirname(os.path.realpath(__file__))]):
             arr = l.decode("utf-8").strip().split(" ", 1)
 
             if arr[1] not in mem:
