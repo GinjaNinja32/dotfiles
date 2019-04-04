@@ -37,14 +37,17 @@ bindsym $mod+Shift+l move right
 
 bindsym $mod+Shift+g split h
 bindsym $mod+Shift+v split v
-bindsym $mod+f fullscreen toggle
-bindsym $mod+Shift+f fullscreen toggle global
+bindsym $mod+Shift+s split h, layout stacking
+bindsym $mod+Shift+w split h, layout tabbed
 
 bindsym $mod+g layout splith
 bindsym $mod+v layout splitv
 bindsym $mod+s layout stacking
 bindsym $mod+w layout tabbed
 bindsym $mod+e layout toggle split
+
+bindsym $mod+f fullscreen toggle
+bindsym $mod+Shift+f fullscreen toggle global
 
 bindsym $mod+Shift+space floating toggle
 bindsym $mod+space focus mode_toggle
@@ -111,7 +114,7 @@ bar {
 	}
 }
 bar {
-	status_command py3status -c ~/dotfiles/i3status/config2 -i ~/dotfiles/i3status
+	status_command py3status -c ~/dotfiles/i3status/config-top -i ~/dotfiles/i3status
 	tray_output none
 	workspace_buttons no
 	binding_mode_indicator no
