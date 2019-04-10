@@ -1,10 +1,6 @@
 #! /bin/bash
 
-RES="$(xrandr -q | grep -Eo 'current [[:digit:]]+ x [[:digit:]]+' | sed 's/current //; s/ //g')"
-XRES="${RES%x*}"
-# YRES="${RES#*x}"
+scrot -z /tmp/screen.png
+gm convert /tmp/screen.png -filter point -resize 10% -resize 1000% "/tmp/screen-obf.png"
 
-scrot /tmp/screen.png
-gm convert /tmp/screen.png -filter point -resize $(( XRES / 10 ))x -resize "${XRES}x" "/tmp/screen-obf.png"
-
-i3lock -n -i /tmp/screen-obf.png
+exec i3lock -n -i /tmp/screen-obf.png
