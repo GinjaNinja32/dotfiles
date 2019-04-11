@@ -1,6 +1,9 @@
 ! Menu button => Compose
 keysym Menu = Multi_key
 
+! Shift-AltGr === AltGr-Shift, not Compose
+keycode 108 = ISO_Level3_Shift ISO_Level3_Shift ISO_Level3_Shift ISO_Level3_Shift
+
 ! Caps Lock => Hyper
 keysym Caps_Lock = Hyper_L
 

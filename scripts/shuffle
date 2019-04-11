@@ -1,0 +1,3 @@
+#! /bin/bash
+
+exec mpv --volume 60 --no-audio-display --shuffle "$@"
