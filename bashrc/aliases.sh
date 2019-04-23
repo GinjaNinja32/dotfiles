@@ -10,7 +10,6 @@ alias sprunge='curl -F "sprunge=<-" http://sprunge.us'
 alias mosh='mosh --predict=experimental'
 alias scp='scp -S ssh'
 
-alias tmux='tmux -2'
 txr() { fst=${1:-}; shift; tmux a -t "$fst" "$@"; } # screen -x
 tdr() { fst=${1:-}; shift; tmux a -dt "$fst" "$@"; } # screen -dr
 alias tn='tmux new -s' # screen -mS
