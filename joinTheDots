@@ -1,11 +1,13 @@
 #! /bin/bash
 
+set -euo pipefail
+
 cd "$(readlink -f .)"
 
-for f in $(find dot -type f); do
-	target="$(readlink -f $f)"
+find dot -type f | while read -r f; do
+	target="$(readlink -f "$f")"
 	location="$HOME/.${f#dot/}"
-	location_dir="$(dirname $location)"
+	location_dir="$(dirname "$location")"
 
 	if [[ -h "$location" ]]; then
 		rm "$location"
