@@ -5,13 +5,12 @@ alias gca='git commit --amend'
 alias gcra='git commit --amend --reset-author'
 alias gd='git diff'
 alias gdc='git diff --cached'
-alias gf='git fetch --all'
-alias gp='git push'
-alias gpp='git pull'
+alias gf='git fetch'
+alias gps='git push'
+alias gpl='gws pull' # pull is rebase so need to gws
 alias gs='git status'
-alias ggrep='git grep -B0 -A0'
-alias ggrepi='git grep -i -B0 -A0'
-alias gu='git stash && git pull && git stash pop'
+alias gg='git grep -B0 -A0'
+alias ggi='git grep -i -B0 -A0'
 alias dw="bwatch 'git diff --color=always | head -n\$(( \$(tput lines) - 1 ))'"
 
 gws() {

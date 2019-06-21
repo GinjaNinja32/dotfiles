@@ -35,25 +35,25 @@ bindsym $mod+Shift+j move down
 bindsym $mod+Shift+k move up
 bindsym $mod+Shift+l move right
 
-bindsym $mod+Shift+g split h
-bindsym $mod+Shift+v split v
-bindsym $mod+Shift+s split h, layout stacking
-bindsym $mod+Shift+w split h, layout tabbed
-
 bindsym $mod+g layout splith
 bindsym $mod+v layout splitv
 bindsym $mod+s layout stacking
 bindsym $mod+w layout tabbed
 bindsym $mod+e layout toggle split
 
+bindsym $mod+Shift+g split h
+bindsym $mod+Shift+v split v
+bindsym $mod+Shift+s split h, layout stacking
+bindsym $mod+Shift+w split h, layout tabbed
+
 bindsym $mod+f fullscreen toggle
 bindsym $mod+Shift+f fullscreen toggle global
 
-bindsym $mod+Shift+space floating toggle
 bindsym $mod+space focus mode_toggle
+bindsym $mod+Shift+space floating toggle
 
 bindsym $mod+a focus parent
-#bindsym $mod+d focus child
+bindsym $mod+z focus child
 
 bindsym $mod+1 workspace 1
 bindsym $mod+2 workspace 2

@@ -23,7 +23,9 @@ done
 argsi="$i"
 [[ "$d" == "true" ]] && (( argsi++ ))
 cmds=()
+prefix="-"
 for server in "${@:$argsi}"; do
 	cmds=( "${cmds[@]}" "ssh $server" )
+	prefix="$prefix$server-"
 done
-multicmd "${@:1:$((i-1))}" -- "${cmds[@]}"
+multicmd -p "${prefix:1}" "${@:1:$((i-1))}" -- "${cmds[@]}"

@@ -34,7 +34,9 @@ pkg() {
 
 bwatch() {
 	while true; do
-		eval output="\$($*)"
+		#eval output="\$($*)"
+		# shellcheck disable=SC2048
+		output="$($*)"
 		clear
 		# shellcheck disable=SC2154
 		echo "$output"
@@ -74,8 +76,24 @@ splitgrep() {
 	awk '/'"$pattern"'/ { print $0; next } { print $0 > "/dev/stderr" }'
 }
 
+splithttp() {
+	hdrfile=/dev/stderr
+	bdyfile=/dev/stdout
+	if [[ "$#" -gt 0 && "$1" == "-h" ]]; then
+		hdrfile=/dev/stdout
+		bdyfile=/dev/stderr
+	fi
+	awk "
+	BEGIN { headers=1; body=0; }
+	{ if(headers) { print \$0 > \"$hdrfile\" } }
+	{ if(body) { print \$0 > \"$bdyfile\" } }
+	/^\\r?$/ { headers=0; body=1; }"
+}
+
 htc() {
-	tee >(head -n"${1:-10}" >&2; cat >/dev/null) >(tail -n"${2:-${1:-10}}" >&2) | wc -l
+	nh="${1:-10}"
+	nt="${2:-$nh}"
+	awk "NR<=$nh{ print } { lines[NR] = \$0; delete lines[NR-$nt]; } END{ for(line in lines) {print lines[line]}; print NR }"
 }
 
 detachedmosh() {
