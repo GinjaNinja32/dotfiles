@@ -1,13 +1,13 @@
 set background=dark
 if version > 580
-	hi clear
-	if exists("syntax_on")
-		syntax reset
-	endif
+    hi clear
+    if exists("syntax_on")
+        syntax reset
+    endif
 endif
 let g:colors_name="mycolors"
 
-hi erlangAtom   ctermfg=Red  cterm=bold
+hi erlangAtom      ctermfg=Red  cterm=bold
 
 hi Normal          ctermfg=LightGrey  ctermbg=Black
 hi Function        ctermfg=Yellow
@@ -16,7 +16,7 @@ hi Comment         ctermfg=Magenta
 hi Type            ctermfg=Green
 hi Boolean         ctermfg=Cyan
 hi Number          ctermfg=Red  cterm=bold
-hi link Float Number
+hi link Float      Number
 hi Identifier      ctermfg=Green
 hi Operator        ctermfg=Green
 hi Keyword         ctermfg=Cyan
@@ -38,9 +38,15 @@ hi LineNr          ctermfg=242
 hi NonText         ctermfg=65
 hi SpecialKey      ctermfg=65
 
+hi link shShellVariables    Identifier
+hi link shLoop              Repeat
+hi shRedir                  ctermfg=Yellow
+hi link shTestOpr           Statement
+hi link shRepeat            Normal
+
 hi diffAdded       ctermfg=Green cterm=bold
-hi diffChanged     ctermfg=Blue  cterm=bold
-hi diffRemoved     ctermfg=Red   cterm=bold
+hi diffChanged     ctermfg=Blue cterm=bold
+hi diffRemoved     ctermfg=Red cterm=bold
 
 hi ALEError        ctermfg=16 ctermbg=Red
 hi ALEWarning      ctermfg=16 ctermbg=Yellow
