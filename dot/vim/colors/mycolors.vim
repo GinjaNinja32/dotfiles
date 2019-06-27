@@ -1,3 +1,5 @@
+" vim: ts=4 sw=4 et
+
 set background=dark
 if version > 580
     hi clear
@@ -43,6 +45,7 @@ hi link shLoop              Repeat
 hi shRedir                  ctermfg=Yellow
 hi link shTestOpr           Statement
 hi link shRepeat            Normal
+hi link shQuote             String
 
 hi diffAdded       ctermfg=Green cterm=bold
 hi diffChanged     ctermfg=Blue cterm=bold
