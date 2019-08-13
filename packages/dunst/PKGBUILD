@@ -1,5 +1,5 @@
 pkgname=custom-dunst
-pkgver=1.0.0
+pkgver=1.4.1_5_g53e7f3d
 pkgrel=1
 
 pkgdesc="Customizable and lightweight notification-daemon"
@@ -11,8 +11,19 @@ depends=('libxinerama' 'libxss' 'pango' 'libnotify' 'gtk2' 'libxdg-basedir')
 provides=('notification-daemon' 'dunst')
 conflicts=('dunst')
 
-source=()
-md5sums=()
+source=('git+https://github.com/dunst-project/dunst' 'patch.diff')
+md5sums=('SKIP' 'SKIP')
+
+
+pkgver() {
+	cd "$srcdir/dunst"
+	git describe --tags --always --long | sed -e 's/-/_/g' -e 's/^v//'
+}
+
+prepare() {
+	cd "$srcdir/dunst"
+	git apply "$srcdir/patch.diff"
+}
 
 build() {
 	make -C "$srcdir/dunst" X11INC=/usr/include/X11 X11LIB=/usr/lib/X11
