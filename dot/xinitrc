@@ -43,6 +43,9 @@ pactl load-module module-x11-bell sample=x11-bell
 xset b on
 xset b 100
 
+compton &
+hsetroot -solid '#000000'
+
 export GTK_IM_MODULE=xim
 export QT_IM_MODULE=xim
 exec i3
