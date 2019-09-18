@@ -25,6 +25,36 @@ bindsym --release Print exec screenshot
 bindsym --release Shift+Print exec screenshot
 bindsym --release $mod+Print exec SCREENSHOT_FULL_SCREEN=1 screenshot
 
+bindsym --release $mod+p exec pavucontrol
+
+# Pulseaudio controls
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5% #increase sound volume
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -5% #decrease sound volume
+bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle # mute sound
+
+# Media player controls
+bindsym XF86AudioPlay exec playerctl play-pause
+bindsym XF86AudioNext exec playerctl next
+bindsym XF86AudioPrev exec playerctl previous
+
+bindsym XF86AudioForward mode "media2", exec espeak-ng "mode 2"
+mode "media2" {
+	bindsym Escape mode "default", exec espeak-ng "mode default"
+
+	bindsym XF86AudioPlay mode "default", exec tts-now-playing
+	# bindsym XF86AudioNext
+	# bindsym XF86AudioPrev
+}
+
+bindsym XF86AudioRewind mode "media3", exec espeak-ng "mode 3"
+mode "media3" {
+	bindsym Escape mode "default", exec espeak-ng "mode default"
+
+	# bindsym XF86AudioPlay
+	# bindsym XF86AudioNext
+	bindsym XF86AudioPrev mode "default", exec espeak-ng "locking" & ~/dotfiles/lock
+}
+
 bindsym $mod+h focus left
 bindsym $mod+j focus down
 bindsym $mod+k focus up
@@ -136,5 +166,7 @@ for_window [class="i3:float"] floating enable
 for_window [class="i3:fullscreen"] fullscreen enable
 for_window [class="i3:fullscreenglobal"] fullscreen enable global
 for_window [title="PyLNP"] floating enable
+
+for_window [instance="pavucontrol"] floating enable
 
 exec ~/dotfiles/layouts/main.sh

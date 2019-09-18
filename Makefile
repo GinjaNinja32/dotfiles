@@ -24,7 +24,7 @@ arch-gui-packages:
 	          noto-fonts noto-fonts-emoji noto-fonts-cjk \
 	          ttf-dejavu evince baudline-bin thunderbird \
 	          py3status-git scrot graphicsmagick compton \
-	          hsetroot
+	          hsetroot i3lock-color
 
 .PHONY: arch-lib32
 arch-lib32:

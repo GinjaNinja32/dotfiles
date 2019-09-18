@@ -4,4 +4,4 @@
 scrot -z /tmp/screen.png
 gm convert /tmp/screen.png -filter point -resize 10% -resize 1000% "/tmp/screen-obf.png"
 
-exec i3lock -n -i /tmp/screen-obf.png
+exec i3lock -m -n -i /tmp/screen-obf.png
