@@ -24,7 +24,7 @@ arch-gui-packages:
 	          noto-fonts noto-fonts-emoji noto-fonts-cjk \
 	          ttf-dejavu evince baudline-bin thunderbird \
 	          py3status-git scrot graphicsmagick compton \
-	          hsetroot i3lock-color
+	          hsetroot
 
 .PHONY: arch-lib32
 arch-lib32:
@@ -72,12 +72,13 @@ non-arch-git-repos:
 
 .PHONY: dunst
 dunst:
-	$(call github_clone,dunst-project/dunst,$(DOTFILES)/packages/dunst/src/dunst)
-	cd $(DOTFILES)/packages/dunst/src/dunst && \
-		git checkout -- . && \
-		git apply $(DOTFILES)/packages/dunst/patch.diff
 	cd $(DOTFILES)/packages/dunst && \
-		makepkg -efsri
+		makepkg -fsri
+
+.PHONY: i3lock-color
+i3lock-color:
+	cd $(DOTFILES)/packages/i3lock-color && \
+		makepkg -fsri
 
 .PHONY: generic
 generic: configs git-prompt vim-plugins git-repos
