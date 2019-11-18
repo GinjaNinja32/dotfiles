@@ -21,9 +21,9 @@ bindsym $mod+Shift+q kill
 bindsym $mod+d exec dmenu_run -b -l 15 -p '$' -fn 'Deja Vu Sans Mono'
 
 bindsym --release $mod+m exec pactl set-sink-mute 0 toggle
-bindsym --release Print exec screenshot
-bindsym --release Shift+Print exec screenshot
-bindsym --release $mod+Print exec SCREENSHOT_FULL_SCREEN=1 screenshot
+bindsym --release Print exec ~/dotfiles/scripts/screenshot
+bindsym --release Shift+Print exec ~/dotfiles/scripts/screenshot
+bindsym --release $mod+Print exec SCREENSHOT_FULL_SCREEN=1 ~/dotfiles/scripts/screenshot
 
 bindsym --release $mod+p exec pavucontrol
 
@@ -36,6 +36,7 @@ bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle # mute s
 bindsym XF86AudioPlay exec playerctl play-pause
 bindsym XF86AudioNext exec playerctl next
 bindsym XF86AudioPrev exec playerctl previous
+bindsym $mod+n exec tts-now-playing
 
 bindsym XF86AudioForward mode "media2", exec espeak-ng "mode 2"
 mode "media2" {

@@ -130,8 +130,9 @@ let g:go_fmt_autosave = 0
 
 let g:ale_sign_column_always = 1
 let g:ale_linters = {
-	\ 'go': 'all',
+	\ 'go': ['ginresponse', 'golangci_lint'],
 	\ 'json': 'all',
+	\ 'perl': 'all',
 	\}
 " ['go build', 'gofmt', 'golint', 'gometalinter', 'gosimple', 'go vet', 'staticcheck'],
 

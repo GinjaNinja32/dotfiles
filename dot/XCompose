@@ -4,11 +4,13 @@ include "/home/nyx/git/xcompose/dotXCompose"
 include "/home/nyx/git/xcompose/frakturcompose"
 include "/home/nyx/dotfiles/xcompose/ipa"
 include "/home/nyx/dotfiles/xcompose/flags"
+include "/home/nyx/dotfiles/xcompose/braille"
 
 include "/home/benpaxton/git/xcompose/dotXCompose"
 include "/home/benpaxton/git/xcompose/frakturcompose"
 include "/home/benpaxton/dotfiles/xcompose/ipa"
 include "/home/benpaxton/dotfiles/xcompose/flags"
+include "/home/benpaxton/dotfiles/xcompose/braille"
 
 <Multi_key> <m> <i> <j> : "『ＭＩＪＨＥＡＤ』"
 <Multi_key> <p> <a> <n> : "🐼"
@@ -17,3 +19,14 @@ include "/home/benpaxton/dotfiles/xcompose/flags"
 <Multi_key> <p> <s> <i> : "ΨΩΔ"
 <Multi_key> <Multi_key> <Multi_key> <minus>: U0336
 <Multi_key> <Multi_key> <minus>: U0335
+
+<Multi_key> <braceleft> <parenleft>: U2282 # SUBSET OF
+<Multi_key> <braceleft> <parenright>: U2283 # SUPERSET OF
+<Multi_key> <braceleft> <exclam> <parenleft>: U2284 # NOT A SUBSET OF
+<Multi_key> <braceleft> <exclam> <parenright>: U2285 # NOT A SUPERSET OF
+<Multi_key> <braceleft> <equal> <parenleft>: U2286 # SUBSET OF OR EQUAL TO
+<Multi_key> <braceleft> <equal> <parenright>: U2287 # SUPERSET OF OR EQUAL TO
+#<Multi_key> <braceleft> <exclam> <equal> <parenleft>: U+2288 # NEITHER A SUBSET OF NOR EQUAL TO
+#<Multi_key> <braceleft> <exclam> <equal> <parenright>: U+2289 # NEITHER A SUPERSER OF NOR EQUAL TO
+<Multi_key> <braceleft> <exclam> <equal> <parenleft>: U228A # SUBSET OF WITH NOT EQUAL TO
+<Multi_key> <braceleft> <exclam> <equal> <parenright>: U228B # SUPERSET OF WITH NOT EQUAL TO

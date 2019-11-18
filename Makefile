@@ -41,8 +41,8 @@ configs:
 	chmod 700 ~/.ssh
 
 	mkdir -p ~/.local/man/man6/
-	ln -s ~/byond/use/man/man6/DreamMaker.6 ~/.local/man/man6/
-	ln -s ~/byond/use/man/man6/DreamDaemon.6 ~/.local/man/man6/
+	ln -sf ~/byond/use/man/man6/DreamMaker.6 ~/.local/man/man6/
+	ln -sf ~/byond/use/man/man6/DreamDaemon.6 ~/.local/man/man6/
 
 .PHONY: git-prompt
 git-prompt:
@@ -51,7 +51,7 @@ git-prompt:
 
 .PHONY: vim-plugins
 vim-plugins:
-	git clone https://github.com/VundleVim/Vundle.vim ~/.vim/bundle/Vundle.vim
+	[ -e ~/.vim/bundle/Vundle.vim ] || git clone https://github.com/VundleVim/Vundle.vim ~/.vim/bundle/Vundle.vim
 	vim +PluginInstall +qall
 
 define github_clone

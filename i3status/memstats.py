@@ -17,7 +17,7 @@ def fmtM(val):
 
 class Py3status:
     compact = False
-    cache_timeout = 5
+    cache_timeout = 10
 
     def _cmd(self, cmd):
         cmd = subprocess.Popen(cmd, stdout=subprocess.PIPE)

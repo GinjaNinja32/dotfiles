@@ -9,7 +9,7 @@ if [[ "$1" == "" ]]; then
 		ARGS="-s $HOME/Pictures/$name"
 	fi
 	if scrot $ARGS; then # -s "$HOME/Pictures/$name"; then
-		if [[ $(hostname) == "bp-arch" ]]; then
+		if [[ $(hostname) == "bp-ubuntu" ]]; then
 			chromium "$HOME/Pictures/$name"
 		else
 			termite -t "i3:float" -e "$0 $name"
