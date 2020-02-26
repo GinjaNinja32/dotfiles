@@ -51,8 +51,14 @@ hi diffAdded       ctermfg=Green cterm=bold
 hi diffChanged     ctermfg=Blue cterm=bold
 hi diffRemoved     ctermfg=Red cterm=bold
 
-hi ALEError        ctermfg=16 ctermbg=Red
-hi ALEWarning      ctermfg=16 ctermbg=Yellow
-hi ALEInfo         ctermfg=16 ctermbg=Blue
-hi ALEStyleError   ctermfg=16 ctermbg=Red
-hi ALEStyleWarning ctermfg=16 ctermbg=Yellow
+hi Error ctermfg=16 ctermbg=Red
+hi Warn  ctermfg=16 ctermbg=Yellow
+hi Info  ctermfg=16 ctermbg=Blue
+
+hi link ALEError            Error
+hi link ALEWarning          Warn
+hi link ALEInfo             Info
+hi link ALEStyleError       Error
+hi link ALEStyleWarning     Warn
+hi link goDiagnosticError   Error
+hi link goDiagnosticWarning Warn

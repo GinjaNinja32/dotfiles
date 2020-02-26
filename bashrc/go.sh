@@ -1,7 +1,7 @@
 #! /bin/bash
 
 case "$(hostname)" in
-	bp-arch)
+	bp-ubuntu)
 		export GOPATH=/repos/go
 		;;
 	*)

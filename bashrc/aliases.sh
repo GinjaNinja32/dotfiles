@@ -40,7 +40,7 @@ bwatch() {
 		clear
 		# shellcheck disable=SC2154
 		echo "$output"
-		sleep 0.5
+		sleep 1
 	done
 }
 

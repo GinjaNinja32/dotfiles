@@ -1,8 +1,11 @@
 #! /bin/bash
 
 [ -e "$HOME/bin" ] && export PATH="$HOME/bin:$PATH"
+[ -e "$HOME/.local/bin" ] && export PATH="$HOME/.local/bin:$PATH"
 
 export GTK_IM_MODULE=xim
 export QT_IM_MODULE=xim
 
 [ -e "$HOME/.bashrc" ] && . "$HOME/.bashrc"
+
+export PATH="$HOME/.cargo/bin:$PATH"

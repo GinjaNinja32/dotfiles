@@ -4,6 +4,6 @@ setxkbmap "$@"
 
 read -rp "Press enter to reset: "
 
-setxkbmap gb "" pc105
+setxkbmap -layout gb,ru -model pc105 -variant ,phonetic -option grp:ctrls_toggle
 xmodmap ~/.Xmodmap
 

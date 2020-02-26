@@ -41,8 +41,8 @@ configs:
 	chmod 700 ~/.ssh
 
 	mkdir -p ~/.local/man/man6/
-	ln -s ~/byond/use/man/man6/DreamMaker.6 ~/.local/man/man6/
-	ln -s ~/byond/use/man/man6/DreamDaemon.6 ~/.local/man/man6/
+	ln -sf ~/byond/use/man/man6/DreamMaker.6 ~/.local/man/man6/
+	ln -sf ~/byond/use/man/man6/DreamDaemon.6 ~/.local/man/man6/
 
 .PHONY: git-prompt
 git-prompt:
@@ -51,7 +51,7 @@ git-prompt:
 
 .PHONY: vim-plugins
 vim-plugins:
-	git clone https://github.com/VundleVim/Vundle.vim ~/.vim/bundle/Vundle.vim
+	[ -e ~/.vim/bundle/Vundle.vim ] || git clone https://github.com/VundleVim/Vundle.vim ~/.vim/bundle/Vundle.vim
 	vim +PluginInstall +qall
 
 define github_clone
@@ -65,10 +65,15 @@ git-repos:
 	mkdir -p ~/git
 	$(call github_clone,kragen/xcompose,~/git/xcompose)
 	$(call github_clone,ccontavalli/ssh-ident,~/git/ssh-ident)
+	$(call github_clone,junegunn/fzf,~/git/fzf)
 
 .PHONY: non-arch-git-repos
 non-arch-git-repos:
 	$(call github_clone,icy/pacapt,~/git/pacapt)
+
+.PHONY: fzf
+fzf:
+	cd ~/git/fzf && make && make install
 
 .PHONY: dunst
 dunst:
@@ -81,7 +86,7 @@ i3lock-color:
 		makepkg -fsri
 
 .PHONY: generic
-generic: configs git-prompt vim-plugins git-repos
+generic: configs git-prompt vim-plugins git-repos fzf
 
 .PHONY: non-arch
 non-arch: generic non-arch-git-repos
