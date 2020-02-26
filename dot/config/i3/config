@@ -42,7 +42,7 @@ bindsym XF86AudioForward mode "media2", exec espeak-ng "mode 2"
 mode "media2" {
 	bindsym Escape mode "default", exec espeak-ng "mode default"
 
-	bindsym XF86AudioPlay mode "default", exec tts-now-playing
+	bindsym XF86AudioPlay mode "default", exec ~/dotfiles/scripts/tts-now-playing
 	# bindsym XF86AudioNext
 	# bindsym XF86AudioPrev
 }

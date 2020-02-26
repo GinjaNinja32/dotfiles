@@ -26,6 +26,6 @@ cmds=()
 prefix="-"
 for server in "${@:$argsi}"; do
 	cmds=( "${cmds[@]}" "ssh $server" )
-	prefix="$prefix$server-"
+	prefix="$prefix${server//./·}-"
 done
 multicmd -p "${prefix:1}" "${@:1:$((i-1))}" -- "${cmds[@]}"

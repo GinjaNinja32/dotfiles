@@ -10,7 +10,7 @@ if [[ "$1" == "" ]]; then
 	fi
 	if scrot $ARGS; then # -s "$HOME/Pictures/$name"; then
 		if [[ $(hostname) == "bp-ubuntu" ]]; then
-			chromium "$HOME/Pictures/$name"
+			"$(dirname "$0")/open-in-firefox.sh" "$HOME/Pictures/$name"
 		else
 			termite -t "i3:float" -e "$0 $name"
 		fi

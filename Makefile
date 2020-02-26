@@ -65,10 +65,15 @@ git-repos:
 	mkdir -p ~/git
 	$(call github_clone,kragen/xcompose,~/git/xcompose)
 	$(call github_clone,ccontavalli/ssh-ident,~/git/ssh-ident)
+	$(call github_clone,junegunn/fzf,~/git/fzf)
 
 .PHONY: non-arch-git-repos
 non-arch-git-repos:
 	$(call github_clone,icy/pacapt,~/git/pacapt)
+
+.PHONY: fzf
+fzf:
+	cd ~/git/fzf && make && make install
 
 .PHONY: dunst
 dunst:
@@ -81,7 +86,7 @@ i3lock-color:
 		makepkg -fsri
 
 .PHONY: generic
-generic: configs git-prompt vim-plugins git-repos
+generic: configs git-prompt vim-plugins git-repos fzf
 
 .PHONY: non-arch
 non-arch: generic non-arch-git-repos

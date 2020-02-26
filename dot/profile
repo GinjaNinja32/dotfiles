@@ -7,3 +7,5 @@ export GTK_IM_MODULE=xim
 export QT_IM_MODULE=xim
 
 [ -e "$HOME/.bashrc" ] && . "$HOME/.bashrc"
+
+export PATH="$HOME/.cargo/bin:$PATH"
