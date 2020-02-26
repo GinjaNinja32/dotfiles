@@ -1,46 +1,53 @@
 # vim: ft=conf
 
-<Multi_key> <i> <d> <j> : "dʒ"
-<Multi_key> <i> <t> <h> : "ð"
-<Multi_key> <i> <g> <n> : "ŋ"
-<Multi_key> <i> <s> <h> : "ʃ"
-<Multi_key> <i> <T> <H> : "θ"
-<Multi_key> <i> <z> <h> : "ʒ"
+# ISO_Level3_Shift is AltGr
 
-<Multi_key> <i> <r> <r> : "ɹ"
-<Multi_key> <i> <t> <r> : "ɾ"
+<ISO_Level3_Shift> <t> : "θ"
+<ISO_Level3_Shift> <d> : "ð"
+<ISO_Level3_Shift> <s> : "ʃ"
+<ISO_Level3_Shift> <z> : "ʒ"
+<ISO_Level3_Shift> <k> : "x" # consistency
+<ISO_Level3_Shift> <g> : "ɣ"
 
-<Multi_key> <i> <a> <a> : "ɑː"
-<Multi_key> <i> <a> <h> : "æ"
-<Multi_key> <i> <a> <i> : "aɪ"
-<Multi_key> <i> <a> <u> : "aʊ"
+<ISO_Level3_Shift> <n> : "ŋ"
 
-<Multi_key> <i> <e> <e> : "iː"
-<Multi_key> <i> <e> <h> : "ɛ"
-<Multi_key> <i> <e> <i> : "eɪ"
+<ISO_Level3_Shift> <r> : "ɹ"
 
-<Multi_key> <i> <i> <h> : "ɪ"
+<ISO_Level3_Shift> <w> : "ʷ"
+<ISO_Level3_Shift> <j> : "ʲ"
+<ISO_Level3_Shift> <h> : "ʰ"
 
-<Multi_key> <i> <o> <a> : "oʊ"
-<Multi_key> <i> <o> <h> : "ɒ"
-<Multi_key> <i> <o> <i> : "ɔɪ"
-<Multi_key> <i> <o> <o> : "uː"
-<Multi_key> <i> <o> <u> : "ɔː"
+# æ does not need to be here, it is AltGr+a already
+<ISO_Level3_Shift> <a> : "ɑ"
+<ISO_Level3_Shift> <e> : "ɛ"
+<ISO_Level3_Shift> <i> : "ɪ"
+<ISO_Level3_Shift> <o> : "ɒ"
+<ISO_Level3_Shift> <c> : "ɔ"
+<ISO_Level3_Shift> <u> : "ʊ"
+<ISO_Level3_Shift> <y> : "ə"
+<ISO_Level3_Shift> <q> : "ɜ"
+<ISO_Level3_Shift> <x> : "ʌ"
 
-<Multi_key> <i> <u> <u> : "ʊ"
-<Multi_key> <i> <u> <h> : "ə"
-<Multi_key> <i> <u> <r> : "ɜː"
+# Nasal vowels
+<ISO_Level3_Shift> <asciitilde> <a> : "æ̃"
+<ISO_Level3_Shift> <asciitilde> <o> : "ɒ̃"
 
-<Multi_key> <i> <x> <u> <u> : "ʌ"
+# Tone
+<ISO_Level3_Shift> <plus>  : "ꜛ"
+<ISO_Level3_Shift> <minus> : "ꜜ"
+<ISO_Level3_Shift> <5>     : "˥"
+<ISO_Level3_Shift> <4>     : "˦"
+<ISO_Level3_Shift> <3>     : "˧"
+<ISO_Level3_Shift> <2>     : "˨"
+<ISO_Level3_Shift> <1>     : "˩"
 
 # Uncommon but present in English in places
-<Multi_key> <i> <g> <s> : "ʔ"
-<Multi_key> <i> <o> <n> : "ɒ̃"
-<Multi_key> <i> <a> <n> : "æ̃"
+<ISO_Level3_Shift> <question>   : "ʔ"
 
 # Stress
-<Multi_key> <i> <apostrophe> : "ˈ"
-<Multi_key> <i> <comma>      : "ˌ"
+<ISO_Level3_Shift> <apostrophe> : "ˈ"
+<ISO_Level3_Shift> <comma>      : "ˌ"
 
 # Vowel modifier
-<Multi_key> <i> <colon> : "ː"
+<ISO_Level3_Shift> <colon>      : "ː"
+<ISO_Level3_Shift> <semicolon>  : "ː"

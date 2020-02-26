@@ -1,0 +1,16 @@
+#! /bin/bash
+
+keys=(space apostrophe period semicolon)
+bits=(1 2 4 64 8 16 32 128)
+
+{
+	for i in {0..255}; do
+		printf '<Multi_key> <b> '
+		for s in {0..3}; do
+			tb=$(( ( i & bits[2*s]) ? 1 : 0 ))
+			bb=$(( ( i & bits[2*s+1]) ? 1 : 0 ))
+			printf '<%s> ' "${keys[$(( bb*2 + tb ))]}"
+		done
+		printf ': U28%02X\n' "$i"
+	done
+} > braille
