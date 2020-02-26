@@ -3,6 +3,22 @@ DOTFILES = $(shell pwd)
 # Install $(1) from AUR, using ~/tmp/aur/$(1) as build directory
 AUR_INSTALL = ([[ -e ~/tmp/aur/$(1) ]] && (cd ~/tmp/aur/$(1) && git pull) || git clone https://aur.archlinux.org/$(1) ~/tmp/aur/$(1)) && (cd ~/tmp/aur/$(1) && makepkg -sri)
 
+define TARGDET
+if uname -v | grep -i ubuntu >/dev/null; then
+	echo ubuntu;
+elif uname -r | grep -i arch >/dev/null; then
+	if [[ -z "$$DISPLAY" ]]; then
+		echo arch;
+	else
+		echo arch-gui;
+	fi;
+fi
+endef
+AUTOTARGET=$(shell $(TARGDET))
+
+.PHONY: auto
+auto: $(AUTOTARGET)
+
 .PHONY: arch-packages
 arch-packages:
 	# make temp dir for AUR installs
@@ -34,6 +50,11 @@ arch-lib32:
 	
 	# install packages
 	pacaur -S lib32-libpulse steam
+
+.PHONY: ubuntu-packages
+ubuntu-packages:
+	sudo apt update
+	sudo apt install python3-jinja2
 
 .PHONY: configs
 configs:
@@ -90,6 +111,9 @@ generic: configs git-prompt vim-plugins git-repos fzf
 
 .PHONY: non-arch
 non-arch: generic non-arch-git-repos
+
+.PHONY: ubuntu
+ubuntu: generic ubuntu-packages
 
 .PHONY: arch
 arch: generic arch-packages
