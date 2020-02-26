@@ -14,4 +14,4 @@ clear Mod3
 add Mod3 = Hyper_L
 
 ! AltGr ] => °
-keysym bracketright = bracketright braceright dead_abovering dead_macron dead_abovering dead_macron
+keysym bracketright = bracketright braceright Cyrillic_shcha Cyrillic_SHCHA dead_abovering dead_macron

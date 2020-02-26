@@ -1,0 +1,11 @@
+#! /bin/bash
+
+for f in /sys/bus/hid/devices/*; do
+	if [[ "$(cat "$f"/input/*/name)" == "Logitech G920 Driving Force Racing Wheel" ]]; then
+		if [[ "$#" == 0 ]]; then
+			cat "$f/range"
+		else
+			echo "$1" | sudo tee "$f/range"
+		fi
+	fi
+done

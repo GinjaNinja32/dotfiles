@@ -1,0 +1,9 @@
+interfaces:
+- name: enp3s0
+  key: E
+
+workspaces:
+- id: 1
+  output: DP-4
+- id: 2
+  output: DP-2

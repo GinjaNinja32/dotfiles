@@ -1,8 +1,3 @@
 #! /bin/bash
 
-# Chromium at least opens this as an empty new window. Not sure about other browsers.
-if [[ $# == 0 ]]; then
-	exec chromium --explicitly-allowed-ports=6697 "http://"
-else
-	exec chromium --explicitly-allowed-ports=6697 "$@"
-fi
+exec firefox "$@"

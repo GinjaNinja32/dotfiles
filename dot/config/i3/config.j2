@@ -8,6 +8,10 @@ focus_follows_mouse no
 mouse_warping none
 workspace_layout tabbed
 
+{% for ws in machine.workspaces %}
+workspace {{ws.id}} output {{ws.output}}
+{%- endfor %}
+
 set $mod Mod4
 
 font pango:DejaVu Sans Mono 12
@@ -131,7 +135,7 @@ client.urgent           #770000 #770000 #eeeeee #770000 #770000
 client.background       #000000
 
 bar {
-	status_command py3status -c ~/dotfiles/i3status/config -i ~/dotfiles/i3status
+	status_command py3status -c ~/.config/i3/i3status -i ~/dotfiles/i3status
 	colors {
 		background #222222
 		statusline #bbbbbb
@@ -145,7 +149,7 @@ bar {
 	}
 }
 bar {
-	status_command py3status -c ~/dotfiles/i3status/config-top -i ~/dotfiles/i3status
+	status_command py3status -c ~/.config/i3/i3status-top -i ~/dotfiles/i3status
 	tray_output none
 	workspace_buttons no
 	binding_mode_indicator no

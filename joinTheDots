@@ -2,12 +2,43 @@
 
 set -euo pipefail
 
+rendertemplate() {
+python3 -c '
+import os
+import sys
+import yaml
+from jinja2 import Environment, FileSystemLoader
+
+env = Environment(loader=FileSystemLoader("dot"))
+
+template = env.from_string(sys.stdin.read())
+
+hostname = os.uname()[1]
+with open("machine/{}.yaml".format(hostname), "r") as f:
+	machine = yaml.load(f)
+
+print(template.render(**{
+	"host": hostname,
+	"machine": machine,
+}))
+'
+}
+
 cd "$(readlink -f .)"
 
 find dot -type f | while read -r f; do
-	target="$(readlink -f "$f")"
+	if [[ "$f" =~ \.j2$ ]]; then
+		f="${f%.j2}"
+		rendered="rendered/${f#dot/}"
+		mkdir -p "$(dirname "$rendered")"
+		rendertemplate < "$f.j2" > "$rendered"
+
+		target="$(readlink -f "$rendered")"
+	else
+		target="$(readlink -f "$f")"
+	fi
+
 	location="$HOME/.${f#dot/}"
-	location_dir="$(dirname "$location")"
 
 	if [[ -h "$location" ]]; then
 		rm "$location"
@@ -16,7 +47,7 @@ find dot -type f | while read -r f; do
 		continue
 	fi
 
-	mkdir -p "$location_dir"
+	mkdir -p "$(dirname "$location")"
 
 	echo "$location => $f"
 	ln -s "$target" "$location"

@@ -10,26 +10,20 @@ general {
 
 order += "memstats"
 order += "disk /"
-order += "wireless wlp3s0"
-order += "ethernet enp4s0f0"
-order += "ethernet tun0"
+{%- for iface in machine.interfaces %}
+order += "ethernet {{iface.name}}"
+{%- endfor %}
+# order += "ethernet enp3s0"
+# order += "ethernet tun0"
 order += "volume master"
 order += "tztime local"
 
-wireless wlp3s0 {
-        format_up = "W: %ip (%quality - %essid)"
+{%- for iface in machine.interfaces %}
+ethernet {{iface.name}} {
+        format_up = "{{iface.key}}: %ip (%speed)"
         format_down = ""
 }
-
-ethernet enp4s0f0 {
-        format_up = "E: %ip (%speed)"
-        format_down = ""
-}
-
-ethernet tun0 {
-        format_up = "VPN: %ip (%speed)"
-        format_down = ""
-}
+{%- endfor %}
 
 tztime local {
 	format = "%a %Y-%m-%d %H:%M:%S"

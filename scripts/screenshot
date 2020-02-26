@@ -18,5 +18,5 @@ if [[ "$1" == "" ]]; then
 else
 	name="$1"
 	scp -S ssh "$HOME/Pictures/$name" "thanatos.gn32.uk:www/i/$name"
-	xdg-open "http://thanatos.gn32.uk/i/$name"
+	xdg-open "https://gn32.uk/i/$name"
 fi
