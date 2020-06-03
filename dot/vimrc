@@ -177,6 +177,8 @@ endif
 nmap <silent> <F6> <Plug>(ale_previous_wrap)
 nmap <silent> <F5> <Plug>(ale_next_wrap)
 
+imap <silent> !id <C-R>=substitute(system('uuidgen'), '[[:cntrl:]]', '', 'g')<CR>
+
 " allow backspacing over everything in insert mode
 set backspace=indent,eol,start
 

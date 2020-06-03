@@ -26,7 +26,7 @@ print(template.render(**{
 
 cd "$(readlink -f .)"
 
-find dot -type f | while read -r f; do
+find dot -type f -o -type l | while read -r f; do
 	if [[ "$f" =~ \.j2$ ]]; then
 		f="${f%.j2}"
 		rendered="rendered/${f#dot/}"

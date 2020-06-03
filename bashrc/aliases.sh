@@ -23,6 +23,25 @@ setup() {
 	scp ~/.remotebashrc "$1":.bashrc
 }
 
+setupkube() {
+	ssh -t "$1" bash -c '
+		base=~jenkins
+		if [[ -e ~cmp/.kube ]]; then
+			base=~cmp
+		fi
+
+		set -x
+		mkdir -p ~/.kube
+		mkdir -p ~/.minikube
+		sudo cp "$base/.kube/config" ~/.kube/
+		sudo cp "$base/.minikube/"{ca.crt,client.crt,client.key} ~/.minikube/
+		sudo chown -R "$USER:$USER" ~/.kube
+		sudo chown -R "$USER:$USER" ~/.minikube
+
+		sed -Ei "s#/home/(jenkins|cmp)#/home/$USER#g" ~/.kube/config
+	'
+}
+
 pkg() {
 	pkg=$1
 	repo=$(pacman -Ss "$pkg" | grep "/$pkg " | sed 's|/.*||')
@@ -57,11 +76,15 @@ unhex() {
 }
 
 b64uuid() {
-	base64 -d | xxd -ps | sed -r 's/^(.{8})(.{4})(.{4})(.{4})(.{12})$/\1-\2-\3-\4-\5/'
+	while read -r b64; do
+		<<<"$b64" base64 -d | xxd -ps | sed -r 's/^(.{8})(.{4})(.{4})(.{4})(.{12})$/\1-\2-\3-\4-\5/'
+	done
 }
 
 uuidb64() {
-	tr -d '-' | xxd -ps -r | base64
+	while read -r uuid; do
+		<<<"$uuid" tr -d '-' | xxd -ps -r | base64
+	done
 }
 
 lagstat() {
@@ -106,4 +129,33 @@ diff() {
 		--new-line-format="$(tput setaf 2)+%l$(tput sgr0)"$'\n' \
 		--unchanged-line-format=" %L" \
 		"$@"
+}
+
+if command -v ncal >/dev/null; then
+	alias cal='ncal -b'
+fi
+
+klogs() {
+	appname="$1"
+	shift
+
+	while true; do
+		sleep 1
+		read -r podname status < <(kubectl get pod \
+			-l "cmp-app=$appname" \
+			-o custom-columns=name:.metadata.name,status:.status.containerStatuses[0].state.waiting.reason \
+			| tail -n+2 \
+			| tail -n1)
+
+		case "$status" in
+			PodInitializing)
+				echo "--- init"
+				kubectl logs "$podname" "$appname-migration" -f "$@"
+				;;
+			*)
+				echo "---"
+				kubectl logs "$podname" -f "$@"
+				;;
+		esac
+	done
 }

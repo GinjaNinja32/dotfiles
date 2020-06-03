@@ -31,6 +31,10 @@ gws() {
 		git stash pop
 	fi
 }
+if [[ -e "/usr/share/bash-completion/completions/git" ]]; then
+	source /usr/share/bash-completion/completions/git
+	__git_complete gws __git_main
+fi
 
 wgs() {
 	stashargs=()

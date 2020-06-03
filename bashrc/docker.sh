@@ -6,6 +6,7 @@ dps() {
 		| sed -re 's|^([0-9a-f]+\s+)containers.*:9500/|\1cbnnn/|' \
 		       -e 's|^([0-9a-f]+\s+)gcr.io/google_containers/|\1gcr/|' \
 		       -e 's|^([0-9a-f]+\s+)gcr.io/google-containers/|\1gcr/|' \
+		       -e 's|^([0-9a-f]+\s+)registry.nflex.io/|\1nflex/|' \
 		       -e 's|  +|\t|g' \
 		| column -ts $'\t'
 }

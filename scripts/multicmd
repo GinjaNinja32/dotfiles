@@ -3,6 +3,7 @@
 name=""
 prefix=""
 layout=even-horizontal
+newline=1
 
 while [[ "$1" =~ ^- ]]; do
 	case "$1" in
@@ -11,6 +12,7 @@ while [[ "$1" =~ ^- ]]; do
 		-p) prefix="$2"; shift 2;;
 		-v) layout=even-vertical; shift;;
 		-t) layout=tiled; shift;;
+		-x) newline=0; shift;;
 		*)
 			echo "unrecognised argument $1"
 			exit 1
@@ -18,12 +20,22 @@ while [[ "$1" =~ ^- ]]; do
 	esac
 done
 
+gencmd() {
+	echo " printf '\\033]2;$1\\033\\\\'"$'\n'"$1"
+	# '" # fix highlighting
+}
+
 if [[ "$name" == "" ]]; then
 	name="$prefix$(head -c4 /dev/urandom | xxd -ps)"
 fi
 
+maybe_newline=""
+if (( newline )); then
+	maybe_newline=C-m
+fi
+
 tmux new-session -n "$name" -ds "$name"
-tmux send-keys -t "$name" "$1" C-m
+tmux send-keys -t "$name" "$(gencmd "$1")" $maybe_newline
 tmux select-layout -t "$name" "$layout"
 shift 1
 
@@ -31,8 +43,8 @@ setup-rest() {
 	sleep 0.1
 	for cmd in "$@"; do
 		tmux select-window -t "$name" \; \
-			new-window \; \
-			send-keys "$cmd" C-m \; \
+			new-window -n "$cmd" \; \
+			send-keys "$(gencmd "$cmd")" $maybe_newline \; \
 			join-pane -t "$name" \; \
 			select-layout "$layout"
 	done
