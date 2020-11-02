@@ -1,0 +1,22 @@
+font_size: 10
+screen:
+    width: 3840
+    height: 2160
+
+interfaces:
+- name: eno1
+  key: E
+- name: tun0
+  key: VPN
+
+workspaces:
+- id: 1
+  output: HDMI-2
+- id: 2
+  output: HDMI-1
+- id: 4
+  output: HDMI-1
+- id: 9
+  output: HDMI-1
+- id: 10
+  output: HDMI-1

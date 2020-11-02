@@ -1,3 +1,7 @@
+screen:
+    width: 3840
+    height: 2160
+
 interfaces:
 - name: enp3s0
   key: E

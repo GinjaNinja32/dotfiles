@@ -1,0 +1,7 @@
+font_size: 12
+screen:
+    width: 1024
+    height: 768
+
+interfaces: []
+workspaces: []

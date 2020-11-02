@@ -15,13 +15,23 @@ else
 fi
 
 # shellcheck disable=SC2059
+__kube_ps1() {
+	c=$? # preserve code for __code_ps1
+	if command -v kubectl >/dev/null; then
+		printf "$1" "$(kubectl config current-context)"
+	fi
+	return $c
+}
+alias k8s='kubectl config use-context'
+
+# shellcheck disable=SC2059
 __code_ps1() {
 	c=$?
 	if [ $c -ne 0 ]; then
 		if [[ 128 -lt $c ]] && [[ $c -le 192 ]]; then
-			printf "$1" "[$c SIG$(kill -l $((c - 128)))]"
+			printf "$1" "$c SIG$(kill -l $((c - 128)))"
 		else
-			printf "$1" "[$c]"
+			printf "$1" "$c"
 		fi
 	fi
 }
@@ -44,7 +54,8 @@ PS1="\
 $(__tput bold; __tput setaf $__pri)\\u@\\h\
 $(__tput setaf 4) \\w\
 $(__tput setaf 3)\$(__git_ps1 ' %s')\
-$(__tput setaf 1)\$(__code_ps1 ' %s')\
+$(__tput setaf 6)\$(__kube_ps1 ' [k8s %s]')\
+$(__tput setaf 1)\$(__code_ps1 ' [%s]')\
 \\n\
 $(__tput bold; __tput setaf 7)\\\$ $(__tput sgr0)"
 

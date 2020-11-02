@@ -14,8 +14,15 @@ env = Environment(loader=FileSystemLoader("dot"))
 template = env.from_string(sys.stdin.read())
 
 hostname = os.uname()[1]
-with open("machine/{}.yaml".format(hostname), "r") as f:
+
+with open("machine/default.yaml", "r") as f:
 	machine = yaml.load(f)
+
+try:
+	with open("machine/{}.yaml".format(hostname), "r") as f:
+		machine.update(yaml.load(f))
+except FileNotFoundError:
+	pass
 
 print(template.render(**{
 	"host": hostname,

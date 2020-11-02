@@ -1,0 +1,11 @@
+#! /bin/bash
+
+if [[ $# != 0 ]]; then
+    awk 'FNR==1 && NR!=1 { print "---" } { print }' "$@"
+else
+    cat
+fi | if perl -e 'use JSON::XS; use YAML::XS' >/dev/null 2>/dev/null; then
+    perl -e 'use JSON::XS; use YAML::XS; my $stdin = join("",<STDIN>); for my $doc (split(/\n---\n/, $stdin)) { print JSON::XS::encode_json(YAML::XS::Load($doc)) }'
+else
+    python2 -c $'import sys, yaml, json\nfor x in sys.stdin.read().split("\\n---"): print json.dumps(yaml.safe_load(x))'
+fi

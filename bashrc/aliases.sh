@@ -26,7 +26,7 @@ setup() {
 setupkube() {
 	ssh -t "$1" bash -c '
 		base=~jenkins
-		if [[ -e ~cmp/.kube ]]; then
+		if [[ -e ~cmp/.kube/config ]]; then
 			base=~cmp
 		fi
 

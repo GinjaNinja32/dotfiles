@@ -1,0 +1,47 @@
+#! /bin/bash
+
+tmp=$(mktemp /tmp/layout-XXXXXXXX.json)
+
+wh=556
+ww=896
+
+read -r sx sy sw sh < <(
+	i3-msg -t get_tree \
+	| jq -c '.nodes[] | select(.type == "output" and .name != "__i3")' \
+	| grep '"focused":true' \
+	| jq -r '.rect | "\(.x) \(.y) \(.width) \(.height)"'
+)
+
+echo '
+{
+	"floating": "auto_off",
+	"rect": {
+		"height": '$wh',
+		"width": '$ww',
+		"x": '$((sx+(sw-ww)/2))',
+		"y": '$((sy+(sh-wh)/2))'
+	},
+	"type": "floating_con",
+	"nodes": [
+		{
+			"floating": "user_on",
+			"geometry": {
+				"height": '$((wh-1))',
+				"width": '$((ww-1))',
+				"x": 0,
+				"y": 0
+			},
+			"swallows": [
+				{"instance": "termite"}
+			],
+			"type": "con"
+		}
+	]
+}
+' > "$tmp"
+
+i3-msg "append_layout $tmp"
+
+termite &
+
+rm "$tmp"
