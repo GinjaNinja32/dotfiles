@@ -12,6 +12,8 @@ elif uname -r | grep -i arch >/dev/null; then
 	else
 		echo arch-gui;
 	fi;
+else
+	echo generic;
 fi
 endef
 AUTOTARGET=$(shell $(TARGDET))
@@ -19,8 +21,8 @@ AUTOTARGET=$(shell $(TARGDET))
 .PHONY: auto
 auto: $(AUTOTARGET)
 
-.PHONY: arch-packages
-arch-packages:
+.PHONY: arch
+arch: generic
 	# make temp dir for AUR installs
 	mkdir -p ~/tmp/aur
 	
@@ -33,8 +35,8 @@ arch-packages:
 	
 	pacaur -S tig python python2 htop nmap fzf
 
-.PHONY: arch-gui-packages
-arch-gui-packages:
+.PHONY: arch-gui
+arch-gui: arch
 	pacaur -S xorg-xinit i3 dmenu termite feh \
 	          pulseaudio pavucontrol pulseaudio-alsa \
 	          noto-fonts noto-fonts-emoji noto-fonts-cjk \
@@ -42,8 +44,8 @@ arch-gui-packages:
 	          py3status-git scrot graphicsmagick compton \
 	          hsetroot
 
-.PHONY: arch-lib32
-arch-lib32:
+.PHONY: arch-gui32
+arch-gui32: arch
 	# enable multilib and update package list
 	sudo sed -i "s|#[multilib]|[multilib]\nInclude = /etc/pacman.d/mirrorlist|" /etc/pacman.conf
 	pacaur -Syu
@@ -51,8 +53,8 @@ arch-lib32:
 	# install packages
 	pacaur -S lib32-libpulse steam
 
-.PHONY: ubuntu-packages
-ubuntu-packages:
+.PHONY: ubuntu
+ubuntu: generic
 	sudo apt update
 	sudo apt install python3-jinja2
 
@@ -111,15 +113,3 @@ generic: configs git-prompt vim-plugins git-repos fzf
 
 .PHONY: non-arch
 non-arch: generic non-arch-git-repos
-
-.PHONY: ubuntu
-ubuntu: generic ubuntu-packages
-
-.PHONY: arch
-arch: generic arch-packages
-
-.PHONY: arch-gui
-arch-gui: arch arch-gui-packages
-
-.PHONY: arch-gui32
-arch-gui32: arch-gui arch-lib32
