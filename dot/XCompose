@@ -5,6 +5,8 @@ include "/home/nyx/git/xcompose/frakturcompose"
 include "/home/nyx/dotfiles/xcompose/ipa"
 include "/home/nyx/dotfiles/xcompose/flags"
 include "/home/nyx/dotfiles/xcompose/braille"
+include "/home/nyx/dotfiles/xcompose/superscript"
+include "/home/nyx/dotfiles/xcompose/subscript"
 
 include "/home/benpaxton/git/xcompose/dotXCompose"
 include "/home/benpaxton/git/xcompose/frakturcompose"

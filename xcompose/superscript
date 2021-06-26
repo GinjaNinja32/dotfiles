@@ -27,6 +27,7 @@
 <Multi_key> <asciicircum> <asciicircum> <y>       : "ʸ"
 <Multi_key> <asciicircum> <asciicircum> <z>       : "ᶻ"
 
+<Multi_key> <asciicircum> <asciicircum> <period>  : "˙"
 
 <Multi_key> <asciicircum> <asciicircum> <asterisk> <b> : "ᵝ"
 <Multi_key> <asciicircum> <asciicircum> <asterisk> <g> : "ᵞ"
