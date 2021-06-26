@@ -42,7 +42,7 @@ arch-gui: arch
 	          noto-fonts noto-fonts-emoji noto-fonts-cjk \
 	          ttf-dejavu evince baudline-bin thunderbird \
 	          py3status-git scrot graphicsmagick compton \
-	          hsetroot
+	          hsetroot playerctl espeak-ng
 
 .PHONY: arch-gui32
 arch-gui32: arch
