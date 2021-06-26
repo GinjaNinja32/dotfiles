@@ -5,6 +5,7 @@
 #include <string.h>
 #include <sys/types.h>
 #include <unistd.h>
+#include <libgen.h>
 
 /*
  * Roughly equivalent to `sudo smem -H -c 'pss name'`, but *much* faster.
@@ -56,7 +57,10 @@ void find_executable(const char* s, char* executable) {
 }
 
 int main() {
-	setuid(0);
+	if(setuid(0)) {
+		perror("Failed to setuid(0)");
+		return 1;
+	}
 
 	DIR *dp;
 	struct dirent *ep;
@@ -64,38 +68,43 @@ int main() {
 	dp = opendir("/proc");
 	if(dp == NULL) {
 		perror("Failed to open /proc");
-		return 1;
+		return 2;
 	}
 
 	while((ep = readdir(dp))) {
 		if(is_pid(ep->d_name)) {
-			char fname[32] = "/proc/";
+			// Find name of executable
+			char exename[266];
+			snprintf(exename, 266, "/proc/%s/exe", ep->d_name);
+
+			char executable[256] = "";
+			if(readlink(exename, executable, 256) < 0) {
+				continue;
+			}
+			char* basepath = basename(executable);
+
+			// Find PSS
+			char mapsname[268];
+			snprintf(mapsname, 268, "/proc/%s/smaps", ep->d_name);
+
 			FILE *fp;
-
-			strncat(fname, ep->d_name, 10);
-			strncat(fname, "/smaps", 7);
-
-			fp = fopen(fname, "rbe");
+			fp = fopen(mapsname, "rbe");
 			if(fp == NULL) {
 				continue;
 			}
 
-			long pss = 0;
-			char executable[256] = "";
 			char buf[512];
-
+			long pss = 0;
 			while(fgets(buf, 512, fp) != NULL) {
-				if(*executable == 0 && strncmp(buf+24, " kB\n", 5) != 0) {
-					find_executable(buf, executable);
-				}
 				if(strncmp(buf, "Pss:", 4) == 0) {
 					pss += find_value(buf);
 				}
 			}
-			if(pss != 0) {
-				printf("%li %s\n", pss, executable);
-			}
 			fclose(fp);
+
+			if(pss != 0) {
+				printf("%li %s\n", pss, basepath);
+			}
 
 		}
 	}
