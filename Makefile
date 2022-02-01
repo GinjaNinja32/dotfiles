@@ -5,9 +5,13 @@ AUR_INSTALL = ([[ -e ~/tmp/aur/$(1) ]] && (cd ~/tmp/aur/$(1) && git pull) || git
 
 define TARGDET
 if uname -v | grep -i ubuntu >/dev/null; then
-	echo ubuntu;
+	if [ -z "$$DISPLAY" ]; then
+		echo ubuntu;
+	else
+		echo ubuntu-gui;
+	fi;
 elif uname -r | grep -i arch >/dev/null; then
-	if [[ -z "$$DISPLAY" ]]; then
+	if [ -z "$$DISPLAY" ]; then
 		echo arch;
 	else
 		echo arch-gui;
@@ -22,7 +26,7 @@ AUTOTARGET=$(shell $(TARGDET))
 auto: $(AUTOTARGET)
 
 .PHONY: arch
-arch: generic
+arch:
 	# make temp dir for AUR installs
 	mkdir -p ~/tmp/aur
 	
@@ -35,17 +39,20 @@ arch: generic
 	
 	pacaur -S tig python python2 htop nmap fzf
 
+	$(MAKE) generic
+
 .PHONY: arch-gui
-arch-gui: arch
+arch-gui:
 	pacaur -S xorg-xinit i3 dmenu termite feh \
 	          pulseaudio pavucontrol pulseaudio-alsa \
 	          noto-fonts noto-fonts-emoji noto-fonts-cjk \
 	          ttf-dejavu evince baudline-bin thunderbird \
 	          py3status-git scrot graphicsmagick compton \
 	          hsetroot playerctl espeak-ng
+	$(MAKE) arch
 
 .PHONY: arch-gui32
-arch-gui32: arch
+arch-gui32:
 	# enable multilib and update package list
 	sudo sed -i "s|#[multilib]|[multilib]\nInclude = /etc/pacman.d/mirrorlist|" /etc/pacman.conf
 	pacaur -Syu
@@ -53,10 +60,22 @@ arch-gui32: arch
 	# install packages
 	pacaur -S lib32-libpulse steam
 
+	$(MAKE) arch-gui
+
 .PHONY: ubuntu
-ubuntu: generic
+ubuntu:
 	sudo apt update
 	sudo apt install python3-jinja2
+
+	$(MAKE) generic
+
+.PHONY: ubuntu-gui
+ubuntu-gui:
+	sudo add-apt-repository ppa:aslatter/ppa
+	sudo apt update
+	sudo apt install i3 dmenu alacritty vim
+
+	$(MAKE) ubuntu
 
 .PHONY: configs
 configs:
@@ -94,8 +113,19 @@ git-repos:
 non-arch-git-repos:
 	$(call github_clone,icy/pacapt,~/git/pacapt)
 
+GOINSTALL = \
+	TMP=$$(mktemp -d); \
+	trap 'rm -r $$TMP' EXIT; \
+	GOFILE=$$(curl -s https://go.dev/dl/ | grep -Eo 'go1.*\.linux-amd64\.tar\.gz' | head -n1); \
+	curl -L --output $$TMP/$$GOFILE https://go.dev/dl/$$GOFILE; \
+	sudo tar -C /usr/local -xzf $$TMP/$$GOFILE
+
+.PHONY: golang
+golang:
+	$(GOINSTALL)
+
 .PHONY: fzf
-fzf:
+fzf: golang
 	cd ~/git/fzf && make && make install
 
 .PHONY: dunst
