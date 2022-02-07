@@ -55,9 +55,21 @@ bindsym XF86AudioRewind mode "media3", exec espeak-ng "mode 3"
 mode "media3" {
 	bindsym Escape mode "default", exec espeak-ng "mode default"
 
-	# bindsym XF86AudioPlay
+	bindsym XF86AudioPlay mode "default", exec espeak-ng "disconnecting" & echo "disconnect" | bluetoothctl
 	# bindsym XF86AudioNext
 	bindsym XF86AudioPrev mode "default", exec espeak-ng "locking" & ~/dotfiles/lock
+}
+
+bindsym $mod+Shift+a mode "headset"
+mode "headset" {
+	bindsym Escape mode "default"
+
+	bindsym a mode "default", exec ~/dotfiles/scripts/headset-set-mode a2dp_sink
+	bindsym h mode "default", exec ~/dotfiles/scripts/headset-set-mode headset_head_unit
+	bindsym o mode "default", exec ~/dotfiles/scripts/headset-set-mode off
+
+	bindsym c mode "default", exec echo "connect 60:AB:D2:41:2C:8B" | bluetoothctl
+	bindsym d mode "default", exec echo "disconnect 60:AB:D2:41:2C:8B" | bluetoothctl
 }
 
 bindsym $mod+h focus left
@@ -142,6 +154,8 @@ mode "resize" {
 	bindsym k resize shrink height 10 px or 10 ppt
 	bindsym l resize grow width 10 px or 10 ppt
 
+	bindsym $mod+n exec ~/dotfiles/scripts/rename-workspace; mode default
+
 	bindsym Return mode "default"
 	bindsym Escape mode "default"
 }
@@ -174,7 +188,7 @@ bar {
 {%- if host == "bp-ubuntu" %}
 bar {
 	output HDMI-2
-	status_command py3status -c ~/dotfiles/i3status/config-left -i ~/dotfiles/i3status
+	status_command py3status -c ~/.config/i3/i3status-left -i ~/dotfiles/i3status
 	colors {
 		background #222222
 		statusline #bbbbbb

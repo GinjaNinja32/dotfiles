@@ -46,6 +46,8 @@ Plug 'romainl/vim-qf'
 
 Plug 'christoomey/vim-tmux-navigator'
 
+Plug 'hashivim/vim-terraform'
+
 call plug#end()
 filetype plugin indent on
 
@@ -222,6 +224,9 @@ endif
 " In many terminal emulators the mouse works just fine, thus enable it.
 if has('mouse')
 	set mouse=a
+	set ttymouse=sgr " fix mouse in alacritty
+	map <ScrollWheelUp> <C-Y><C-Y><C-Y><C-Y><C-Y><C-Y>
+	map <ScrollWheelDown> <C-E><C-E><C-E><C-E><C-E><C-E>
 endif
 
 " Switch syntax highlighting on, when the terminal has colors
@@ -282,3 +287,5 @@ set tabstop=4       " Tabs are 4 spaces wide
 "     return 2
 " ```
 let g:markdown_fenced_languages = ["python", "sh", "json", "javascript", "dm", "yaml"]
+
+let g:terraform_fmt_on_save=1

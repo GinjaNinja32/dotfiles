@@ -1,14 +1,21 @@
 #! /bin/bash
 
-title=$(playerctl metadata title)
-if [[ "$title" == "Spotify – Home" ]]; then
+for player in $(playerctl -l); do
+	status=$(playerctl status -p "$player")
+
+	if [[ "$status" == "Playing" ]]; then
+		title="$(playerctl -p "$player" metadata title)"
+		artist="$(playerctl -p "$player" metadata artist)"
+		break
+	fi
+done
+
+if [[ "$title" == "Spotify – Home" || "$title" == "" ]]; then
 	espeak-ng "nothing playing"
 	exit
 elif [[ "$title" =~ ^(.*)\ ·\ (.*)$ ]]; then
 	artist=${BASH_REMATCH[2]}
 	title=${BASH_REMATCH[1]}
-else
-	artist=$(playerctl metadata artist)
 fi
 
 espeak-ng "artist $artist"

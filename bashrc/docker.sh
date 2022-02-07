@@ -19,7 +19,7 @@ dll() {
 
 export COMP_WORDBREAKS="${COMP_WORDBREAKS//:/}"
 docker2tar() {
-	id="$(docker create "$1")"
+	id="$(docker create "$1" /dummy)"
 	docker export "$id"
 	docker rm -fv "$id" >/dev/null
 }

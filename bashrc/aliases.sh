@@ -96,7 +96,7 @@ lagstat() {
 splitgrep() {
 	pattern="${1//\//\\\/}"
 
-	awk '/'"$pattern"'/ { print $0; next } { print $0 > "/dev/stderr" }'
+	awk '/'"$pattern"'/ { print $0; system(""); next } { print $0 > "/dev/stderr"; system("") }'
 }
 
 splithttp() {

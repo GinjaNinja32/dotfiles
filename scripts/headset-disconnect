@@ -1,0 +1,4 @@
+#! /bin/bash
+
+espeak-ng "disconnecting"
+bluetoothctl <<< 'disconnect 60:AB:D2:41:2C:8B'

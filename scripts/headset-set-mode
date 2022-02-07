@@ -1,0 +1,5 @@
+#! /bin/bash
+
+cardID=$(pactl list cards | grep ^Card | tail -n1 | cut -d'#' -f2)
+
+pactl set-card-profile "$cardID" "$@"
