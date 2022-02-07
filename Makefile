@@ -65,15 +65,16 @@ arch-gui32:
 .PHONY: ubuntu
 ubuntu:
 	sudo apt update
-	sudo apt install python3-jinja2
+	sudo apt install python3-jinja2 htop jq vim pass
 
-	$(MAKE) generic
+	$(MAKE) non-arch
 
 .PHONY: ubuntu-gui
 ubuntu-gui:
 	sudo add-apt-repository ppa:aslatter/ppa
 	sudo apt update
-	sudo apt install i3 dmenu alacritty vim
+	sudo apt install i3-wm i3lock py3status dmenu alacritty \
+	                 webext-browserpass pavucontrol
 
 	$(MAKE) ubuntu
 

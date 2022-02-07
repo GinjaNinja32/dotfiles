@@ -16,6 +16,7 @@ order += "ethernet {{iface.name}}"
 # order += "ethernet enp3s0"
 # order += "ethernet tun0"
 order += "volume master"
+order += "battery all"
 order += "tztime local"
 
 {%- for iface in machine.interfaces %}
@@ -39,4 +40,8 @@ volume master {
 	device = "default"
 	mixer = "Master"
 	mixer_idx = 0
+}
+
+battery {
+	format = "%status %remaining (%emptytime %consumption)"
 }
