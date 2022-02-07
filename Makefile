@@ -65,7 +65,7 @@ arch-gui32:
 .PHONY: ubuntu
 ubuntu:
 	sudo apt update
-	sudo apt install python3-jinja2 htop jq vim pass
+	sudo apt install python3-jinja2 htop jq vim pass tig
 
 	$(MAKE) non-arch
 
@@ -94,8 +94,7 @@ git-prompt:
 
 .PHONY: vim-plugins
 vim-plugins:
-	[ -e ~/.vim/bundle/Vundle.vim ] || git clone https://github.com/VundleVim/Vundle.vim ~/.vim/bundle/Vundle.vim
-	vim +PluginInstall +qall
+	vim +PlugInstall +qall
 
 define github_clone
 	mkdir -p ~/git
