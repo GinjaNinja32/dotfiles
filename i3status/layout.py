@@ -18,12 +18,23 @@ def ori(o):
 
 
 def f(data):
-    name = (data.get("window_properties", {}).get("instance")
-            or data["name"]
-            or ori(data["layout"]))
+
+    wp = data.get("window_properties", {})
+
+    if data["name"]:
+        name = data["name"]
+    elif wp:
+        name = "{}".format(wp)
+    else:
+        name = ori(data["layout"])
+
+    if wp.get("instance"):
+        shortname = wp["instance"]
+    else:
+        shortname = ori(data["layout"])
 
     if data["nodes"] or data["floating_nodes"]:
-        d = {"name": name}
+        d = {"name": name, "shortname": shortname}
         d["nodes"] = [
             f(n)
             for n in data["nodes"]
@@ -36,19 +47,25 @@ def f(data):
         d["subfocus"] = any(n["focus"] or n.get("subfocus", False)
                             for n in d.get("nodes", []) + d.get("float", []))
         return d
+
     return {
         "name": name,
+        "shortname": shortname,
         "focus": data["focused"],
         "subfocus": False,
     }
 
 
-def tostr(data):
-    s = data["name"]
+def tostr(data, toplevel=True):
+    if toplevel:
+        s = data["name"]
+    else:
+        s = data["shortname"]
+
     if data.get("nodes"):
-        s = s + "[" + " ".join(tostr(n) for n in data["nodes"]) + "]"
+        s = s + "[" + " ".join(tostr(n, False) for n in data["nodes"]) + "]"
     if data.get("float"):
-        s = s + "[F " + " ".join(tostr(n) for n in data["float"]) + "]"
+        s = s + "[F " + " ".join(tostr(n, False) for n in data["float"]) + "]"
     return s
 
 
