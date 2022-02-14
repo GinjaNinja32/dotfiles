@@ -31,6 +31,10 @@ bindsym --release $mod+Print exec SCREENSHOT_FULL_SCREEN=1 ~/dotfiles/scripts/sc
 
 bindsym --release $mod+p exec pavucontrol
 
+# Brightness controls
+bindsym XF86MonBrightnessDown exec ~/dotfiles/scripts/brightness down
+bindsym XF86MonBrightnessUp exec ~/dotfiles/scripts/brightness up
+
 # Pulseaudio controls
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5% #increase sound volume
 bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -5% #decrease sound volume

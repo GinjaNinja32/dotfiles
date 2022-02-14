@@ -1,0 +1,29 @@
+#! /bin/bash
+
+backlight=$(echo /sys/class/backlight/*)
+
+cur=$(cat "$backlight/brightness")
+max=$(cat "$backlight/max_brightness")
+
+adj=$(( max / 20 ))
+
+case "$1" in
+	up)
+		trg=$(( cur + adj ))
+		;;
+	down)
+		trg=$(( cur - adj ))
+		;;
+	*)
+		echo "bad argument"
+		exit 42
+		;;
+esac
+
+if (( trg < adj )); then
+	trg=$adj
+elif (( trg > max )); then
+	trg=$max
+fi
+
+echo "$trg" > "$backlight/brightness"

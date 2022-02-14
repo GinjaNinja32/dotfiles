@@ -18,21 +18,7 @@ Plug 'tpope/vim-surround'
 Plug 'majutsushi/tagbar', { 'on': 'TagbarToggle' }
 Plug 'ctrlpvim/ctrlp.vim', { 'on': 'CtrlP' }
 Plug 'w0rp/ale'
-
-" Fugitive:
-" Needed for lazy loading :(
-Plug 'tpope/vim-fugitive', { 'on': [] }
-
-command! Gstatus call LazyLoadFugitive('Gstatus')
-command! Gdiff call LazyLoadFugitive('Gdiff')
-command! Glog call LazyLoadFugitive('Glog')
-command! Gblame call LazyLoadFugitive('Gblame')
-
-function! LazyLoadFugitive(cmd)
-  call plug#load('vim-fugitive')
-  call fugitive#detect(expand('%:p'))
-  exe a:cmd
-endfunction
+Plug 'tpope/vim-fugitive'
 
 " Languages:
 Plug 'pearofducks/ansible-vim'
