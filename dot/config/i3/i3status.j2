@@ -16,8 +16,10 @@ order += "ethernet {{iface.name}}"
 # order += "ethernet enp3s0"
 # order += "ethernet tun0"
 order += "volume master"
+{%- if machine.laptop %}
 order += "battery all"
 order += "brightness"
+{%- endif %}
 order += "tztime local"
 
 {%- for iface in machine.interfaces %}
@@ -43,9 +45,11 @@ volume master {
 	mixer_idx = 0
 }
 
+{%- if machine.laptop %}
 battery all {
 	last_full_capacity = true
 	integer_battery_capacity = true
 	hide_seconds = true
 	format = "%status %percentage %consumption %remaining"
 }
+{%- endif %}
