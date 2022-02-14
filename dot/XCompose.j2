@@ -1,18 +1,12 @@
 # -*- coding: utf-8 -*-
 
-include "/home/nyx/git/xcompose/dotXCompose"
-include "/home/nyx/git/xcompose/frakturcompose"
-include "/home/nyx/dotfiles/xcompose/ipa"
-include "/home/nyx/dotfiles/xcompose/flags"
-include "/home/nyx/dotfiles/xcompose/braille"
-include "/home/nyx/dotfiles/xcompose/superscript"
-include "/home/nyx/dotfiles/xcompose/subscript"
-
-include "/home/benpaxton/git/xcompose/dotXCompose"
-include "/home/benpaxton/git/xcompose/frakturcompose"
-include "/home/benpaxton/dotfiles/xcompose/ipa"
-include "/home/benpaxton/dotfiles/xcompose/flags"
-include "/home/benpaxton/dotfiles/xcompose/braille"
+include "/home/{{ env.USER }}/git/xcompose/dotXCompose"
+include "/home/{{ env.USER }}/git/xcompose/frakturcompose"
+include "/home/{{ env.USER }}/dotfiles/xcompose/ipa"
+include "/home/{{ env.USER }}/dotfiles/xcompose/flags"
+include "/home/{{ env.USER }}/dotfiles/xcompose/braille"
+include "/home/{{ env.USER }}/dotfiles/xcompose/superscript"
+include "/home/{{ env.USER }}/dotfiles/xcompose/subscript"
 
 <Multi_key> <m> <i> <j> : "『ＭＩＪＨＥＡＤ』"
 <Multi_key> <p> <a> <n> : "🐼"
@@ -32,3 +26,5 @@ include "/home/benpaxton/dotfiles/xcompose/braille"
 #<Multi_key> <braceleft> <exclam> <equal> <parenright>: U+2289 # NEITHER A SUPERSER OF NOR EQUAL TO
 <Multi_key> <braceleft> <exclam> <equal> <parenleft>: U228A # SUBSET OF WITH NOT EQUAL TO
 <Multi_key> <braceleft> <exclam> <equal> <parenright>: U228B # SUPERSET OF WITH NOT EQUAL TO
+
+{% if machine.work %}include "/repos/dotfiles/XCompose"{% endif %}

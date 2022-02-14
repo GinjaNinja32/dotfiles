@@ -27,6 +27,7 @@ except FileNotFoundError:
 print(template.render(**{
 	"host": hostname,
 	"machine": machine,
+	"env": os.environ,
 }))
 '
 }
