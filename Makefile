@@ -65,7 +65,7 @@ arch-gui32:
 .PHONY: ubuntu
 ubuntu:
 	sudo apt update
-	sudo apt install python3-jinja2 htop jq vim pass tig
+	sudo apt install python3-jinja2 htop jq vim pass tig tmux
 
 	$(MAKE) non-arch
 

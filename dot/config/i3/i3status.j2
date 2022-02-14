@@ -42,6 +42,9 @@ volume master {
 	mixer_idx = 0
 }
 
-battery {
-	format = "%status %remaining (%emptytime %consumption)"
+battery all {
+	last_full_capacity = true
+	integer_battery_capacity = true
+	hide_seconds = true
+	format = "%status %percentage %consumption %remaining"
 }

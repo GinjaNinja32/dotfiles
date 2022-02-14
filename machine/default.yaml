@@ -1,6 +1,7 @@
 work: false
 
 font_size: 12
+terminal_size: 14
 screen:
     width: 1024
     height: 768

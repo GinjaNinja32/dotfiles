@@ -11,6 +11,10 @@ interfaces:
 - name: tun0
   key: VPN
 
+status:
+  _: HDMI-1
+  left: HDMI-2
+
 workspaces:
 - id: 1
   output: HDMI-2

@@ -1,0 +1,21 @@
+work: true
+
+font_size: 10
+terminal_size: 12
+screen:
+    width: 1920
+    height: 1080
+
+interfaces:
+- name: enp59s0
+  key: E
+- name: wlp0s20f3
+  key: W
+- name: tun0
+  key: VPN
+
+status:
+  _: eDP-1
+  left: HDMI-1-0
+
+workspaces: []
