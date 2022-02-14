@@ -10,6 +10,25 @@ alias sprunge='curl -F "sprunge=<-" http://sprunge.us'
 alias mosh='mosh --predict=experimental'
 alias scp='scp -S ssh'
 
+ssh() {
+	args=("$@")
+	cmd=0
+	a=0
+	while [[ $a -lt ${#args[@]} ]]; do
+		if [[ "${args[$a]}" =~ ^-[46AaCfGgKkMNnqsTtVvXxYy] ]]; then
+			true
+		elif [[ "${args[$a]}" =~ ^- ]]; then
+			(( a = a + 1 ))
+		elif (( ! cmd )); then
+			cmd=1
+		else
+			args[$a]=$(<<<"${args[$a]}" sed -e "s/'/'\\\\''/g; 1s/^/'/; \$s/\$/'/")
+		fi
+		(( a = a + 1 ))
+	done
+	command ssh "${args[@]}"
+}
+
 txr() { fst=${1:-}; shift; tmux a -t "$fst" "$@"; } # screen -x
 tdr() { fst=${1:-}; shift; tmux a -dt "$fst" "$@"; } # screen -dr
 alias tn='tmux new -s' # screen -mS
@@ -17,30 +36,6 @@ alias tls='tmux ls 2>/dev/null || echo "No tmux sessions running"'
 
 mcd() { mkdir -p "$1" && cd "$1" || return; }
 smcd() { sudo mkdir -p "$1" && cd "$1" || return; }
-
-setup() {
-	infocmp "$TERM" | ssh "$1" tic -
-	scp ~/.remotebashrc "$1":.bashrc
-}
-
-setupkube() {
-	ssh -t "$1" bash -c '
-		base=~jenkins
-		if [[ -e ~cmp/.kube/config ]]; then
-			base=~cmp
-		fi
-
-		set -x
-		mkdir -p ~/.kube
-		mkdir -p ~/.minikube
-		sudo cp "$base/.kube/config" ~/.kube/
-		sudo cp "$base/.minikube/"{ca.crt,client.crt,client.key} ~/.minikube/
-		sudo chown -R "$USER:$USER" ~/.kube
-		sudo chown -R "$USER:$USER" ~/.minikube
-
-		sed -Ei "s#/home/(jenkins|cmp)#/home/$USER#g" ~/.kube/config
-	'
-}
 
 pkg() {
 	pkg=$1
