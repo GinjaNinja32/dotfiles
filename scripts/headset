@@ -1,0 +1,80 @@
+#! /bin/bash
+
+mac=60:AB:D2:41:2C:8B
+
+error() {
+	echo "$@"
+	espeak-ng "$@"
+}
+
+case "$1" in
+	disconnect)
+		bluetoothctl <<< "disconnect $mac";;
+	connect)
+		bluetoothctl <<< "connect $mac";;
+	set-mode)
+		read -r card modes < <(pactl list cards | awk -v desired="$2" '
+			/^Card #(.*)/ {
+				headphones = 0;
+				ncard = substr($2, 2);
+			}
+			/device.string = "'$mac'"/ {
+				printf "%d ", ncard;
+				headphones = 1;
+			}
+			/Profiles:/ {
+				if(headphones) {
+					getline;
+					while(match($0, "^\t\t")) {
+						if(match($0, "available: yes")) {
+							printf "%s ", substr($1, 1, length($1)-1);
+						}
+						getline;
+					}
+				}
+			}
+			')
+
+		for desired_mode in "${@:1}"; do
+			if [[ " ${modes[*]} " =~ \ $desired_mode\  ]]; then
+				pactl set-card-profile "$card" "$desired_mode"
+				exit 0
+			fi
+		done
+
+		error "No desired modes found to be available"
+		exit 1
+		;;
+	re-pair)
+		coproc bluetoothctl
+		awk '
+			BEGIN {
+				system("sleep 1");
+				print "remove '"$mac"'";
+				system("");
+			}
+			/Device has been removed|Device '"$mac"' not available/ {
+				print "scan on";
+				system("");
+				system("notify-send \"activate headphones now\"");
+			}
+			/\[[^]N]+NEW[^]]+\] Device '"$mac"'/ {
+				print "pair '"$mac"'";
+				print "trust '"$mac"'";
+				system("");
+			}
+			/Pairing successful/ {
+				system("sleep 1");
+				print "connect '"$mac"'";
+				system("");
+			}
+			/Connection successful/ {
+				print "exit";
+				system("");
+			}
+		' <"/dev/fd/${COPROC[0]}" >"/dev/fd/${COPROC[1]}"
+		wait;;
+	*)
+		error "I don't know how to do $1"
+esac
+
