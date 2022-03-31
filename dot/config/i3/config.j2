@@ -23,6 +23,8 @@ bindsym $mod+Return exec alacritty
 bindsym $mod+Shift+Return exec ~/dotfiles/scripts/alacritty-floating
 bindsym $mod+Shift+q kill
 bindsym $mod+d exec dmenu_run -b -l 15 -p '$' -fn 'Deja Vu Sans Mono'
+bindsym $mod+x exec dmenu_pass copy -b -i -l 15 -p 'copy pass:' -fn 'Deja Vu Sans Mono'
+bindsym $mod+Shift+x exec dmenu_pass insert -b -i -l 15 -p 'insert pass:' -fn 'Deja Vu Sans Mono'
 
 bindsym --release $mod+m exec pactl set-sink-mute 0 toggle
 bindsym --release Print exec ~/dotfiles/scripts/screenshot
