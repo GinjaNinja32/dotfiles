@@ -47,9 +47,15 @@ case "$1" in
 		;;
 	re-pair)
 		coproc bluetoothctl
-		awk '
+		run() {
+			tee /dev/fd/2 | \
+			awk '
 			BEGIN {
 				system("sleep 1");
+				print "power on";
+				system("");
+			}
+			/Changing power on succeeded/ {
 				print "remove '"$mac"'";
 				system("");
 			}
@@ -63,8 +69,15 @@ case "$1" in
 				print "trust '"$mac"'";
 				system("");
 			}
+			/Failed to pair/ {
+				system("notify-send \"pairing failed\"");
+				print "exit";
+				system("");
+				exit;
+			}
 			/Pairing successful/ {
 				system("sleep 1");
+				print "scan off";
 				print "connect '"$mac"'";
 				system("");
 			}
@@ -72,7 +85,9 @@ case "$1" in
 				print "exit";
 				system("");
 			}
-		' <"/dev/fd/${COPROC[0]}" >"/dev/fd/${COPROC[1]}"
+			' | tee /dev/fd/2
+		}
+		run <"/dev/fd/${COPROC[0]}" >"/dev/fd/${COPROC[1]}"
 		wait;;
 	*)
 		error "I don't know how to do $1"

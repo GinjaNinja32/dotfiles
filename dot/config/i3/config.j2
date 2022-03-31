@@ -77,6 +77,9 @@ mode "headset" {
 	bindsym c mode "default", exec ~/dotfiles/scripts/headset connect
 	bindsym d mode "default", exec ~/dotfiles/scripts/headset disconnect
 	bindsym r mode "default", exec ~/dotfiles/scripts/headset re-pair
+
+	bindsym p mode "default", exec echo 'power on' | bluetoothctl
+	bindsym m mode "default", exec echo 'power off' | bluetoothctl
 }
 
 bindsym $mod+h focus left
