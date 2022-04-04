@@ -23,6 +23,8 @@ bindsym $mod+Return exec alacritty
 bindsym $mod+Shift+Return exec ~/dotfiles/scripts/alacritty-floating
 bindsym $mod+Shift+q kill
 bindsym $mod+d exec dmenu_run -b -l 15 -p '$' -fn 'Deja Vu Sans Mono'
+bindsym $mod+x exec dmenu_pass copy -b -i -l 15 -p 'copy pass:' -fn 'Deja Vu Sans Mono'
+bindsym $mod+Shift+x exec dmenu_pass insert -b -i -l 15 -p 'insert pass:' -fn 'Deja Vu Sans Mono'
 
 bindsym --release $mod+m exec pactl set-sink-mute 0 toggle
 bindsym --release Print exec ~/dotfiles/scripts/screenshot
@@ -61,7 +63,7 @@ bindsym XF86AudioRewind mode "media3", exec espeak-ng "mode 3"
 mode "media3" {
 	bindsym Escape mode "default", exec espeak-ng "mode default"
 
-	bindsym XF86AudioPlay mode "default", exec espeak-ng "disconnecting" & echo "disconnect" | bluetoothctl
+	bindsym XF86AudioPlay mode "default", exec espeak-ng "disconnecting" && exec ~/dotfiles/scripts/headset disconnect
 	# bindsym XF86AudioNext
 	bindsym XF86AudioPrev mode "default", exec espeak-ng "locking" & ~/dotfiles/lock
 }
@@ -70,12 +72,16 @@ bindsym $mod+Shift+a mode "headset"
 mode "headset" {
 	bindsym Escape mode "default"
 
-	bindsym a mode "default", exec ~/dotfiles/scripts/headset-set-mode a2dp_sink
-	bindsym h mode "default", exec ~/dotfiles/scripts/headset-set-mode headset_head_unit
-	bindsym o mode "default", exec ~/dotfiles/scripts/headset-set-mode off
+	bindsym a mode "default", exec ~/dotfiles/scripts/headset set-mode a2dp_sink
+	bindsym h mode "default", exec ~/dotfiles/scripts/headset set-mode headset_head_unit handsfree_head_unit
+	bindsym o mode "default", exec ~/dotfiles/scripts/headset set-mode off
 
-	bindsym c mode "default", exec echo "connect 60:AB:D2:41:2C:8B" | bluetoothctl
-	bindsym d mode "default", exec echo "disconnect 60:AB:D2:41:2C:8B" | bluetoothctl
+	bindsym c mode "default", exec ~/dotfiles/scripts/headset connect
+	bindsym d mode "default", exec ~/dotfiles/scripts/headset disconnect
+	bindsym r mode "default", exec ~/dotfiles/scripts/headset re-pair
+
+	bindsym p mode "default", exec echo 'power on' | bluetoothctl
+	bindsym m mode "default", exec echo 'power off' | bluetoothctl
 }
 
 bindsym $mod+h focus left

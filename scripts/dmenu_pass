@@ -1,0 +1,29 @@
+#! /bin/bash
+
+cd ~/.password-store || exit 1
+
+action=$1
+shift
+
+desired=$(
+	find . -follow -type f -name '*.gpg' \
+	| sed -e 's|^\./||' -e 's|\.gpg$||' \
+	| dmenu "$@"
+)
+
+if [[ "$desired" == "" ]]; then
+	exit 0
+fi
+
+case "$action" in
+	copy)
+		pass --clip "$desired"
+		;;
+	insert)
+		pass "$desired" | head -n1 | xargs xdotool type
+		;;
+	*)
+		echo "unknown action $action"
+		exit 42
+		;;
+esac
