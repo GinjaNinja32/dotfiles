@@ -20,7 +20,7 @@ order += "volume master"
 order += "battery all"
 order += "brightness"
 {%- endif %}
-order += "tztime local"
+order += "pytime"
 
 {%- for iface in machine.interfaces %}
 ethernet {{iface.name}} {
@@ -28,10 +28,6 @@ ethernet {{iface.name}} {
         format_down = ""
 }
 {%- endfor %}
-
-tztime local {
-	format = "%a %Y-%m-%d %H:%M:%S"
-}
 
 disk "/" {
 	format = "%avail"
