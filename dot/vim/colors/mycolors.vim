@@ -14,6 +14,7 @@ hi erlangAtom      ctermfg=Red  cterm=bold
 hi Normal          ctermfg=LightGrey  ctermbg=Black
 hi Function        ctermfg=Yellow
 hi String          ctermfg=Red
+hi Character       ctermfg=Red
 hi Comment         ctermfg=Magenta
 hi Type            ctermfg=Green
 hi Boolean         ctermfg=Cyan
@@ -36,6 +37,8 @@ hi StatusLineNC    ctermfg=236
 hi VertSplit       ctermfg=236
 hi SignColumn      ctermbg=234
 hi LineNr          ctermfg=242
+hi Folded          ctermbg=236 ctermfg=none
+hi FoldColumn      ctermbg=236 ctermfg=none
 
 hi NonText         ctermfg=65
 hi SpecialKey      ctermfg=65
@@ -51,9 +54,13 @@ hi diffAdded       ctermfg=Green cterm=bold
 hi diffChanged     ctermfg=Blue cterm=bold
 hi diffRemoved     ctermfg=Red cterm=bold
 
-hi Error ctermfg=16 ctermbg=Red
-hi Warn  ctermfg=16 ctermbg=Yellow
-hi Info  ctermfg=16 ctermbg=Blue
+hi Error ctermfg=232 ctermbg=Red
+" ctermfg=16 ctermbg=Red
+hi Warn  ctermfg=232 ctermbg=Yellow
+" ctermfg=16 ctermbg=Yellow
+hi Todo  ctermfg=232 ctermbg=Blue
+hi Info  ctermfg=232 ctermbg=Cyan
+" ctermfg=16 ctermbg=Blue
 
 hi link ALEError            Error
 hi link ALEWarning          Warn

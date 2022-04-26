@@ -275,3 +275,8 @@ set tabstop=4       " Tabs are 4 spaces wide
 let g:markdown_fenced_languages = ["python", "sh", "json", "javascript", "dm", "yaml"]
 
 let g:terraform_fmt_on_save=1
+
+
+" Folding
+set foldcolumn=2
+set foldmethod=indent
