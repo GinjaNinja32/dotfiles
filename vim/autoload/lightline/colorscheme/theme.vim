@@ -31,9 +31,9 @@ let s:p.replace.left = [ [ s:black, s:replace, 'bold' ], [ s:replace, s:grey1 ] 
 
 let s:p.visual.left = [ [ s:black, s:visual, 'bold' ], [ s:visual, s:grey1 ] ]
 
-let s:p.tabline.left = [ [ s:black, s:normal ] ]
+let s:p.tabline.left = [ [ s:normal, s:grey2 ] ]
 let s:p.tabline.tabsel = [ [ s:black, s:normal ] ]
-let s:p.tabline.middle = [ [ s:black, s:normal ] ]
-let s:p.tabline.right = [ [ s:black, s:normal ] ]
+let s:p.tabline.middle = [ [ s:normal, s:grey1 ] ]
+let s:p.tabline.right = [ [ s:normal, s:grey2 ] ]
 
 let g:lightline#colorscheme#theme#palette = lightline#colorscheme#flatten(s:p)
