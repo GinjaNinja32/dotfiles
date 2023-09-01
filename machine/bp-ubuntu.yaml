@@ -12,8 +12,8 @@ interfaces:
   key: VPN
 
 status:
-  _: HDMI-1
-  left: HDMI-2
+  HDMI-1: main
+  HDMI-2: left
 
 workspaces:
 - id: 1

@@ -16,7 +16,10 @@ interfaces:
   key: VPN
 
 status:
-  _: eDP-1
-  left: HDMI-1-0
+  eDP-1: main
+  eDP-1-1: main
+  HDMI-1-0: left
+  HDMI-0: left
+  DP-1-1: left
 
 workspaces: []

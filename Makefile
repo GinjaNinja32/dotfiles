@@ -74,7 +74,8 @@ ubuntu-gui:
 	sudo add-apt-repository ppa:aslatter/ppa
 	sudo apt update
 	sudo apt install i3-wm i3lock py3status dmenu alacritty \
-	                 webext-browserpass pavucontrol
+	                 webext-browserpass pavucontrol scrot \
+					 graphicsmagick
 
 	$(MAKE) ubuntu
 

@@ -181,9 +181,11 @@ client.urgent           #770000 #770000 #eeeeee #770000 #770000
 client.background       #000000
 
 bar {
-	{%- if machine.status._ %}
-	output {{ machine.status._ }}
+	{%- for output in machine.status %}
+	{%- if machine.status[output] == "main" %}
+	output {{ output }}
 	{%- endif %}
+	{%- endfor %}
 	status_command py3status -c ~/.config/i3/i3status -i ~/dotfiles/i3status
 	colors {
 		background #222222
@@ -197,9 +199,13 @@ bar {
 		binding_mode       #770000 #770000 #eeeeee
 	}
 }
-{%- if machine.status.left %}
 bar {
-	output {{ machine.status.left }}
+	output none
+	{%- for output in machine.status %}
+	{%- if machine.status[output] == "left" %}
+	output {{ output }}
+	{%- endif %}
+	{%- endfor %}
 	status_command py3status -c /repos/dotfiles/i3status/i3status-left -i /repos/dotfiles/i3status
 	colors {
 		background #222222
@@ -213,7 +219,6 @@ bar {
 		binding_mode       #770000 #770000 #eeeeee
 	}
 }
-{%- endif %}
 bar {
 	status_command py3status -c ~/.config/i3/i3status-top -i ~/dotfiles/i3status
 	tray_output none
