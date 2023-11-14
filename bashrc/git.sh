@@ -1,16 +1,40 @@
 #! /bin/bash
 
-alias gc='git commit'
-alias gca='git commit --amend'
-alias gcra='git commit --amend --reset-author'
-alias gd='git diff'
-alias gdc='git diff --cached'
-alias gf='git fetch'
-alias gps='git push'
-alias gpl='gws pull' # pull is rebase so need to gws
-alias gs='git status'
-alias gg='git grep -B0 -A0'
-alias ggi='git grep -i -B0 -A0'
+if [[ -e "/usr/share/bash-completion/completions/git" ]]; then
+	source /usr/share/bash-completion/completions/git
+else
+	__git_complete() {
+		true
+	}
+fi
+
+_git_alias_with_complete() {
+	# shellcheck disable=SC2139
+	alias "$1=${3:-git} $2"
+
+	eval "_git_alias_complete_$1() { _git_alias_complete $2; }"
+	__git_complete "$1" "_git_alias_complete_$1"
+}
+_git_alias_complete() {
+	words=( git "$@" "${words[@]:1}" )
+	cword=$(( cword + $# ))
+	__git_main
+}
+
+_git_alias_with_complete gc 'commit'
+_git_alias_with_complete gca 'commit --amend'
+_git_alias_with_complete gcra 'commit --amend --reset-author'
+_git_alias_with_complete gco 'checkout'
+_git_alias_with_complete gb 'branch'
+_git_alias_with_complete gd 'diff'
+_git_alias_with_complete gdc 'diff --cached'
+_git_alias_with_complete gf 'fetch'
+_git_alias_with_complete gps 'push'
+_git_alias_with_complete gpl 'pull' gws # pull is rebase so need to gws
+_git_alias_with_complete gs 'status'
+_git_alias_with_complete gg 'grep -B0 -A0'
+_git_alias_with_complete ggi 'grep -i -B0 -A0'
+_git_alias_with_complete grpo 'remote prune origin'
 alias dw="bwatch 'git diff --color=always | head -n\$(( \$(tput lines) - 1 ))'"
 
 gws() {
@@ -31,10 +55,7 @@ gws() {
 		git stash pop
 	fi
 }
-if [[ -e "/usr/share/bash-completion/completions/git" ]]; then
-	source /usr/share/bash-completion/completions/git
-	__git_complete gws __git_main
-fi
+__git_complete gws __git_main
 
 wgs() {
 	stashargs=()
