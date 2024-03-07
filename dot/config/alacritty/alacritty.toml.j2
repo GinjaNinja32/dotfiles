@@ -1,0 +1,50 @@
+[colors]
+draw_bold_text_with_bright_colors = true
+
+[colors.bright]
+black   = "#555555"
+blue    = "#5555ff"
+cyan    = "#55ffff"
+green   = "#55ff55"
+magenta = "#ff55ff"
+red     = "#ff5555"
+white   = "#ffffff"
+yellow  = "#ffff55"
+
+[colors.normal]
+black   = "#000000"
+blue    = "#0000ff"
+cyan    = "#00aaaa"
+green   = "#00aa00"
+magenta = "#aa00aa"
+red     = "#aa0000"
+white   = "#aaaaaa"
+yellow  = "#aaaa00"
+
+[colors.primary]
+background        = "#000000"
+bright_foreground = "#aaaaaa"
+dim_foreground    = "#555555"
+foreground        = "#aaaaaa"
+
+[cursor]
+thickness = 0.05
+
+[cursor.style]
+blinking = "On"
+
+[env]
+TERM = "xterm-256color"
+
+[font]
+size = {{ machine.terminal_size }}.0
+
+[font.normal]
+family = "Deja Vu Sans Mono"
+
+[scrolling]
+multiplier = 20
+
+[window.dimensions]
+columns = 80
+lines = 24
