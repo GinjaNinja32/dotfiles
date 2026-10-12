@@ -1,6 +1,6 @@
 " vim: ts=4 sw=4 et
 
-set background=dark
+set background={{ 'light' if machine.light else 'dark' }}
 if version > 580
     hi clear
     if exists("syntax_on")
@@ -11,7 +11,11 @@ let g:colors_name="mycolors"
 
 hi erlangAtom      ctermfg=Red  cterm=bold
 
+{%- if machine.light %}
+hi Normal          ctermfg=Black  ctermbg=231
+{%- else %}
 hi Normal          ctermfg=LightGrey  ctermbg=Black
+{%- endif %}
 hi Function        ctermfg=Yellow
 hi String          ctermfg=Red
 hi Character       ctermfg=Red
@@ -24,7 +28,7 @@ hi Identifier      ctermfg=Green
 hi Operator        ctermfg=Green
 hi Keyword         ctermfg=Cyan
 hi Macro           ctermfg=Green
-hi Constant        ctermfg=Green
+hi Constant        ctermfg=Cyan
 hi Tag             ctermfg=LightMagenta  cterm=bold
 hi Conditional     ctermfg=Cyan
 hi Statement       ctermfg=Yellow
@@ -32,13 +36,21 @@ hi Repeat          ctermfg=Cyan
 hi Delimiter       ctermfg=Blue
 hi Special         ctermfg=LightGrey
 
-hi StatusLine      ctermfg=236
-hi StatusLineNC    ctermfg=236
-hi VertSplit       ctermfg=236
-hi SignColumn      ctermbg=234
-hi LineNr          ctermfg=242
-hi Folded          ctermbg=236 ctermfg=none
-hi FoldColumn      ctermbg=236 ctermfg=none
+hi link csStorage   Keyword
+hi link csClass     Keyword
+hi link csNew       Keyword
+hi link csModifier  Keyword
+
+hi Typedef ctermfg=Green
+
+{%- set l = machine.light %}
+hi StatusLine      ctermfg={{251 if l else 236}}
+hi StatusLineNC    ctermfg={{251 if l else 236}}
+hi VertSplit       ctermfg={{251 if l else 236}}
+hi SignColumn      ctermbg={{253 if l else 234}}
+hi LineNr          ctermbg={{255 if l else 234}} ctermfg=242
+hi Folded          ctermbg={{251 if l else 236}} ctermfg=none
+hi FoldColumn      ctermbg={{251 if l else 236}} ctermfg=none
 
 hi NonText         ctermfg=65
 hi SpecialKey      ctermfg=65
@@ -69,3 +81,7 @@ hi link ALEStyleError       Error
 hi link ALEStyleWarning     Warn
 hi link goDiagnosticError   Error
 hi link goDiagnosticWarning Warn
+
+hi link ALEVirtualTextInfo NonText
+hi link ALEVirtualTextError NonText
+hi link ALEVirtualTextWarning NonText
