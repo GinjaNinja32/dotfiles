@@ -1,6 +1,34 @@
 [colors]
 draw_bold_text_with_bright_colors = true
 
+{%- if machine.light %}
+[colors.bright]
+black   = "#555555"
+blue    = "#0000ff"
+cyan    = "#00cccc"
+green   = "#00cc00"
+magenta = "#cc00cc"
+red     = "#cc0000"
+white   = "#ffffff"
+yellow  = "#aaaa00"
+
+[colors.normal]
+black   = "#000000"
+blue    = "#0000aa"
+cyan    = "#009999"
+green   = "#009900"
+magenta = "#990099"
+red     = "#990000"
+white   = "#aaaaaa"
+yellow  = "#777700"
+
+[colors.primary]
+background        = "#ffffff"
+bright_foreground = "#000000"
+dim_foreground    = "#aaaaaa"
+foreground        = "#555555"
+
+{%- else %}
 [colors.bright]
 black   = "#555555"
 blue    = "#5555ff"
@@ -15,9 +43,9 @@ yellow  = "#ffff55"
 black   = "#000000"
 blue    = "#0000ff"
 cyan    = "#00aaaa"
-green   = "#00aa00"
+green   = "#00bb00"
 magenta = "#aa00aa"
-red     = "#aa0000"
+red     = "#dd0000"
 white   = "#aaaaaa"
 yellow  = "#aaaa00"
 
@@ -26,6 +54,7 @@ background        = "#000000"
 bright_foreground = "#aaaaaa"
 dim_foreground    = "#555555"
 foreground        = "#aaaaaa"
+{%- endif %}
 
 [cursor]
 thickness = 0.05

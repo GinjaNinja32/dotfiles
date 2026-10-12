@@ -1,11 +1,11 @@
 #! /usr/bin/env bash
 
+export GIT_PS1_SHOWDIRTYSTATE=yes
+export GIT_PS1_SHOWSTASHSTATE=yes
+export GIT_PS1_SHOWUNTRACKEDFILES=yes
+export GIT_PS1_SHOWUPSTREAM="auto verbose name"
 # if git prompt is installed, use it
 if [ -e "$HOME/bin/includes/git-prompt.sh" ]; then
-	export GIT_PS1_SHOWDIRTYSTATE=yes
-	export GIT_PS1_SHOWSTASHSTATE=yes
-	export GIT_PS1_SHOWUNTRACKEDFILES=yes
-	export GIT_PS1_SHOWUPSTREAM="auto verbose name"
 	source "$HOME/bin/includes/git-prompt.sh"
 else
 	# otherwise define a dummy function so bash doesn't complain
@@ -46,10 +46,10 @@ $(__tput setaf 4) \\w\
 $(__tput setaf 3)\$(__git_ps1 ' %s')\
 $(__tput setaf 1)\$(__code_ps1 ' [%s]')\
 \\n\
-$(__tput bold; __tput setaf 7)\\\$ $(__tput sgr0)"
+$(__tput sgr0; __tput bold)\\\$ $(__tput sgr0)"
 
 case "$TERM" in
-	xterm*|rxvt*)
+	xterm*|rxvt*|tmux*)
 		PS1="\\[\\e]0;\\u@\\h:\\w\\a\\]$PS1" ;;
 	*) ;;
 esac

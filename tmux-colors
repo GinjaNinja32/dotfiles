@@ -1,12 +1,14 @@
 # This tmux statusbar config was created by tmuxline.vim
 # on Fri, 21 Apr 2017
 
+primary="#{?pane_synchronized,202,45}"
+
 set -g status-style bg=colour234,none
 set -g status-justify "left"
-set -g status-left "#[fg=colour16,bg=colour45] #S #[fg=colour45,bg=colour234,nobold,nounderscore,noitalics]"
+set -g status-left "#[fg=colour16,bg=colour$primary] #S #[fg=colour$primary,bg=colour234,nobold,nounderscore,noitalics]"
 set -g status-left-length "100"
 set -g status-left-style "none"
-set -g status-right "#[fg=colour238,bg=colour234,nobold,nounderscore,noitalics]#[fg=colour255,bg=colour238] %Y-%m-%d %H:%M #[fg=colour45,bg=colour238,nobold,nounderscore,noitalics]#[fg=colour16,bg=colour45] #h "
+set -g status-right "#[fg=colour238,bg=colour234,nobold,nounderscore,noitalics]#[fg=colour255,bg=colour238] %Y-%m-%d %H:%M #[fg=colour$primary,bg=colour238,nobold,nounderscore,noitalics]#[fg=colour16,bg=colour$primary] #h "
 set -g status-right-length "100"
 set -g status-right-style "none"
 set -g message-command-style    fg=colour255,bg=colour238
@@ -17,5 +19,5 @@ set -g pane-border-style fg=colour238
 setw -g window-status-style fg=colour45,bg=colour234,none
 setw -g window-status-activity-style fg=colour45,bg=colour234,none
 setw -g window-status-separator ""
-setw -g window-status-format "#[fg=colour45,bg=colour234] #I #[fg=colour45,bg=colour234]#W "
+setw -g window-status-format "#[fg=colour$primary,bg=colour234] #I #[fg=colour$primary,bg=colour234]#W "
 setw -g window-status-current-format "#[fg=colour234,bg=colour238,nobold,nounderscore,noitalics]#[fg=colour255,bg=colour238] #I #[fg=colour255,bg=colour238]#W #[fg=colour238,bg=colour234,nobold,nounderscore,noitalics]"

@@ -1,5 +1,7 @@
 #! /bin/bash
 
+set -euo pipefail
+
 name=""
 prefix=""
 layout=even-horizontal
@@ -34,26 +36,22 @@ if (( newline )); then
 	maybe_newline=C-m
 fi
 
-tmux new-session -n "$name" -ds "$name"
-tmux send-keys -t "$name" "$(gencmd "$1")" $maybe_newline
-tmux select-layout -t "$name" "$layout"
+args=(
+	new-session -n "$name" -s "$name" \;
+	send-keys "$(gencmd "$1")" $maybe_newline \;
+	select-layout "$layout" \;
+)
 shift 1
+for cmd in "$@"; do
+	args+=(
+		new-window -n "$cmd" \;
+		send-keys "$(gencmd "$cmd")" $maybe_newline \;
+		join-pane -t "$name" \;
+		select-layout "$layout" \;
+	)
+done
+args+=(
+	setw synchronize-panes on \;
+)
 
-setup-rest() {
-	sleep 0.1
-	for cmd in "$@"; do
-		tmux select-window -t "$name" \; \
-			new-window -n "$cmd" \; \
-			send-keys "$(gencmd "$cmd")" $maybe_newline \; \
-			join-pane -t "$name" \; \
-			select-layout "$layout"
-	done
-
-	tmux select-layout -t "$name" "$layout"
-	tmux setw -t "$name" synchronize-panes on
-}
-
-setup-rest "$@" &
-
-tmux a -t "$name"
-
+exec tmux "${args[@]}"

@@ -17,5 +17,7 @@ Host bot32
 	Hostname thanatos.gn32.uk
 
 Host *
+	Protocol 2
+	ServerAliveInterval 30
 	User nyx
 	IdentityFile ~/.ssh/id_rsa
