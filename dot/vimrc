@@ -15,14 +15,19 @@ Plug 'itchyny/lightline.vim'
 " Utils:
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 Plug 'tpope/vim-surround'
+
+Plug 'xolox/vim-misc'
+Plug 'xolox/vim-easytags'
 Plug 'majutsushi/tagbar', { 'on': 'TagbarToggle' }
+Plug 'airblade/vim-gitgutter'
+
 Plug 'ctrlpvim/ctrlp.vim', { 'on': 'CtrlP' }
 Plug 'w0rp/ale'
 Plug 'tpope/vim-fugitive'
 
 " Languages:
 Plug 'pearofducks/ansible-vim'
-Plug 'fatih/vim-go', { 'for': 'go', 'do': ':GoInstallBinaries' }
+" Plug 'fatih/vim-go', { 'for': 'go', 'do': ':GoInstallBinaries' }
 Plug 'wlue/vim-dm-syntax', { 'for': 'dm' }
 Plug 'cespare/vim-toml', { 'for': 'toml' }
 Plug 'vim-scripts/indentpython.vim', { 'for': 'python' }
@@ -34,8 +39,26 @@ Plug 'christoomey/vim-tmux-navigator'
 
 Plug 'hashivim/vim-terraform'
 
+Plug 'prabirshrestha/asyncomplete.vim'
+Plug 'junegunn/fzf'
+
 call plug#end()
 filetype plugin indent on
+
+inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+inoremap <expr> <cr>    pumvisible() ? asyncomplete#close_popup() : "\<cr>"
+
+let g:asyncomplete_matchfuzzy = 1
+
+set updatetime=100
+
+set tags=~/.vim/tags
+let g:easytags_events = ['BufReadPost', 'BufWritePost']
+let g:easytags_async = 1
+let g:easytags_dynamic_files = 2
+let g:easytags_resolve_links = 1
+let g:easytags_suppress_ctags_warning = 1
 
 let g:loaded_getscriptPlugin   = 1
 let g:loaded_gzip              = 1
@@ -49,6 +72,9 @@ set rtp+=~/dotfiles/vim " Include custom non-plugin Vim things
 
 map <F2> :NERDTreeToggle<CR>
 map <F3> :TagbarToggle<CR>
+
+map ]h <Plug>(GitGutterNextHunk)
+map [h <Plug>(GitGutterPrevHunk)
 
 let g:airline_theme = "theme"
 let g:lightline = {
@@ -144,7 +170,7 @@ let g:ale_rust_cargo_use_clippy = 1
 
 let g:ale_fixers = {
 	\ 'json': 'fixjson',
-	\ 'go': 'gofmt',
+	\ 'go': 'goimports',
 	\ 'rust': 'rustfmt',
 	\}
 let g:ale_fix_on_save = 1
@@ -169,6 +195,8 @@ nnoremap <leader>l :set list!<CR>
 nnoremap <leader>w :set wrap!<CR>
 
 imap <silent> !id <C-R>=substitute(system('uuidgen'), '[[:cntrl:]]', '', 'g')<CR>
+imap <silent> !err if err != nil {<CR>return err<CR>}<CR>
+imap <silent> !erp if err != nil {<CR>panic(err)<CR>}<CR>
 
 " allow backspacing over everything in insert mode
 set backspace=indent,eol,start
